@@ -1,0 +1,12 @@
+.FileUpload-container {
+    display: flex;
+    
+    flex-direction: column;
+    justify-content: space-around;
+    width: 500px;
+    height: 300px;
+    background-color: white;
+}
+.FileUpload-select {
+    padding-left: 20px;
+}

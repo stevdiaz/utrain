@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Dropzone from "./modules/Dropzone.js";
+import Upload from "./modules/Upload.js";
+import { FilePond } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+import DataModel from './pages/DataModel';
 
 
 import "../utilities.css";
@@ -10,6 +13,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import DataCollectCard from "./modules/DataCollectCard.js";
 
 /**
  * Define the "App" component as a class.
@@ -49,10 +53,11 @@ class App extends Component {
   render() {
     return (
       <>
-        <Dropzone onFilesAdded={console.log} />
-        {/* <Router>
+        <Router>
+          <DataModel path="/"/>
           <NotFound default />
-        </Router> */}
+        </Router>
+        
       </>
     );
   }

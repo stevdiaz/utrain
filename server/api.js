@@ -15,12 +15,16 @@ const User = require("./models/user");
 // import authentication library
 const auth = require("./auth");
 
+const {upload, getUpload} = require("./upload");
+
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
 //initialize socket
 const socket = require("./server-socket");
 
+router.post("/upload", upload);
+router.get("/upload", getUpload);
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {

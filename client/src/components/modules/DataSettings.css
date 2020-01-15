@@ -1,0 +1,27 @@
+.DataSettings-container {
+    padding-left: 200px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+.DataSettings-noFile {
+    padding-left: 400px;
+    background-color: white;
+}
+.DataSettings-task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.DataSettings-inputs {
+    display: flex;
+    flex-direction: row;
+}
+.DataSettings-outputs {
+    display: flex;
+    flex-direction: row;
+}
+.DataSettings-fadeOption {
+    opacity: 20%;
+}

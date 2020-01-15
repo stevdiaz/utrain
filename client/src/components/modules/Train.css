@@ -1,0 +1,29 @@
+.Train-container {
+    display: flex;
+    flex-direction: column;
+}
+.Train-button {
+  background-color: rgb(41, 119, 221);
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+.Train-buttonDisabled {
+    background-color: rgb(124, 170, 231);
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .Train-notReady {
+      font-size: 13px;
+  }
+  .Train-training {
+    font-size: 13px;
+}

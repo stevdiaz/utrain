@@ -1,0 +1,24 @@
+.Predict-container {
+    display: flex;
+    flex-direction: column;
+}
+.Predict-inputsOutputs {
+    display: flex;
+    flex-direction: row;
+}
+.Predict-inputs {
+    display: flex;
+    flex-direction: column;
+}
+.Predict-outputs {
+    display: flex;
+    flex-direction: column;
+}
+.Predict-input {
+    display: flex;
+    flex-direction: row;
+}
+.Predict-output {
+    display: flex;
+    flex-direction: row;
+}
