@@ -19,8 +19,22 @@ class FileUpload extends Component{
         d3.csv(objectURL).then(data => {
             console.log(data.length);
             const options = data.columns;
+            // classify the types of these options
+            const types = {};
+            // assume all numbers
+            options.forEach(option => {
+                types[option] = 'N';
+            })
+            data.forEach(value => {
+                Object.keys(value).forEach(key => {
+                    if (isNaN(value[key])) {
+                        types[key] = 'S';
+                    }
+                })
+            });
+            console.log(types);
             // tell parent file has been added
-            this.props.onFileAdded(objectURL, options);
+            this.props.onFileAdded(objectURL, options, types);
         })
     }
     render() {

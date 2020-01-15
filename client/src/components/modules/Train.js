@@ -38,8 +38,12 @@ class Train extends Component {
         //add in data
         d3.csv(this.props.fileURL).then(values => {
             values.forEach(value => {
-                const x = this.props.inputs.map(input => value[input]);
-                const y = this.props.outputs.map(output => this.props.isRegression ? Number(value[output]) : value[output]);
+                const x = this.props.inputs.map(input => {
+                    return this.props.types[input] === 'N' ? Number(value[input]) : value[input];
+                });
+                const y = this.props.outputs.map(output => {
+                    return this.props.types[output] === 'N' ? Number(value[output]) : value[output];
+                });
                 
                 neuralNetwork.addData(x, y);
             })

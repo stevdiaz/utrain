@@ -8,6 +8,7 @@ class Predict extends Component {
         this.state = {
             inputs: {},
             outputs: {},
+            confidence: '0%',
         };
     }
     componentDidMount() {
@@ -22,18 +23,27 @@ class Predict extends Component {
         // });
     }
     handleInputChange(event, input) {
+        // change the input value
         let inputs = this.state.inputs;
         inputs[input] = event.target.value;
         this.setState({
             inputs: inputs,
         }, () => callback());
+        if (this.isInvalidType(input, event.target.value)) {
+            this.handleInvalidType(input);
+        }
+        // if all fields filled in, predict
         const callback = () => {
             console.log('in callback');
-            const values = Object.values(this.state.inputs).filter(value => value !== "");
-            if (values.length === this.props.inputs.length) {
-                console.log('have all values');
+            const validInputs = Object.keys(this.state.inputs).filter(enteredInput => 
+                this.state.inputs[enteredInput] !== '' && !this.isInvalidType(enteredInput, this.state.inputs[enteredInput]));
+            console.log(validInputs);
+            if (validInputs.length === this.props.inputs.length) {
+                console.log('have all entered values!');
                 //we have all inputs filled in, make a prediction
-                let inputs = this.props.inputs.map(input => this.state.inputs[input]);
+                let inputs = this.props.inputs.map(input => {
+                    return this.props.types[input] === 'N' ? Number(this.state.inputs[input]) : this.state.inputs[input];
+                });
                 console.log(inputs);
                 if (this.props.neuralNetwork.config.architecture.task === 'regression') {
                     console.log('regression');
@@ -51,7 +61,8 @@ class Predict extends Component {
                     outputs[output] = "";
                 })
                 this.setState({
-                    outputs: outputs
+                    outputs: outputs,
+                    confidence: '0%',
                 });
             }
         }
@@ -63,15 +74,18 @@ class Predict extends Component {
             else {
                 console.log(results);
                 if (!isRegression) {
-                    //classification problem - only one output
+                    // classification problem - only one output
+                    // results[0] will be the most confident result
                     let outputs = this.state.outputs;
                     outputs[this.props.outputs[0]] = results[0].label;
+                    let confidence = (results[0].confidence*100).toString().slice(0, 2) + '%';
                     this.setState({
                         outputs: outputs,
+                        confidence: confidence,
                     });
                 }
                 else {
-                    //regression problem - possibly multiple outputs
+                    // regression problem - possibly multiple outputs
                     let outputs = this.state.outputs;
                     results.forEach(prediction => {
                         outputs[prediction.label] = prediction.value;
@@ -82,6 +96,12 @@ class Predict extends Component {
                 }
             }
         }
+    }
+    isInvalidType(input, value) {
+        return this.props.types[input] === 'N' && isNaN(value);
+    }
+    handleInvalidType(input) {
+        console.log(`The input ${input} only takes in number values`);
     }
     render() {
         let predictions;
@@ -103,6 +123,12 @@ class Predict extends Component {
                     Predicted {output}: <input type='text' value={this.state.outputs[output]} placeholder="Model's Prediction" readOnly key={index}/>
                 </label>
             )})
+            let confidence = (<div></div>);
+            if (!this.state.isRegression) {
+                confidence = (<div>
+                    Confidence: {this.state.confidence}
+                </div>)
+            }
             console.log(this.state);
             predictions = (
                 <div className='Predict-inputsOutputs'>
@@ -111,6 +137,7 @@ class Predict extends Component {
                     </div>
                     <div className='Predict-outputs'>
                         {outputs}
+                        {confidence}
                     </div>
                 </div>
             )

@@ -13,17 +13,19 @@ class DataModel extends Component {
             outputs: [],
             fileURL: null,
             neuralNetwork: null,
+            types: {},
         };
     }
     componentDidMount() {
 
     }
-    onSelection(isRegression, inputs, outputs, fileURL) {
+    onSelection(isRegression, inputs, outputs, fileURL, types) {
         this.setState({
             isRegression: isRegression,
             inputs: inputs,
             outputs: outputs,
             fileURL: fileURL,
+            types: types,
         });
     }
     onFinishTraining(neuralNetwork) {
@@ -40,10 +42,11 @@ class DataModel extends Component {
     render() {
         return (
             <div className='DataModel-container'>
-                <DataCollectCard onSelection={(isRegression, inputs, outputs, fileURL) => this.onSelection(isRegression, inputs, outputs, fileURL)}/>
+                <DataCollectCard onSelection={(isRegression, inputs, outputs, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileURL, types)}/>
                 <DataTrainCard isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
-                    onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
-                <DataDeployCard inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} />
+                    onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
+                    types={this.state.types}/>
+                <DataDeployCard inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}/>
             </div>
         )
     }

@@ -20,7 +20,8 @@ class DataTrainCard extends Component {
         return (
             <div className='DataTrainCard-container'>
                 <Train fileURL={this.props.fileURL} inputs={this.props.inputs} outputs={this.props.outputs} isRegression={this.props.isRegression}
-                    onFinishTraining={neuralNetwork => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
+                    onFinishTraining={neuralNetwork => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
+                    types={this.props.types}/>
                 <DisplayProgress />
             </div>
         )

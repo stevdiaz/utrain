@@ -10,25 +10,27 @@ class DataCollectCard extends Component {
         this.state = {
             fileURL: null,
             options: [],
+            types: {},
         }
     }
     componentDidMount() {
 
     }
-    onFileAdded(fileURL, options) {
+    onFileAdded(fileURL, options, types) {
         this.setState({
             fileURL: fileURL,
             options: options,
+            types: types
         });
     }
     onSelection(inputs, outputs, isRegression) {
-        this.props.onSelection(isRegression, inputs, outputs, this.state.fileURL);
+        this.props.onSelection(isRegression, inputs, outputs, this.state.fileURL, this.state.types);
     }
     render() {
         return (
             <div className="DataCollectCard-container">
-                <FileUpload onFileAdded={(fileURL, options) => this.onFileAdded(fileURL, options)}/>
-                <DataSettings fileURL={this.state.fileURL} options={this.state.options} 
+                <FileUpload onFileAdded={(fileURL, options, types) => this.onFileAdded(fileURL, options, types)}/>
+                <DataSettings fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
                     onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)}/>
             </div>
         )
