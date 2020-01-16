@@ -26,6 +26,7 @@ class Train extends Component {
             inputs: this.props.inputs,
             outputs: this.props.outputs,
             task: this.props.isRegression ? 'regression' : 'classification',
+            debug: false,
         }
         // initialize the neural network
         let neuralNetwork = ml5.neuralNetwork(nnOptions);
@@ -51,11 +52,16 @@ class Train extends Component {
             this.trainModel();
         })
     }
+    startModelAgain() {
+        this.clearFields();
+        this.startModel();
+    }
     whileTraining(epochs, loss) {
         //do something
         console.log("Epochs: " + epochs);
         console.log("Loss: " + loss);
         console.log(loss);
+        this.props.onEpochEnd(epochs, loss);
     }
     finishedTraining() {
         console.log('finished training!');
@@ -108,7 +114,7 @@ class Train extends Component {
         else if (this.state.isFinishedTraining) {
             trainButton = (
                 <div>
-                    <button className='Train-buttonDisabled' type='button'> Finished Training </button>
+                    <button className='Train-buttonDisabled' type='button' onClick={(evt) => this.startModelAgain()}> Finished Training </button>
                 </div>
             )
         }

@@ -1,4 +1,5 @@
 .DisplayProgress-container {
     display: flex;
-    padding-left: 50px;
+    flex-direction: row;
+    /* padding-left: 50px; */
 }

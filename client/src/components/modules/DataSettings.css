@@ -1,12 +1,12 @@
 .DataSettings-container {
     padding-left: 200px;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     flex-direction: column;
 }
 .DataSettings-noFile {
     padding-left: 400px;
-    background-color: white;
+    /* background-color: white; */
 }
 .DataSettings-task {
     display: flex;

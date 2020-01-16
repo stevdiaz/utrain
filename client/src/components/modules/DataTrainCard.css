@@ -1,7 +1,9 @@
 .DataTrainCard-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-evenly;
+    height: 500px;
+    background-color: violet;
     flex-direction: row;
     border: 2px rgb(0, 0, 0);
     border-radius: 10%;

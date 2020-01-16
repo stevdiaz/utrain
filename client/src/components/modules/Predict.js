@@ -15,12 +15,7 @@ class Predict extends Component {
         
     }
     componentDidUpdate() {
-        // this.props.inputs.forEach(input => {
-        //     this.state[input] = '0';
-        // });
-        // this.props.outputs.forEach(output => {
-        //     this.state[output] = '0';
-        // });
+    
     }
     handleInputChange(event, input) {
         // change the input value
@@ -69,7 +64,9 @@ class Predict extends Component {
         const onPrediction = (err, results, isRegression) => {
              console.log('making prediction');
             if (err) {
+                // handle errors
                 console.error(err);
+                console.log('error in user inputs');
             }
             else {
                 console.log(results);
@@ -78,6 +75,7 @@ class Predict extends Component {
                     // results[0] will be the most confident result
                     let outputs = this.state.outputs;
                     outputs[this.props.outputs[0]] = results[0].label;
+                    // don't include decimals in percentage
                     let confidence = (results[0].confidence*100).toString().slice(0, 2) + '%';
                     this.setState({
                         outputs: outputs,
@@ -88,7 +86,13 @@ class Predict extends Component {
                     // regression problem - possibly multiple outputs
                     let outputs = this.state.outputs;
                     results.forEach(prediction => {
-                        outputs[prediction.label] = prediction.value;
+                        let predictionValue = prediction.value.toString();
+                        let indexOfDot = predictionValue.indexOf('.');
+                        if (indexOfDot !== -1 && indexOfDot + 4 <= predictionValue.length) {
+                            // leave three decimals
+                            predictionValue = predictionValue.slice(0, indexOfDot + 4);
+                        }
+                        outputs[prediction.label] = predictionValue;
                     });
                     this.setState({
                         outputs: outputs,
@@ -124,7 +128,7 @@ class Predict extends Component {
                 </label>
             )})
             let confidence = (<div></div>);
-            if (!this.state.isRegression) {
+            if (this.props.neuralNetwork.config.architecture.task === 'classification') {
                 confidence = (<div>
                     Confidence: {this.state.confidence}
                 </div>)
