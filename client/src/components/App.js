@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Upload from "./modules/Upload.js";
-import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import DataModel from './pages/DataModel';
 

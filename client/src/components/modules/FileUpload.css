@@ -1,12 +1,28 @@
 .FileUpload-container {
     display: flex;
-    
     flex-direction: column;
-    justify-content: space-around;
-    width: 500px;
-    height: 300px;
+    position: relative;
+    bottom: 20px;
+    width: 250px;
+    height: 200px;
+    top: 5px;
+    right: 280px;
     background-color: white;
+    margin: 5px;
+    margin-top: 30px;
 }
-.FileUpload-select {
-    padding-left: 20px;
+.FileUpload-fileDescription{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    font-size: large;
+}
+.FileUpload-fileName {
+    margin-left: 10px;
+    font-style: italic;
+    border-radius: 8%;
+    align-items: center;
+    justify-content: center;
+    
+   
 }

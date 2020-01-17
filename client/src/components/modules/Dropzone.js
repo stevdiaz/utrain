@@ -17,21 +17,21 @@ class Dropzone extends Component {
         this.fileInputRef.current.click();
     }
     onFilesAdded(evt) {
+        console.log('file being added');
+        console.log(evt);
         if (this.props.disabled) {
             return;
         }
         const files = evt.target.files;
-        if (this.props.onFilesAdded) {
-            const array = this.fileListToArray(files);
-            this.props.onFilesAdded(array);
+        if (this.props.onFileAdded) {
+            // only take first file
+            const firstFile = this.fileListToOne(files);
+            this.props.onFileAdded(firstFile);
         }
+        evt.target.value = '';
     }
-    fileListToArray (fileList) {
-        const array = [];
-        for (var i = 0; i < fileList.length; i++) {
-            array.push(fileList.item(i));
-        }
-        return array;
+    fileListToOne(fileList) {
+        return fileList.item(0);
     }
     onDragOver(evt) {
         evt.preventDefault();
@@ -49,16 +49,16 @@ class Dropzone extends Component {
             return;
         }
         const files = evt.dataTransfer.files;
-        if (this.props.onFilesAdded) {
-            const array = this.fileListToArray(files);
-            this.props.onFilesAdded(array);
+        if (this.props.onFileAdded) {
+            const firstFile = this.fileListToOne(files);
+            this.props.onFileAdded(firstFile);
         }
         this.setState({ highlight: false });
     }
     render() {
         return (
             <div 
-                className={`Dropzone ${this.state.highlight ? "Highlight" : ""}`}
+                className={`Dropzone-container ${this.state.highlight ? "Dropzone-highlight" : ""}`}
                 onClick={() => {
                     this.openFileDialog();
                 }}
@@ -74,19 +74,20 @@ class Dropzone extends Component {
                 style={{cursor: this.props.disabled ? 'default' : 'pointer'}} >
                 <img
                 alt="upload"
-                className="Icon"
+                className="Dropzone-icon"
                 src={require("../../public/file-upload.png")}
                 />
                 <input
                     ref={this.fileInputRef}
-                    className="FileInput"
+                    className="Dropzone-fileInput"
                     type="file"
-                    multiple
+                    accept='.csv'
                     onChange={(evt) => {
                         this.onFilesAdded(evt);
                     }}
+                    on
                 />
-                <span>Choose a CSV file to use, or drag & drop here</span>
+                <span className='Dropzone-instructions'>Upload CSV File</span>
             </div>
         );
     }

@@ -16,7 +16,7 @@ class LineGraph extends Component {
             labels: this.props.epochs,
             datasets: [
               {
-                label: 'Losss',
+                label: 'Loss',
                 fill: false,
                 lineTension: 0.5,
                 backgroundColor: 'rgba(75,192,192,1)',
@@ -31,9 +31,8 @@ class LineGraph extends Component {
             title:{
                 display: true,
                 text: 'Model Loss',
-                fontSize: 20
+                fontSize: 15
               },
-            responsive: true,
             maintainAspectRatio: false,
             // layout: {
             //     padding: {
@@ -61,7 +60,7 @@ class LineGraph extends Component {
 
         return (
             <div className='LineGraph-container'>
-                <Line data={data} options={options} />
+                <Line height={500} width={700} data={data} options={options} />
             </div>
         )
     }

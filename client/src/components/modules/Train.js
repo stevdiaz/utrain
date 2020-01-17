@@ -98,12 +98,33 @@ class Train extends Component {
             this.props.onRestartTraining();
         }
     }
+    handleEpochChange(evt) {
+        this.setState({
+            epochs: evt.target.value,
+        });
+    }
+    handleBatchSizeChange(evt) {
+        this.setState({
+            batchSize: evt.target.value,
+        });
+    }
     render() {
         let trainButton;
         console.log(this.props.fileURL);
         console.log(this.props.inputs);
         console.log(this.props.outputs);
         console.log(this.props.isRegression);
+        let advancedInputs = (
+            <div className='Train-advanced'>
+                Advanced Features:
+                <div>
+                    <input className='Train-epochs' type='number' value={this.state.epochs} onChange={(evt) => this.handleEpochChange(evt)}/>
+                </div>
+                <div>
+                    <input className='Train-batchSize' type='number' value={this.state.batchSize} onChange={(evt) => this.handleBatchSizeChange(evt)}/>
+                </div>
+            </div>
+        )
         if (this.props.fileURL === null || this.props.inputs.length === 0 || this.props.outputs.length === 0 || this.props.isRegression === null) {
             trainButton = (
                 <span>
@@ -115,6 +136,7 @@ class Train extends Component {
             trainButton = (
                 <div>
                     <button className='Train-buttonDisabled' type='button' onClick={(evt) => this.startModelAgain()}> Finished Training </button>
+                    {advancedInputs}
                 </div>
             )
         }
@@ -125,6 +147,7 @@ class Train extends Component {
                     <div className='Train-training'>
                         Training the model ...
                     </div>
+                    {advancedInputs}
                 </div>
             )
         }
@@ -135,6 +158,7 @@ class Train extends Component {
                     <div className='Train-training'>
                         Preparing data ...
                     </div>
+                    {advancedInputs}
                 </div>
             )
         }
@@ -142,6 +166,7 @@ class Train extends Component {
             trainButton = (
                 <div>
                     <button className='Train-button' type='button' onClick={(evt) => this.startModel()} > Train Model </button>
+                    {advancedInputs}
                 </div>
             )
         }

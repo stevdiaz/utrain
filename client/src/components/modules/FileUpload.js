@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './FileUpload.css';
-import Upload from './Upload';
-import { FilePond } from 'react-filepond';
+import Dropzone from './Dropzone';
 import 'filepond/dist/filepond.min.css';
 import * as d3 from 'd3';
 
@@ -9,12 +8,22 @@ class FileUpload extends Component{
     
     constructor(props) {
         super(props);
+        this.state = {
+            fileName: null,
+        };
     }
     componentDidMount() {
 
     }
     onFileAdded(file) {
+        if (this.state.fileName !== null) {
+            // first remove any previous file
+            this.onFileRemoved();
+        }
         console.log('file added!');
+        this.setState({
+            fileName: file.name,
+        });
         const objectURL = window.URL.createObjectURL(file);
         d3.csv(objectURL).then(data => {
             console.log(data.length);
@@ -37,12 +46,30 @@ class FileUpload extends Component{
             this.props.onFileAdded(objectURL, options, types);
         })
     }
+    onFileRemoved() {
+        this.setState({
+            fileName: null,
+        })
+        this.props.onFileRemoved();
+    }
     render() {
+        let fileName = (
+            <div></div>
+        )
+        if (this.state.fileName !== null) {
+            fileName = (
+                <div className='FileUpload-fileDescription'>
+                    Data: 
+                    <div className='FileUpload-fileName'>
+                        {this.state.fileName}
+                    </div>
+                </div>
+            )
+        }
         return (
             <div className='FileUpload-container'>
-                <div className="FileUpload-step">Step 1: Collect Data</div>
-                <div className="FileUpload-select">Select CSV file:</div>
-                <Upload onFileAdded={(file) => this.onFileAdded(file)} />
+                <Dropzone onFileAdded={(file) => this.onFileAdded(file)} />
+                {fileName}
             </div>
         )
     }

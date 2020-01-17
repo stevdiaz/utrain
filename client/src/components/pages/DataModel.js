@@ -28,6 +28,16 @@ class DataModel extends Component {
             types: types,
         });
     }
+    onRemoval() {
+        this.setState({
+            isRegression: null,
+            inputs: [],
+            outputs: [],
+            fileURL: null,
+            neuralNetwork: null,
+            types: {},
+        });
+    }
     onFinishTraining(neuralNetwork) {
         console.log('updating neural network');
         this.setState({
@@ -42,7 +52,8 @@ class DataModel extends Component {
     render() {
         return (
             <div className='DataModel-container'>
-                <DataCollectCard onSelection={(isRegression, inputs, outputs, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileURL, types)}/>
+                <DataCollectCard onSelection={(isRegression, inputs, outputs, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileURL, types)}
+                onRemoval={() => this.onRemoval()}/>
                 <DataTrainCard isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
                     onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
                     types={this.state.types}/>

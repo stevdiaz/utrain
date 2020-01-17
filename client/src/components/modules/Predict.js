@@ -119,12 +119,14 @@ class Predict extends Component {
         else {
             let inputs = this.props.inputs.map((input, index) => {return (
                 <label className='Predict-input'>
-                    {input}: <input type='text' value={this.state.inputs[input]} placeholder='Enter value' onChange={(evt) => this.handleInputChange(evt, input)} key={index}/>
+                    {input}: <input type={this.props.types[input] === 'N' ? 'number' : 'text'} value={this.state.inputs[input]} 
+                    placeholder='Enter value' onChange={(evt) => this.handleInputChange(evt, input)} key={index}/>
                 </label>
             )})
             let outputs = this.props.outputs.map((output, index) => {return (
                 <label className='Predict-output'>
-                    Predicted {output}: <input type='text' value={this.state.outputs[output]} placeholder="Model's Prediction" readOnly key={index}/>
+                    Predicted {output}: <input type={this.props.types[output] === 'N' ? 'number' : 'text'} value={this.state.outputs[output]} 
+                    placeholder="Model's Prediction" readOnly key={index}/>
                 </label>
             )})
             let confidence = (<div></div>);

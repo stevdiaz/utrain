@@ -1,24 +1,33 @@
-.Dropzone {
-    height: 200px;
-    width: 200px;
-    background-color: #fff;
+.Dropzone-container {
+    height: 150px;
+    width: 230px;
     border: 2px dashed rgb(187, 186, 186);
     border-radius: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
     font-size: 16px;
-    margin-left: 5px;
+    margin: 5px 5px 0px 5px;
   }
-  .Icon {
+  .Dropzone-container:hover {
+    background-color: rgb(177, 172, 255);
+    border: 2px solid rgb(187, 186, 186);;
+  }
+  .Dropzone-icon {
     opacity: 0.3;
     height: 64px;
     width: 64px;
   }
-  .FileInput {
+  .Dropzone-fileInput {
     display: none;
   }
-  .Highlight {
-    background-color: rgb(108, 97, 255);
+  .Dropzone-highlight {
+    background-color: rgb(177, 172, 255);
+  }
+  .Dropzone-instructions {
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
   }

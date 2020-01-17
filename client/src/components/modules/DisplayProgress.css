@@ -1,5 +1,12 @@
 .DisplayProgress-container {
     display: flex;
     flex-direction: row;
+    background-color: yellowgreen;
+    height: 500px;
+    width: 650px;
+    align-items: center;
+    margin: 50px;
+    position: relative;
+    left: 100px;
     /* padding-left: 50px; */
 }
