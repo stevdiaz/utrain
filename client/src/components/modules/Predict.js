@@ -6,6 +6,7 @@ import * as ml5 from 'ml5';
 class Predict extends Component {
     constructor(props) {
         super(props);
+        // can get input type from this.props.types object or this.state.typeValues object
         this.state = {
             inputs: {},
             outputs: {},
@@ -13,6 +14,7 @@ class Predict extends Component {
             classes: [],
             confidences: [],
             isRegression: false,
+            typeValues: {},
         };
     }
     componentDidMount() {
@@ -26,10 +28,29 @@ class Predict extends Component {
             if (!isRegression) {
                 classes = Object.keys(this.props.neuralNetwork.data.meta.outputs[this.props.outputs[0]].legend);
             }
+            let typeValues = {};
+            let inputs = {};
+            Object.keys(this.props.neuralNetwork.data.meta.inputs).forEach(input => {
+                let value = this.props.neuralNetwork.data.meta.inputs[input];
+                let type = value.dtype === 'number' ? 'N' : 'S';
+                let values = [];
+                if (type === 'S' && value.uniqueValues !== undefined && value.uniqueValues !== null) {
+                    values = value.uniqueValues;
+                    // set inputs to the default checked value
+                    inputs[input] = values[0];
+                }
+                typeValues[input] = {
+                    type,
+                    values,
+                };
+            });
             this.setState({
                 classes: classes,
                 isRegression: isRegression,
-            });
+                typeValues: typeValues,
+                inputs: inputs,
+            }, () => this.onSetInputState());
+            
         }
         else if (this.props.neuralNetwork === null && prevProps.neuralNetwork !== null) {
             // neural network leaving
@@ -40,6 +61,7 @@ class Predict extends Component {
                 classes: [],
                 confidences: [],
                 isRegression: false,
+                typeValues: {},
             });
         }
     }
@@ -49,83 +71,82 @@ class Predict extends Component {
         inputs[input] = event.target.value;
         this.setState({
             inputs: inputs,
-        }, () => callback());
+        }, () => this.onSetInputState());
         if (this.isInvalidType(input, event.target.value)) {
             this.handleInvalidType(input);
         }
-        // if all fields filled in, predict
-        const callback = () => {
-            console.log('in callback');
-            const validInputs = Object.keys(this.state.inputs).filter(enteredInput => 
-                this.state.inputs[enteredInput] !== '' && !this.isInvalidType(enteredInput, this.state.inputs[enteredInput]));
-            console.log(validInputs);
-            if (validInputs.length === this.props.inputs.length) {
-                console.log('have all entered values!');
-                //we have all inputs filled in, make a prediction
-                let inputs = this.props.inputs.map(input => {
-                    return this.props.types[input] === 'N' ? Number(this.state.inputs[input]) : this.state.inputs[input];
-                });
-                console.log(inputs);
-                if (this.state.isRegression) {
-                    console.log('regression');
-                    this.props.neuralNetwork.predict(inputs, (err, results) => onPrediction(err, results, true));
-                }
-                else {
-                    console.log('classification');
-                    this.props.neuralNetwork.classify(inputs, (err, results) => onPrediction(err, results, false));
-                }
+    }
+    onSetInputState() {
+        console.log('in callback');
+        const validInputs = Object.keys(this.state.inputs).filter(enteredInput => 
+            this.state.inputs[enteredInput] !== '' && !this.isInvalidType(enteredInput, this.state.inputs[enteredInput]));
+        console.log(validInputs);
+        if (validInputs.length === this.props.inputs.length) {
+            console.log('have all entered values!');
+            //we have all inputs filled in, make a prediction
+            let inputs = this.props.inputs.map(input => {
+                return this.props.types[input] === 'N' ? Number(this.state.inputs[input]) : this.state.inputs[input];
+            });
+            console.log(inputs);
+            if (this.state.isRegression) {
+                console.log('regression');
+                this.props.neuralNetwork.predict(inputs, (err, results) => this.onPrediction(err, results, true));
             }
             else {
-                // make outputs blank
-                let outputs = this.state.outputs;
-                this.props.outputs.forEach(output => {
-                    outputs[output] = "";
-                })
-                this.setState({
-                    outputs: outputs,
-                    confidence: '0%',
-                });
+                console.log('classification');
+                this.props.neuralNetwork.classify(inputs, (err, results) => this.onPrediction(err, results, false));
             }
         }
-        const onPrediction = (err, results, isRegression) => {
-             console.log('making prediction');
-            if (err) {
-                // handle errors
-                console.error(err);
-                console.log('error in user inputs');
-            }
-            else {
-                console.log(results);
-                if (!isRegression) {
-                    // don't include decimals in percentage
-                    const classes = results.map(result => result.label);
-                    const confidences = results.map(result => Math.round(result.confidence*100));
-                    this.setState(prevState => ({
-                        confidences: prevState.classes.map(classification => {
-                            let classIndex = classes.indexOf(classification);
-                            return confidences[classIndex];
-                        }),
-                    }));
-                }
-                else {
-                    // regression problem - possibly multiple outputs
-                    let outputs = this.state.outputs;
-                    results.forEach(prediction => {
-                        let predictionValue = prediction.value.toString();
-                        let indexOfDot = predictionValue.indexOf('.');
-                        if (indexOfDot !== -1 && indexOfDot + 4 <= predictionValue.length) {
-                            // leave three decimals
-                            predictionValue = predictionValue.slice(0, indexOfDot + 4);
-                        }
-                        outputs[prediction.label] = predictionValue;
-                    });
-                    this.setState({
-                        outputs: outputs,
-                    });
-                }
-            }
+        else {
+            // make outputs blank
+            let outputs = this.state.outputs;
+            this.props.outputs.forEach(output => {
+                outputs[output] = "";
+            })
+            this.setState({
+                outputs: outputs,
+                confidence: '0%',
+            });
         }
     }
+    onPrediction(err, results, isRegression) {
+        console.log('making prediction');
+       if (err) {
+           // handle errors
+           console.error(err);
+           console.log('error in user inputs');
+       }
+       else {
+           console.log(results);
+           if (!isRegression) {
+               // don't include decimals in percentage
+               const classes = results.map(result => result.label);
+               const confidences = results.map(result => Math.round(result.confidence*100));
+               this.setState(prevState => ({
+                   confidences: prevState.classes.map(classification => {
+                       let classIndex = classes.indexOf(classification);
+                       return confidences[classIndex];
+                   }),
+               }));
+           }
+           else {
+               // regression problem - possibly multiple outputs
+               let outputs = this.state.outputs;
+               results.forEach(prediction => {
+                   let predictionValue = prediction.value.toString();
+                   let indexOfDot = predictionValue.indexOf('.');
+                   if (indexOfDot !== -1 && indexOfDot + 4 <= predictionValue.length) {
+                       // leave three decimals
+                       predictionValue = predictionValue.slice(0, indexOfDot + 4);
+                   }
+                   outputs[prediction.label] = predictionValue;
+               });
+               this.setState({
+                   outputs: outputs,
+               });
+           }
+       }
+   }
     isInvalidType(input, value) {
         return this.props.types[input] === 'N' && isNaN(value);
     }
@@ -142,12 +163,51 @@ class Predict extends Component {
             )
         }
         else {
-            let inputs = this.props.inputs.map((input, index) => {return (
-                <label className='Predict-inputLabel' htmlFor={input}> {input}: 
-                    <input className='Predict-inputValue' type={this.props.types[input] === 'N' ? 'number' : 'text'} value={this.state.inputs[input]} 
+            let inputs = this.props.inputs.map((input, index) => {
+                let innerValue = (
+                    <div></div>
+                )
+                if (this.props.types[input] === 'N') {
+                    // number, so take in number input
+                    innerValue = (
+                        <input className='Predict-inputValue' type='number' value={this.state.inputs[input]} 
                      id={input} onChange={(evt) => this.handleInputChange(evt, input)} key={index+'input'}/>
-                </label>
-            )})
+                    )
+                }
+                else {
+                    if (this.state.typeValues[input] === undefined) {
+                        // first render
+                        innerValue = (
+                            <div>
+                                Loading
+                            </div>
+                        );
+                    }
+                    else if (this.state.typeValues[input].values.length === 0) {
+                        // no possible values, so just take in all strings
+                        innerValue = (
+                            <input className='Predict-inputValue' type='text' value={this.state.inputs[input]} 
+                     id={input} onChange={(evt) => this.handleInputChange(evt, input)} key={index+'input'}/>
+                        )
+                    }
+                    else {
+                        // there exists unique values this input allows
+                        let options = this.state.typeValues[input].values.map(value => {return (
+                            <option value={value} key={value}>{value}</option>
+                        )});
+                        innerValue = (
+                            <select className='Predict-inputValue Predict-inputSelect' id={input} onChange={(evt) => this.handleInputChange(evt, input)} key={index+'input'}>
+                                {options}
+                            </select>
+                        );
+                    }
+                }
+                return (
+                    <label className='Predict-inputLabel' htmlFor={input}> {input}: 
+                        {innerValue}
+                    </label>
+                );
+            });
             let outputs = this.props.outputs.map((output, index) => {return (
                 <label className='Predict-outputLabel'> {output}:
                     <input className='Predict-outputValue' type={this.props.types[output] === 'N' ? 'number' : 'text'} value={this.state.outputs[output]} 

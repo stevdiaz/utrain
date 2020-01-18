@@ -37,6 +37,19 @@
     overflow-x: scroll;
     margin-top: 7px;
 }
+/* Hide scrollbar for different browsers */
+.Predict-inputs::-webkit-scrollbar {
+    display: none;
+}
+.Predict-inputs {
+-ms-overflow-style: none;
+}
+.Predict-outputs::-webkit-scrollbar {
+    display: none;
+}
+.Predict-outputs {
+-ms-overflow-style: none;
+}
 .Predict-output {
     display: flex;
     flex-direction: row;
@@ -63,6 +76,9 @@
     position: relative;
     margin-left: 2px;
     text-align: center;
+}
+.Predict-inputSelect {
+    width: 60px;
 }
 .Predict-inputValue:focus {
     background-color: rgb(214, 190, 241);

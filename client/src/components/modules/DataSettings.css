@@ -83,6 +83,19 @@
     margin-top: 10px;
     overflow-x: scroll;
 }
+/* Hide scrollbar in different browsers */
+.DataSettings-inputs::-webkit-scrollbar {
+    display: none;
+}
+.DataSettings-inputs {
+-ms-overflow-style: none;
+}
+.DataSettings-outputs::-webkit-scrollbar {
+    display: none;
+}
+.DataSettings-outputs {
+-ms-overflow-style: none;
+}
 .DataSettings-inputsOutputs {
     display: flex;
     flex-direction: column;
