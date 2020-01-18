@@ -25,7 +25,7 @@ class LineGraph extends Component {
                 data: this.props.losses
               }
             ]
-          }
+        };
         let options = {
             legend: {
                 display: false,
@@ -66,6 +66,11 @@ class LineGraph extends Component {
                     },
                 }]
             },
+            plugins: {
+                datalabels: {
+                   display: false,
+                }
+             },
         };
 
         return (

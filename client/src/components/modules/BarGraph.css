@@ -1,0 +1,5 @@
+.BarGraph-container {
+    display: flex;
+    width: 600px;
+    height: 340px;
+}

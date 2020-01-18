@@ -13,8 +13,13 @@ class DataDeployCard extends Component {
     render() {
         return (
             <div className='DataDeployCard-container'>
-                <Predict inputs={this.props.inputs} outputs={this.props.outputs} neuralNetwork={this.props.neuralNetwork} types={this.props.types}/>
-                <Options />
+                <div className='DataDeployCard-step'>
+                    Step 3: Use Your Model
+                </div>
+                <div className='DataDeployCard-components'>
+                    <Predict inputs={this.props.inputs} outputs={this.props.outputs} neuralNetwork={this.props.neuralNetwork} types={this.props.types}/>
+                    <Options />
+                </div>
             </div>
         )
     }

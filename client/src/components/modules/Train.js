@@ -60,9 +60,9 @@ class Train extends Component {
     whileTraining(epochs, loss) {
         // epochs are zero-indexed, add by 1
         this.setState({
-            onEpoch: epochs+1,
+            onEpoch: epochs + 1,
         });
-        this.props.onEpochEnd(epochs, loss);
+        this.props.onEpochEnd(epochs + 1, loss);
     }
     finishedTraining() {
         console.log('finished training!');

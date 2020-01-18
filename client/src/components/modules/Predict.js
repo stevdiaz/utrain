@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Predict.css';
+import BarGraph from './BarGraph';
 import * as ml5 from 'ml5';
 
 class Predict extends Component {
@@ -9,13 +10,38 @@ class Predict extends Component {
             inputs: {},
             outputs: {},
             confidence: '0%',
+            classes: [],
+            confidences: [],
+            isRegression: false,
         };
     }
     componentDidMount() {
         
     }
-    componentDidUpdate() {
-    
+    componentDidUpdate(prevProps) {
+        if (this.props.neuralNetwork !== null && prevProps.neuralNetwork === null) {
+            // neural network coming in
+            let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
+            let classes = [];
+            if (!isRegression) {
+                classes = Object.keys(this.props.neuralNetwork.data.meta.outputs[this.props.outputs[0]].legend);
+            }
+            this.setState({
+                classes: classes,
+                isRegression: isRegression,
+            });
+        }
+        else if (this.props.neuralNetwork === null && prevProps.neuralNetwork !== null) {
+            // neural network leaving
+            this.setState({
+                inputs: {},
+                outputs: {},
+                confidence: '0%',
+                classes: [],
+                confidences: [],
+                isRegression: false,
+            });
+        }
     }
     handleInputChange(event, input) {
         // change the input value
@@ -40,7 +66,7 @@ class Predict extends Component {
                     return this.props.types[input] === 'N' ? Number(this.state.inputs[input]) : this.state.inputs[input];
                 });
                 console.log(inputs);
-                if (this.props.neuralNetwork.config.architecture.task === 'regression') {
+                if (this.state.isRegression) {
                     console.log('regression');
                     this.props.neuralNetwork.predict(inputs, (err, results) => onPrediction(err, results, true));
                 }
@@ -71,16 +97,15 @@ class Predict extends Component {
             else {
                 console.log(results);
                 if (!isRegression) {
-                    // classification problem - only one output
-                    // results[0] will be the most confident result
-                    let outputs = this.state.outputs;
-                    outputs[this.props.outputs[0]] = results[0].label;
                     // don't include decimals in percentage
-                    let confidence = (results[0].confidence*100).toString().slice(0, 2) + '%';
-                    this.setState({
-                        outputs: outputs,
-                        confidence: confidence,
-                    });
+                    const classes = results.map(result => result.label);
+                    const confidences = results.map(result => Math.round(result.confidence*100));
+                    this.setState(prevState => ({
+                        confidences: prevState.classes.map(classification => {
+                            let classIndex = classes.indexOf(classification);
+                            return confidences[classIndex];
+                        }),
+                    }));
                 }
                 else {
                     // regression problem - possibly multiple outputs
@@ -118,39 +143,38 @@ class Predict extends Component {
         }
         else {
             let inputs = this.props.inputs.map((input, index) => {return (
-                <label className='Predict-input'>
-                    {input}: <input type={this.props.types[input] === 'N' ? 'number' : 'text'} value={this.state.inputs[input]} 
-                    placeholder='Enter value' onChange={(evt) => this.handleInputChange(evt, input)} key={index}/>
+                <label className='Predict-inputLabel' htmlFor={input}> {input}: 
+                    <input className='Predict-inputValue' type={this.props.types[input] === 'N' ? 'number' : 'text'} value={this.state.inputs[input]} 
+                     id={input} onChange={(evt) => this.handleInputChange(evt, input)} key={index+'input'}/>
                 </label>
             )})
             let outputs = this.props.outputs.map((output, index) => {return (
-                <label className='Predict-output'>
-                    Predicted {output}: <input type={this.props.types[output] === 'N' ? 'number' : 'text'} value={this.state.outputs[output]} 
-                    placeholder="Model's Prediction" readOnly key={index}/>
+                <label className='Predict-outputLabel'> {output}:
+                    <input className='Predict-outputValue' type={this.props.types[output] === 'N' ? 'number' : 'text'} value={this.state.outputs[output]} 
+                    readOnly key={index+'output'}/>
                 </label>
             )})
-            let confidence = (<div></div>);
-            if (this.props.neuralNetwork.config.architecture.task === 'classification') {
-                confidence = (<div>
-                    Confidence: {this.state.confidence}
+            if (!this.state.isRegression) {
+                outputs = (<div className='Predict-bar'>
+                    <BarGraph classes={this.state.classes} percentages={this.state.confidences} />
                 </div>)
             }
             console.log(this.state);
             predictions = (
-                <div className='Predict-inputsOutputs'>
+                <div className={this.state.isRegression ? 'Predict-inputsOutputsRegression' : 'Predict-inputsOutputsClassification'}>
+                    <span className='Predict-inputsInfo'>Inputs:</span>
                     <div className='Predict-inputs'>
                         {inputs}
                     </div>
+                    <span className='Predict-outputsInfo'>Predicted Outputs:</span>
                     <div className='Predict-outputs'>
                         {outputs}
-                        {confidence}
                     </div>
                 </div>
             )
         }
         return (
             <div className='Predict-container'>
-                <div className="Predict-step">Step 3: Use your model</div>
                 {predictions}
             </div>
         )
