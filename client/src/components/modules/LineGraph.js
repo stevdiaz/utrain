@@ -19,41 +19,51 @@ class LineGraph extends Component {
                 label: 'Loss',
                 fill: false,
                 lineTension: 0.5,
-                backgroundColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgb(156, 51, 255)',
                 borderColor: 'rgba(0,0,0,1)',
-                borderWidth: 2,
+                borderWidth: 1.5,
                 data: this.props.losses
               }
             ]
           }
         let options = {
-            // customize chart option
+            legend: {
+                display: false,
+            },
             title:{
                 display: true,
                 text: 'Model Loss',
-                fontSize: 15
-              },
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontColor: '#000000'
+            },
             maintainAspectRatio: false,
-            // layout: {
-            //     padding: {
-            //         top: 5,
-            //         left: 15,
-            //         right: 15,
-            //         bottom: 15
-            //     }
-            // },
             scales: {
                 xAxes: [{
                     scaleLabel: {
                         display: true,
                         labelString: 'Epochs',
-                    }
+                        fontFamily: 'Poppins',
+                        fontColor: '#000000',
+                        fontSize: 15,
+                    },
+                    ticks: {
+                        fontFamily: 'Poppins',
+                        fontColor: '#000000',
+                    },
                 }],
                 yAxes: [{
                     scaleLabel: {
                         display: true,
                         labelString: 'Loss',
-                    }
+                        fontFamily: 'Poppins',
+                        fontColor: '#000000',
+                        fontSize: 15,
+                    },
+                    ticks: {
+                        fontFamily: 'Poppins',
+                        fontColor: '#000000',
+                    },
                 }]
             },
         };

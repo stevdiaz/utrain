@@ -11,7 +11,8 @@ class Train extends Component {
             isTraining: false,
             isFinishedTraining: false,
             epochs: 20,
-            batchSize: 16,
+            batchSize: 32,
+            onEpoch: 0,
         };
     }
     componentDidUpdate(prevProps, prevState) {
@@ -57,16 +58,14 @@ class Train extends Component {
         this.startModel();
     }
     whileTraining(epochs, loss) {
-        //do something
-        console.log("Epochs: " + epochs);
-        console.log("Loss: " + loss);
-        console.log(loss);
+        // epochs are zero-indexed, add by 1
+        this.setState({
+            onEpoch: epochs+1,
+        });
         this.props.onEpochEnd(epochs, loss);
     }
     finishedTraining() {
         console.log('finished training!');
-        console.log(this.state.neuralNetwork);
-        //do something
         this.setState({isFinishedTraining: true});
         this.props.onFinishTraining(this.state.neuralNetwork);
     }
@@ -76,8 +75,8 @@ class Train extends Component {
             isTraining: true,
         });
         let trainOptions = {
-            epochs: this.state.epochs,
-            batchSize: this.state.batchSize,
+            epochs: Number(this.state.epochs),
+            batchSize: Number(this.state.batchSize),
         };
         let whileTraining = (epochs, loss) => {
             this.whileTraining(epochs, loss);
@@ -94,6 +93,7 @@ class Train extends Component {
                 isGettingReady: false,
                 isTraining: false,
                 isFinishedTraining: false,
+                onEpoch: 0,
             })
             this.props.onRestartTraining();
         }
@@ -102,6 +102,13 @@ class Train extends Component {
         this.setState({
             epochs: evt.target.value,
         });
+    }
+    handleEpochLoseFocus(evt) {
+        if (evt.target.value === '') {
+            this.setState({
+                epochs: 0,
+            });
+        } 
     }
     handleBatchSizeChange(evt) {
         this.setState({
@@ -116,18 +123,26 @@ class Train extends Component {
         console.log(this.props.isRegression);
         let advancedInputs = (
             <div className='Train-advanced'>
-                Advanced Features:
-                <div>
-                    <input className='Train-epochs' type='number' value={this.state.epochs} onChange={(evt) => this.handleEpochChange(evt)}/>
+                Advanced Features
+                <div className='Train-epochs'>
+                    Epochs:
+                    <input className='Train-epochsInput' type='number' value={this.state.epochs} onChange={(evt) => this.handleEpochChange(evt)} onBlur={(evt) => this.handleEpochLoseFocus(evt)}/>
                 </div>
-                <div>
-                    <input className='Train-batchSize' type='number' value={this.state.batchSize} onChange={(evt) => this.handleBatchSizeChange(evt)}/>
+                <div className='Train-batchSize'>
+                    Batch Size:
+                    <select className='Train-batchSizeInput' id='batchSizeList' onChange={(evt) => this.handleBatchSizeChange(evt)}>
+                        <option value='16'>16</option>
+                        <option value='32' selected>32</option>
+                        <option value='64'>64</option>
+                        <option value='128'>128</option>
+                        <option value='256'>256</option>
+                    </select>
                 </div>
             </div>
         )
         if (this.props.fileURL === null || this.props.inputs.length === 0 || this.props.outputs.length === 0 || this.props.isRegression === null) {
             trainButton = (
-                <span>
+                <span className='Train-noButton'>
                     Finish selecting your data options to train your model!
                 </span>
             )
@@ -135,7 +150,10 @@ class Train extends Component {
         else if (this.state.isFinishedTraining) {
             trainButton = (
                 <div>
-                    <button className='Train-buttonDisabled' type='button' onClick={(evt) => this.startModelAgain()}> Finished Training </button>
+                    <button className='Train-button' type='button' onClick={(evt) => this.startModelAgain()}> Re-Train </button>
+                    <div className='Train-trainingHidden'>
+                        Finished!
+                    </div>
                     {advancedInputs}
                 </div>
             )
@@ -143,9 +161,9 @@ class Train extends Component {
         else if (this.state.isTraining) {
             trainButton = (
                 <div>
-                    <button className='Train-buttonDisabled' type='button' disabled='disabled'> Train Model </button>
+                    <button className='Train-buttonDisabled' type='button' disabled='disabled'> Train </button>
                     <div className='Train-training'>
-                        Training the model ...
+                        Training ... (Epoch {this.state.onEpoch} of {this.state.epochs})
                     </div>
                     {advancedInputs}
                 </div>
@@ -154,7 +172,7 @@ class Train extends Component {
         else if (this.state.isGettingReady) {
             trainButton = (
                 <div>
-                    <button className='Train-buttonDisabled' type='button' disabled='disabled'> Train Model </button>
+                    <button className='Train-buttonDisabled' type='button' disabled='disabled'> Train </button>
                     <div className='Train-training'>
                         Preparing data ...
                     </div>
@@ -165,14 +183,16 @@ class Train extends Component {
         else {
             trainButton = (
                 <div>
-                    <button className='Train-button' type='button' onClick={(evt) => this.startModel()} > Train Model </button>
+                    <button className='Train-button' type='button' onClick={(evt) => this.startModel()} > Train </button>
+                    <div className='Train-trainingHidden'>
+                        Training the model ...
+                    </div>
                     {advancedInputs}
                 </div>
             )
         }
         return (
             <div className='Train-container'>
-                <div className="Train-step">Step 2: Train your model</div>
                 {trainButton}
             </div>
         )

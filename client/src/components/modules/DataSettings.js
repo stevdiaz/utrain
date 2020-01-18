@@ -79,10 +79,15 @@ class DataSettings extends Component {
     callback() {
         this.props.onSelection(this.state.inputs, this.state.outputs, this.state.isRegression)
     }
-    handleHover() {
-        this.setState(prevState => ({
-            isHovered: !prevState.isHovered,
-        }));
+    handleMouseEnter() {
+        this.setState({
+            isHovered: true
+        });
+    }
+    handleMouseLeave() {
+        this.setState({
+            isHovered: false,
+        });
     }
     render() {
         if (this.props.fileURL === null) {
@@ -163,7 +168,7 @@ class DataSettings extends Component {
                     </div>
                 );
             return (
-                <div className='DataSettings-container' onMouseEnter={() => this.handleHover()} onMouseLeave={() => this.handleHover()}>
+                <div className='DataSettings-container' onMouseEnter={() => this.handleMouseEnter()} onMouseLeave={() => this.handleMouseLeave()}>
                     <div className='DataSettings-task'>
                         {this.state.isHovered ? taskForm : awayTaskForm}
                     </div>
