@@ -22,6 +22,25 @@ class BarGraph extends Component {
                 }
             ]
         };
+        const formatter = (value, context) => {
+            const data = context.dataset.data;
+            const maxValue = Math.max(...data);
+            const maxValueCount = data.filter(value => value === maxValue).length
+            let percentage = value + '%';
+            if (maxValueCount > 1 && value === maxValue) {
+                // non-unique max value
+                percentage = percentage + " (Tied)";
+            }
+            else if (value === maxValue) {
+                // unique max value
+                percentage = percentage + " (Most Likely)";
+            }
+            else if (value < 3) {
+                // too small to show
+                percentage = '';
+            }
+            return percentage;
+        }
         const options = {
             legend: {
                 display: false,
@@ -45,7 +64,8 @@ class BarGraph extends Component {
                    },
                    anchor: 'end',
                    align: 'left',
-                }
+                   formatter: formatter,
+                },
              },
              scales: {
                  xAxes: [{

@@ -1,10 +1,15 @@
 .DataDeployCard-container {
     display: flex;
     margin: 10px 10px;
-    height: 550px;
     font-family: 'Poppins', sans-serif;
     background-color: white;
     overflow-y: scroll;
+}
+.DataDeployCard-classification {
+    height: 555px;
+}
+.DataDeployCard-regression {
+    height: 315px;
 }
 .DataDeployCard-components {
     display: flex;
