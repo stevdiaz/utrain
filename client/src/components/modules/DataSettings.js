@@ -118,9 +118,9 @@ class DataSettings extends Component {
                         </>
                     )
                 })
-            const outputCheckBoxes = this.props.options.filter(option => {
-                // if regression, only allow number outputs; else, allow all outputs
-                return this.state.isRegression ? this.props.types[option] === 'N' : true;
+            let outputCheckBoxes = this.props.options.filter(option => {
+                // if regression, only allow number outputs; else, allow classification types
+                return this.state.isRegression ? this.props.types[option] === 'N' : this.props.types[option] === 'C';
             }).map((option, index) => {
                 let isFade = this.state.inputs.includes(option);
                 return (
@@ -132,6 +132,13 @@ class DataSettings extends Component {
                     </>
                 )
             })
+            if (outputCheckBoxes.length === 0) {
+                outputCheckBoxes = (
+                    <div className='DataSettings-noOutputs'>
+                        No Valid Outputs for {this.state.isRegression ? 'Regression' : 'Classification'}
+                    </div>
+                )
+            }
             const selectedOutputCheckBoxes = this.state.outputs.length === 0 || this.state.inputs.length === 0 ? outputCheckBoxes :
                 this.state.outputs.map((output, index) => {
                     return (

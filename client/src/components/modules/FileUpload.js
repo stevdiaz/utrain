@@ -5,9 +5,9 @@ import 'filepond/dist/filepond.min.css';
 import * as d3 from 'd3';
 
 class FileUpload extends Component{
-    
     constructor(props) {
         super(props);
+        const MAX_CLASSES = 5;
         this.state = {
             fileName: null,
         };
@@ -30,16 +30,25 @@ class FileUpload extends Component{
             const options = data.columns;
             // classify the types of these options
             const types = {};
+            const values = {};
             // assume all numbers
             options.forEach(option => {
                 types[option] = 'N';
+                values[option] = new Set();
             })
             data.forEach(value => {
-                Object.keys(value).forEach(key => {
-                    if (isNaN(value[key])) {
-                        types[key] = 'S';
+                Object.keys(value).forEach(option => {
+                    if (isNaN(value[option])) {
+                        types[option] = 'C'; // not a number; assume classification
                     }
+                    values[option].add(value[option]);
                 })
+            });
+            options.forEach(option => {
+                if (types[option] === 'C' && values[option].size > 5) {
+                    // can not be classification
+                    types[option] = 'S';
+                }
             });
             console.log(types);
             // tell parent file has been added

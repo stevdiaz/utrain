@@ -210,7 +210,7 @@ class Predict extends Component {
             });
             let outputs = this.props.outputs.map((output, index) => {return (
                 <label className='Predict-outputLabel'> {output}:
-                    <input className='Predict-outputValue' type={this.props.types[output] === 'N' ? 'number' : 'text'} value={this.state.outputs[output]} 
+                    <input className='Predict-outputValue' type={this.props.types[output].includes('N') ? 'number' : 'text'} value={this.state.outputs[output]} 
                     readOnly key={index+'output'}/>
                 </label>
             )})

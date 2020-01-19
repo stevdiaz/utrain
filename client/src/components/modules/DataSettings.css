@@ -96,6 +96,12 @@
 .DataSettings-outputs {
 -ms-overflow-style: none;
 }
+.DataSettings-noOutputs {
+    margin-left: 10px;
+    font-style: italic;
+    opacity: 60%;
+    font-size: 17px;
+}
 .DataSettings-inputsOutputs {
     display: flex;
     flex-direction: column;
