@@ -1,0 +1,180 @@
+import React, { Component } from 'react';
+import './ImageSettings.css';
+
+class ImageSettings extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            classes: ['Class 1'],
+            images: {
+                0 : [],
+            },
+            deleteImage: {
+                classification: null,
+                index: null,
+            },
+        };
+    }
+    componentDidMount() {
+        // pass the first classes up to parent 
+        this.props.onNewClass(this.state.classes[0]);
+    }
+    componentDidUpdate(prevProps) {
+        // make sure passed down image is different from before
+        if (this.props.imageSrc !== prevProps.imageSrc && this.props.imageSrc !== null && this.props.selectedClassIndex !== null) {
+            console.log(this.props.selectedClassIndex);
+            // add image to the selected class
+            let images = this.state.images;
+            images[this.props.selectedClassIndex].push(this.props.imageSrc);
+            this.setState({
+                images: images,
+            });
+        }
+        else if (this.props.imageSrcs !== prevProps.imageSrcs && this.props.imageSrcs !== null && this.props.selectedClassIndex !== null) {
+            let images = this.state.images;
+            images[this.props.selectedClassIndex] = images[this.props.selectedClassIndex].concat(this.props.imageSrcs);
+            this.setState({
+                images: images,
+            });
+        }
+    }
+    onCreateNewClass() {
+        let newClassName = `Class ${this.state.classes.length + 1}`
+        let images = this.state.images;
+        images[this.state.classes.length] = [];
+        this.setState(prevState => ({
+            classes: prevState.classes.concat([newClassName]),
+            images: images,
+        }));
+        this.props.onNewClass(newClassName);
+    }
+    onNewClassName(classIndex, evt) {
+        let classes = this.state.classes;
+        let newClassName = evt.target.value;
+        classes[classIndex] = newClassName;
+        this.setState({
+            classes: classes,
+        });
+        this.props.onRenameClass(newClassName, classIndex);
+    }
+    onDeleteClass(classIndex) {
+        // shift all the above ones down
+        let images = this.state.images;
+        for (let i = classIndex; i < this.state.classes.length; i++) {
+            if (i === this.state.classes.length - 1) {
+                delete images[i];
+            }
+            else {
+                images[i] = images[i + 1];
+            }
+        }
+        this.setState(prevState => ({
+            classes: prevState.classes.filter((prevClassification, index) => index !== classIndex),
+            images: images,
+        }));
+        this.props.onDeleteClass(classIndex);
+    }
+    onEnterImage(classIndex, imageIndex) {
+        console.log('entering index ' + imageIndex);
+        this.setState({
+            deleteImage: {
+                classIndex: classIndex,
+                imageIndex: imageIndex,
+            },
+        });
+    }
+    onLeaveImage(classIndex, imageIndex) {
+        console.log('leaving index ' + imageIndex);
+        if (imageIndex === this.state.deleteImage.imageIndex && classIndex === this.state.deleteImage.classIndex) {
+            this.setState({
+                deleteImage: {
+                    classIndex: null,
+                    imageIndex: null,
+                },
+            });
+        }
+    }
+    onDeleteImage(classIndex, imageIndex) {
+        console.log('deleting index ' + imageIndex);
+        let images = this.state.images;
+        images[classIndex] = images[classIndex].filter((img, index) => index !== imageIndex);
+        this.setState({
+            images: images,
+        });
+    }
+    onLeaveImages() {
+        this.setState({
+            deleteImage: {
+                classIndex: null,
+                imageIndex: null,
+            },
+        });
+    }
+    render() {
+        console.log('on ' + this.state.deleteImage.index);
+        let classes = this.state.classes.map((classification, classIndex) => {
+            let images = this.state.images[classIndex].map((imageSrc, imageIndex) => {
+
+                let trash = this.state.deleteImage.imageIndex === imageIndex && this.state.deleteImage.classIndex === classIndex ? (
+                    <img className='ImageSettings-deleteImage' src={require('../../public/trash.png')} onClick={() => this.onDeleteImage(classIndex, imageIndex)} 
+                    onMouseEnter={() => this.onEnterImage(classIndex, imageIndex)} onMouseLeave={() => this.onLeaveImage(classIndex, imageIndex)}/>
+                ) : (<div> </div>);
+                return (
+                    <div>
+                        <img className='ImageSettings-image' src={imageSrc} key={imageIndex} onMouseEnter={() => this.onEnterImage(classIndex, imageIndex)}
+                        onMouseLeave={() => this.onLeaveImage(classIndex, imageIndex)}/>
+                        {trash}
+                    </div>
+                );
+            });
+            if (images.length === 0) {
+                images = (
+                    <div className='ImageSettings-noImages'>
+                        Add images to this class!
+                    </div>
+                )
+            }
+            let classificationName = (
+                <input className='ImageSettings-classNameEditing' type='text' key={'editing' + classIndex}
+                onChange={(evt) => this.onNewClassName(classIndex, evt)} value={classification}/>
+            );
+            const imagesLength = images.length;
+            let amountOfImages = imagesLength > 0 ? (
+                <div className='ImageSettings-imageAmount'>
+                    {`${this.state.images[classIndex].length} image${imagesLength > 1 ? 's' : ''}`}
+                </div>
+            ) : (<div></div>);
+            let deleteButton = (
+                <div className={`ImageSettings-delete ${this.state.classes.length > 1 ? '' : 'ImageSettings-deleteHidden'}`} key={'image' + classIndex}
+                onClick={() => this.onDeleteClass(classIndex)}>
+                    {this.state.classes.length > 1 ? 'Delete' : ''}
+                </div>
+            );
+            return (
+                <div className='ImageSettings-class' key={'class' + classIndex}>
+                    <div className='ImageSettings-classRow'>
+                        {classificationName}
+                        {deleteButton}
+                    </div>
+                    <div className='ImageSettings-images' key={'image' + classIndex} onMouseLeave={() => this.onLeaveImages()}>
+                        {images}
+                    </div>
+                    {amountOfImages}
+                </div>
+            )
+        });
+        let newClass = (
+            <div className='ImageSettings-newClass' onClick={() => this.onCreateNewClass()}>
+                New Class
+            </div>
+        );
+        classes.push(newClass);
+        return (
+            <div className='ImageSettings-container'>
+                {classes}
+            </div>
+        );
+    }
+}
+
+export default ImageSettings;

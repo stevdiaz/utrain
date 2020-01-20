@@ -1,0 +1,38 @@
+.ImageUpload-container {
+    display: flex;
+    flex-direction: column;
+    background-color: turquoise;
+    position: relative;
+    top: 45px;
+    right: 320px;
+    font-family: 'Poppins', sans-serif;
+}
+.ImageUpload-tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: transparent;
+    background-color: white;
+}
+.ImageUpload-tab {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 16px;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.ImageUpload-tab:hover {
+    cursor: pointer;
+    background-color: rgb(214, 190, 241);
+}
+.ImageUpload-active {
+    border: 2px solid rgb(156, 51, 255);
+}
+

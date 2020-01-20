@@ -7,7 +7,6 @@ import * as d3 from 'd3';
 class FileUpload extends Component{
     constructor(props) {
         super(props);
-        const MAX_CLASSES = 5;
         this.state = {
             fileName: null,
         };

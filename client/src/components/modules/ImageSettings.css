@@ -1,0 +1,121 @@
+.ImageSettings-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    right: 50px;
+    bottom: 80px;
+    width: 800px;
+}
+.ImageSettings-class {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    border: 2px solid rgb(156, 51, 255);
+    border-radius: 1%;
+    height: 145px;
+}
+.ImageSettings-classRow {
+    padding-left: 10px;
+    font-size: large;
+    background-color: honeydew;
+    height: 45px;
+}
+.ImageSettings-imageAmount {
+    margin-left: 10px;
+    font-size: small;
+}
+.ImageSettings-classNameEditing {
+    height: 20px;
+    width: 150px;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: transparent;
+}
+.ImageSettings-classNameEditing:focus {
+    outline: none;
+}
+.ImageSettings-images {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    transition: transform 1s;
+}
+.ImageSettings-noImages {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-style: italic;
+    opacity: 60%;
+    font-size: 17px;
+}
+.ImageSettings-image {
+    height: 60px;
+    width: 60px;
+    margin: 10px 5px 2px 5px;
+    border-radius: 8%;
+}
+.ImageSettings-newClass {
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px dashed rgb(187, 186, 186);
+    border-radius: 5%;
+    padding-left: 10px;
+    height: 50px;
+}
+.ImageSettings-newClass:hover {
+    cursor: pointer;
+}
+.ImageSettings-delete {
+    display: inline-block;
+    background-color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 2px solid rgb(241, 67, 67);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    /* left: 540px; */
+}
+/* .ImageSettings-deleteImage {
+    font-size: 15px;
+    width: 50px;
+    height: 30px;
+    position: relative;
+    bottom: 75px;
+    left: 60px;
+    margin-right: 6px;
+    padding-top: 20px;
+} */
+.ImageSettings-deleteImage {
+    width: 23px;
+    height: 23px;
+    position: relative;
+    bottom: 40px;
+    right: 25px;
+    margin-right: -25px;
+}
+.ImageSettings-deleteImage:hover {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.ImageSettings-delete:hover {
+    background-color: rgb(238, 155, 155);
+    cursor: pointer;
+}
+.ImageSettings-deleteHidden {
+    opacity: 0%;
+}
+.ImageSettings-deleteHidden:hover {
+    cursor: auto;
+    background-color: transparent;
+}
