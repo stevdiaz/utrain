@@ -1,6 +1,6 @@
 .ImageDropzone-container {
-    height: 150px;
-    width: 230px;
+    height: 246px;
+    width: 246px;
     border: 2px dashed rgb(187, 186, 186);
     border-radius: 10%;
     display: flex;
@@ -31,19 +31,15 @@
     align-items: center;
     justify-content: center;
 }
-.ImageDropzone-container {
-    display: flex;
-    flex-direction: column;
-    background-color: yellow;
-}
 .ImageDropzone-captureAndSend {
     display: flex;
     flex-direction: row;
-    background-color: blueviolet;
+    background-color: white;
     justify-content: center;
     align-items: center;
 }
 .ImageDropzone-uploadButton {
+    font-family: 'Poppins', sans-serif;
     display: inline-block;
     background-color: white;
     padding: 3px 10px;
@@ -54,6 +50,10 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
 }
 .ImageDropzone-uploadButton:hover {
     background-color: rgb(177, 172, 255);
@@ -81,7 +81,8 @@
     font-family: 'Poppins', sans-serif;
     resize: none;
     position: relative;
-    bottom: 1px;
+    bottom: 0px;
+    width: 90px;
 }
 .ImageDropzone-uploadSelect:hover {
     background-color: rgb(177, 172, 255);

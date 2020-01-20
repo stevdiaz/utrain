@@ -64,6 +64,9 @@ class ImageCollectCard extends Component {
             selectedClassIndex: selectedClassIndex,
         });
     }
+    onChangeImages(classes, images) {
+        this.props.onChangeImages(classes, images);
+    }
     render() {
         return (
             <div className="ImageCollectCard-container">
@@ -75,7 +78,7 @@ class ImageCollectCard extends Component {
                     onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)}/>
                     <ImageSettings imageSrc={this.state.imageSrc} imageSrcs={this.state.imageSrcs} selectedClassIndex={this.state.selectedClassIndex}
                     onNewClass={(newClassName) => this.onNewClass(newClassName)} onRenameClass={(newClassName, classIndex) => this.onRenameClass(newClassName, classIndex)}
-                    onDeleteClass={(classIndex) => this.onDeleteClass(classIndex)}/>
+                    onDeleteClass={(classIndex) => this.onDeleteClass(classIndex)} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>
                 </div>
             </div>
         )

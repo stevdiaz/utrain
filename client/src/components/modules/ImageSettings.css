@@ -1,12 +1,15 @@
 .ImageSettings-container {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     overflow-y: scroll;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     position: relative;
-    right: 50px;
-    bottom: 80px;
-    width: 800px;
+    bottom: 0px;
+    right: 250px;
+    width: 1200px;
+    height: 430px;
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
 }
 .ImageSettings-class {
     display: flex;
@@ -44,7 +47,7 @@
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
-    transition: transform 1s;
+    transition: 1s;
 }
 .ImageSettings-noImages {
     margin-top: 20px;
@@ -67,9 +70,11 @@
     border-radius: 5%;
     padding-left: 10px;
     height: 50px;
+    font-size: 20px;
 }
 .ImageSettings-newClass:hover {
     cursor: pointer;
+    border: 2px dashed rgb(156, 51, 255);
 }
 .ImageSettings-delete {
     display: inline-block;
@@ -83,6 +88,7 @@
     margin-right: 10px;
     margin-bottom: 5px;
     position: relative;
+    left: 680px;
     /* left: 540px; */
 }
 /* .ImageSettings-deleteImage {
@@ -115,7 +121,12 @@
 .ImageSettings-deleteHidden {
     opacity: 0%;
 }
+/* Prevent user selection */
 .ImageSettings-deleteHidden:hover {
     cursor: auto;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
     background-color: transparent;
 }

@@ -1,0 +1,110 @@
+.ImageTrain-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    bottom: 50px;
+    right: 320px;
+    margin-top: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+.ImageTrain-noButton {
+  margin: 5px;
+}
+.ImageTrain-button {
+  background-color: white;
+  border: none;
+  color: black;
+  border: 3px solid #444;
+  border-radius: 4px;
+  padding: 7px 35px;
+  text-align: center;
+  font-size: 22px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  margin: 10px;
+  margin-top: 45px;
+  width: 250px;
+  height: 50px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.ImageTrain-button:hover {
+  background-color: rgb(214, 190, 241);
+}
+.ImageTrain-buttonDisabled {
+  background-color: white;
+  border: none;
+  color: rgb(87, 83, 83);
+  border: 3px solid #444;
+  border-radius: 4px;
+  padding: 7px 35px;
+  text-align: center;
+  font-size: 22px;
+  font-family: 'Poppins', sans-serif;
+  margin: 10px;
+  margin-top: 45px;
+  width: 250px;
+  height: 50px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+  
+.ImageTrain-notReady {
+    font-size: 13px;
+}
+.ImageTrain-training {
+    font-size: 13px;
+}
+.ImageTrain-trainingHidden {
+  font-size: 13px;
+  opacity: 0;
+}
+.ImageTrain-advanced {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  margin-top: 5px;
+  right: 15px;
+  font-size: 18px;
+}
+.ImageTrain-epochs {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  margin-top: 15px;
+}
+.ImageTrain-batchSize {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+.ImageTrain-epochsInput {
+  margin-left: 10px;
+  width: 35px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 2px solid rgb(156, 51, 255);
+  font-family: 'Poppins', sans-serif;
+  resize: none;
+}
+.ImageTrain-epochsInput::-webkit-inner-spin-button, 
+.ImageTrain-epochsInput::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+.ImageTrain-batchSizeInput {
+  /* margin-top: 5px; */
+  margin-left: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 2px solid rgb(156, 51, 255);
+  font-family: 'Poppins', sans-serif;
+  resize: none;
+}
+
+.ImageTrain-epochsInput:focus {
+  background-color: rgb(214, 190, 241);
+  outline: none;
+}
+.ImageTrain-batchSizeInput:focus {
+  background-color: rgb(214, 190, 241);
+  outline: none;
+}

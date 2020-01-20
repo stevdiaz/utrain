@@ -34,8 +34,8 @@ class WebcamView extends Component {
     } 
     render() {
         const videoConstraints = {
-            width: 220,
-            height: 220,
+            width: 260,
+            height: 260,
             facingMode: 'user',
         };
         const classOptions = this.props.classes.map((classification, classIndex) => {return (
@@ -46,8 +46,8 @@ class WebcamView extends Component {
             <div className='WebcamView-container'>
                 <Webcam
                 audio={false}
-                height={220}
-                width={220}
+                height={260}
+                width={260}
                 ref={this.webcamRef}
                 screenshotFormat='image/jpeg'
                 videoConstraints={videoConstraints}

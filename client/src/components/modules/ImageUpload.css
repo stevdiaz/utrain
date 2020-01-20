@@ -1,10 +1,10 @@
 .ImageUpload-container {
     display: flex;
     flex-direction: column;
-    background-color: turquoise;
+    background-color: white;
     position: relative;
-    top: 45px;
-    right: 320px;
+    top: 30px;
+    right: 340px;
     font-family: 'Poppins', sans-serif;
 }
 .ImageUpload-tabs {

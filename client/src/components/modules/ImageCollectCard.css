@@ -1,7 +1,7 @@
 .ImageCollectCard-container {
     display: flex;
     margin: 10px 10px;
-    height: 500px;
+    height: 430px;
     font-family: 'Poppins', sans-serif;
     background-color: white;
 }
@@ -9,12 +9,10 @@
 .ImageCollectCard-components {
     display: flex;
     align-items: center;
-    /* justify-content: flex-start; */
     flex-direction: row;
     border: 2px rgb(0, 0, 0);
-    border-radius: 10%;
-    background-color: violet;
-    width: 920px;
+    background-color: white;
+    width: 1200px;
     position: relative;
     left: 50px;
     
@@ -23,6 +21,6 @@
 .ImageCollectCard-step {
     font-size: 32px;
     margin: 10px 10px 0px 10px;
-    background-color: tomato;
+    background-color: white;
     height: 60px;
 }

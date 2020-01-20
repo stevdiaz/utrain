@@ -22,21 +22,25 @@ class ImageSettings extends Component {
     componentDidUpdate(prevProps) {
         // make sure passed down image is different from before
         if (this.props.imageSrc !== prevProps.imageSrc && this.props.imageSrc !== null && this.props.selectedClassIndex !== null) {
-            console.log(this.props.selectedClassIndex);
-            // add image to the selected class
+            // add image to the selected class through webrowser
             let images = this.state.images;
             images[this.props.selectedClassIndex].push(this.props.imageSrc);
             this.setState({
                 images: images,
-            });
+            }, () => this.onChangeImageState());
         }
         else if (this.props.imageSrcs !== prevProps.imageSrcs && this.props.imageSrcs !== null && this.props.selectedClassIndex !== null) {
+            // add image to the selected class through upload
             let images = this.state.images;
             images[this.props.selectedClassIndex] = images[this.props.selectedClassIndex].concat(this.props.imageSrcs);
             this.setState({
                 images: images,
-            });
+            }, () => this.onChangeImageState());
         }
+    }
+    onChangeImageState() {
+        // call this function when change the images in state
+        this.props.onChangeImages(this.state.classes, this.state.images);
     }
     onCreateNewClass() {
         let newClassName = `Class ${this.state.classes.length + 1}`
@@ -45,7 +49,7 @@ class ImageSettings extends Component {
         this.setState(prevState => ({
             classes: prevState.classes.concat([newClassName]),
             images: images,
-        }));
+        }), () => this.onChangeImageState());
         this.props.onNewClass(newClassName);
     }
     onNewClassName(classIndex, evt) {
@@ -71,7 +75,7 @@ class ImageSettings extends Component {
         this.setState(prevState => ({
             classes: prevState.classes.filter((prevClassification, index) => index !== classIndex),
             images: images,
-        }));
+        }), () => this.onChangeImageState());
         this.props.onDeleteClass(classIndex);
     }
     onEnterImage(classIndex, imageIndex) {
@@ -100,7 +104,7 @@ class ImageSettings extends Component {
         images[classIndex] = images[classIndex].filter((img, index) => index !== imageIndex);
         this.setState({
             images: images,
-        });
+        }, () => this.onChangeImageState());
     }
     onLeaveImages() {
         this.setState({
@@ -121,7 +125,7 @@ class ImageSettings extends Component {
                 ) : (<div> </div>);
                 return (
                     <div>
-                        <img className='ImageSettings-image' src={imageSrc} key={imageIndex} onMouseEnter={() => this.onEnterImage(classIndex, imageIndex)}
+                        <img className='ImageSettings-image' id={imageSrc} src={imageSrc} key={imageIndex} onMouseEnter={() => this.onEnterImage(classIndex, imageIndex)}
                         onMouseLeave={() => this.onLeaveImage(classIndex, imageIndex)}/>
                         {trash}
                     </div>
@@ -147,7 +151,7 @@ class ImageSettings extends Component {
             let deleteButton = (
                 <div className={`ImageSettings-delete ${this.state.classes.length > 1 ? '' : 'ImageSettings-deleteHidden'}`} key={'image' + classIndex}
                 onClick={() => this.onDeleteClass(classIndex)}>
-                    {this.state.classes.length > 1 ? 'Delete' : ''}
+                    Delete
                 </div>
             );
             return (

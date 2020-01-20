@@ -23,6 +23,9 @@ class Train extends Component {
     }
 
     startModel() {
+        this.setState({
+            isGettingReady: true,
+        });
         let nnOptions = {
             inputs: this.props.inputs,
             outputs: this.props.outputs,
@@ -84,7 +87,6 @@ class Train extends Component {
         let finishedTraining = () => {
             this.finishedTraining();
         }
-        this.setState({isTraining: true})
         this.state.neuralNetwork.train(trainOptions, whileTraining, finishedTraining);
     }
     clearFields() {
