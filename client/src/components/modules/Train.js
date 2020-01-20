@@ -82,7 +82,7 @@ class Train extends Component {
             batchSize: Number(this.state.batchSize),
         };
         let whileTraining = (epochs, loss) => {
-            this.whileTraining(epochs, loss);
+            this.whileTraining(epochs, loss.val_loss);
         }
         let finishedTraining = () => {
             this.finishedTraining();

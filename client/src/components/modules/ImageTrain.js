@@ -81,15 +81,17 @@ class ImageTrain extends Component {
     }
     whileTraining(epochs, loss) {
         // epochs are zero-indexed, add by 1
-        console.log(epochs);
-        console.log(loss);
+        console.log('On epoch ' + epochs);
+        console.log('With loss ' + loss);
         this.setState({
             onEpoch: epochs + 1,
         });
-        if (loss === null || epochs === this.state.epochs - 1) {
+        if (epochs >= this.state.epochs) {
             this.finishedTraining();
         }
-        this.props.onEpochEnd(epochs + 1, loss === null ? 0 : loss);
+        else {
+            this.props.onEpochEnd(epochs + 1, loss === null ? 0 : loss);
+        }
     }
     finishedTraining() {
         console.log('finished training!');
@@ -101,8 +103,10 @@ class ImageTrain extends Component {
         this.setState({
             isTraining: true,
         });
+        let epoch = 0;
         let whileTraining = (loss) => {
-            this.whileTraining(this.state.onEpoch, loss);
+            this.whileTraining(epoch, loss);
+            epoch++;
         }
         this.state.neuralNetwork.train(whileTraining);
     }
@@ -155,7 +159,15 @@ class ImageTrain extends Component {
                 </div>
             </div>
         )
-        if (this.props.classes === null || this.props.images === null) {
+        let isClassEmpty = false;
+        if (this.props.images !== null) {
+            Object.values(this.props.images).forEach(imageArray => {
+                if (imageArray.length === 0) {
+                    isClassEmpty = true;
+                }
+            })
+        }
+        if (this.props.classes === null || this.props.images === null || isClassEmpty) {
             trainButton = (
                 <span className='ImageTrain-noButton'>
                     Finish selecting your data options to train your model!

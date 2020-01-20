@@ -28,10 +28,10 @@ class DisplayProgress extends Component {
         }
         // only update if different data
         else if (this.props.epoch !== prevProps.epoch) {
-            console.log(this.props.loss.val_loss);
+            console.log(this.props.loss);
             this.setState(prevState => ({
                 epochs: prevState.epochs.concat([this.props.epoch]),
-                losses: prevState.losses.concat([this.props.loss.val_loss]),
+                losses: prevState.losses.concat([this.props.loss]),
             }));
         }
     }
