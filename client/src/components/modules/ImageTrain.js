@@ -29,13 +29,15 @@ class ImageTrain extends Component {
             // a change in classes
             this.clearFields();
         }
-        else {
-            Object.keys(prevProps.images).forEach(classIndex => {
-                if (prevProps.images[classIndex] !== this.props.images[classIndex]) {
-                    // a change in images
-                    this.clearFields();
-                }
-            })
+        else if (this.state.isFinishedTraining) {
+            // look for change in images
+            let totalTrainedImages = this.state.neuralNetwork.xs.shape[0];
+            let totalReceivedImages = Object.values(this.props.images).reduce((total, imageArray) => {
+                return total + imageArray.length;
+            }, 0);
+            if (totalTrainedImages !== totalReceivedImages) {
+                this.clearFields();
+            }
         }
     }
 
@@ -46,6 +48,7 @@ class ImageTrain extends Component {
         const options = {
             epochs: this.state.epochs,
             batchSize: this.state.batchSize,
+            numLabels: Math.max(this.props.classes.length, 2),
         };
         // initialize the classifier
         const featureExtractor = ml5.featureExtractor('MobileNet', options, () => {
@@ -97,9 +100,9 @@ class ImageTrain extends Component {
         console.log('finished training!');
         this.setState({isFinishedTraining: true});
         this.props.onFinishTraining(this.state.neuralNetwork);
+        console.log(this.state.neuralNetwork);
     }
     trainModel() {
-        console.log(this.state.neuralNetwork);
         this.setState({
             isTraining: true,
         });

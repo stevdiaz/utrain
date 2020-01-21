@@ -30,6 +30,9 @@
 .Train-button:hover {
   background-color: rgb(214, 190, 241);
 }
+.Train-button:focus {
+  outline: none;
+}
 .Train-buttonDisabled {
   background-color: white;
   border: none;
@@ -46,7 +49,9 @@
   height: 50px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-  
+.Train-buttonDisabled:focus {
+  outline: none;
+}
 .Train-notReady {
     font-size: 13px;
 }
