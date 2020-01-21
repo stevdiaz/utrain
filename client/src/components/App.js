@@ -5,6 +5,7 @@ import Skeleton from "./pages/Skeleton.js";
 import 'filepond/dist/filepond.min.css';
 import DataModel from './pages/DataModel';
 import ImageModel from './pages/ImageModel';
+import Create from './pages/Create';
 
 import "../utilities.css";
 
@@ -52,7 +53,9 @@ class App extends Component {
     return (
       <>
         <Router>
-          <ImageModel path="/"/>
+          <Create path="/"/>
+          <DataModel path='/datamodel'/>
+          <ImageModel path='/imagemodel'/>
           <NotFound default />
         </Router>
         

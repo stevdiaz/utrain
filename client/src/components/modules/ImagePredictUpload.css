@@ -1,0 +1,39 @@
+.ImagePredictUpload-container { 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    right: 260px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    width: 260px;
+    margin-right: -250px;
+}
+.ImagePredictUpload-tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: transparent;
+    background-color: white;
+}
+.ImagePredictUpload-tab {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 16px;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.ImagePredictUpload-tab:hover {
+    cursor: pointer;
+    background-color: rgb(214, 190, 241);
+}
+.ImagePredictUpload-active {
+    border: 2px solid rgb(156, 51, 255);
+}
+

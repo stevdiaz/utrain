@@ -51,6 +51,7 @@ class WebcamView extends Component {
                 ref={this.webcamRef}
                 screenshotFormat='image/jpeg'
                 videoConstraints={videoConstraints}
+                mirrored='true'
                 />
                 <div className='WebcamView-captureAndSend'>
                     <div className='WebcamView-captureButton' onClick={() => this.onCapture()}>Capture</div>

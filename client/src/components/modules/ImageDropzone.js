@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import "./ImageDropzone.css"
 
-class Dropzone extends Component {
+class ImageDropzone extends Component {
     constructor(props) {
         super(props)
         this.fileInputRef = React.createRef();
@@ -138,4 +138,4 @@ class Dropzone extends Component {
     }
 }
 
-export default Dropzone;
+export default ImageDropzone;

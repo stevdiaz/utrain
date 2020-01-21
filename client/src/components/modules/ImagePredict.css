@@ -1,0 +1,8 @@
+.ImagePredict-container {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    position: relative;
+    top: 30px;
+    right: 120px;
+}

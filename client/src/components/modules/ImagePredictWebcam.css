@@ -1,0 +1,8 @@
+.ImagePredictWebcam-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}

@@ -53,6 +53,9 @@ class BarGraph extends Component {
                 fontColor: '#000000'
             },
             maintainAspectRatio: false,
+            tooltips: {
+                enabled: false,
+            },
             plugins: {
                 datalabels: {
                    display: true,

@@ -9,21 +9,38 @@ class ImageUpload extends Component {
         super(props);
         this.state = {
             isWebcam: true,
+            webcamCount: 0,
         }
     }
     componentDidMount() {
 
     }
+    componentDidUpdate() {
+        if (this.state.webcamCount > 0 && this.props.neuralNetwork !== null) {
+            this.setState(prevState => ({
+                isWebcam: !prevState.isWebcam,
+                webcamCount: prevState.webcamCount - 1,
+            }));
+        }
+    }
     onCapture(imageSrc, selectedClassIndex) {
         this.props.onCapture(imageSrc, selectedClassIndex);
     }
     onFilesAdded(files, selectedClassIndex) {
-        let objectURLs = files.map(file => window.URL.createObjectURL(file));
-        this.props.onFilesAdded(objectURLs, selectedClassIndex);
+        var readers = files.map(file => {
+            let reader = new FileReader();
+            reader.onload = (event) => {
+                const imageSrc = event.target.result;
+                this.props.onFilesAdded([imageSrc], selectedClassIndex);
+            }
+            return reader;
+        });
+        files.forEach((file, fileIndex) => readers[fileIndex].readAsDataURL(file));
     }
     toggleWebcam(isWebcam) {
         this.setState({
             isWebcam: isWebcam,
+            webcamCount: isWebcam ? 2 : 0,
         });
     }
     render() {

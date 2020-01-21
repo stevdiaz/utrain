@@ -52,7 +52,6 @@ class ImageTrain extends Component {
         };
         // initialize the classifier
         const featureExtractor = ml5.featureExtractor('MobileNet', options, () => {
-            console.log('model loaded');
             const classifier = featureExtractor.classification();
             this.setState({
                 isGettingReady: true,
@@ -62,12 +61,10 @@ class ImageTrain extends Component {
             // add in data
             const imagePromises = [];
             this.props.classes.forEach((classification, classIndex) => {
-                console.log('on class ' + classification);
                 const label = classification;
                 // add in all images for this label
                 this.props.images[classIndex].forEach((imageSrc, imageIndex) => {
                     const image = document.getElementById(imageSrc);
-                    console.log('on image ' + imageIndex);
                     imagePromises.push(classifier.addImage(image, label));
                 });
             });
@@ -100,7 +97,6 @@ class ImageTrain extends Component {
         console.log('finished training!');
         this.setState({isFinishedTraining: true});
         this.props.onFinishTraining(this.state.neuralNetwork);
-        console.log(this.state.neuralNetwork);
     }
     trainModel() {
         this.setState({

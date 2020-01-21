@@ -1,0 +1,57 @@
+.Create-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 200px;
+}
+.Create-title {
+    font-size: 45px;
+    margin: 50px;
+}
+.Create-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.Create-button {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    font-size: 20px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    height: 50px;
+    width: 140px;
+}
+.Create-dataButton {
+    padding: 3px 20px;
+}
+.Create-imageButton {
+    padding: 3px 30px;
+}
+.Create-button:hover {
+    background-color: rgb(177, 172, 255);
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+.Create-button:focus {
+    outline: none;
+}
+.Create-link,
+.Create-link:visited {
+  color: black;
+  text-decoration: none;
+}
+
+

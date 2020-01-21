@@ -1,0 +1,70 @@
+.ImagePredictDropzone-container {
+    height: 246px;
+    width: 246px;
+    border: 2px dashed rgb(187, 186, 186);
+    border-radius: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    font-size: 16px;
+    margin: 15px 5px 0px 5px;
+    overflow: hidden;
+}
+.ImagePredictDropzone-container:hover {
+    background-color: rgb(177, 172, 255);
+    border: 2px solid rgb(187, 186, 186);;
+}
+.ImagePredictDropzone-icon {
+    opacity: 0.3;
+    height: 64px;
+    width: 64px;
+}
+.ImagePredictDropzone-containerNoDash {
+    border: 2px solid rgb(187, 186, 186);
+}
+.ImagePredictDropzone-containerNoDash:hover {
+    background-color: white;
+}
+.ImagePredictDropzone-fileInput {
+    display: none;
+}
+.ImagePredictDropzone-highlight {
+    background-color: rgb(177, 172, 255);
+}
+.ImagePredictDropzone-instructions {
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.ImagePredictDropzone-image {
+    width: 246px;
+    height: 246px;
+}
+.ImagePredictDropzone-uploadButton {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 14px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    left: 50px;
+}
+.ImagePredictDropzone-uploadButton:hover {
+    background-color: rgb(177, 172, 255);
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+.ImagePredictDropzone-uploadButton:focus {
+    outline: none;
+}

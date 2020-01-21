@@ -167,7 +167,7 @@ class ImageSettings extends Component {
                 </div>
             )
         });
-        let newClass = (
+        let newClass = classes.length === 5 ? (<div></div>) : (
             <div className='ImageSettings-newClass' onClick={() => this.onCreateNewClass()}>
                 New Class
             </div>
