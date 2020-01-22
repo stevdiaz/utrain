@@ -38,6 +38,7 @@
     "fs": "0.0.1-security",
     "google-auth-library": "^5.5.1",
     "idempotent-babel-polyfill": "^7.4.4",
+    "json-stringify-safe": "^5.0.1",
     "ml5": "^0.4.3",
     "mongoose": "^5.7.7",
     "nodemon": "^1.19.4",

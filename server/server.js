@@ -27,13 +27,6 @@ const session = require("express-session"); // library that stores info about ea
 const mongoose = require("mongoose"); // library to connect to MongoDB
 const path = require("path"); // provide utilities for working with file and directory paths
 
-const cors = require('cors');
-
-var corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200,
-}
-
 const api = require("./api");
 const auth = require("./auth");
 
@@ -63,7 +56,6 @@ app.use(validator.checkRoutes);
 // allow us to process POST requests
 app.use(express.json());
 
-app.use(cors(corsOptions));
 
 // set up a session, which will persist login data across requests
 app.use(

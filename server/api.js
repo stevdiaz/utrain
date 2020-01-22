@@ -15,16 +15,12 @@ const User = require("./models/user");
 // import authentication library
 const auth = require("./auth");
 
-const {upload, getUpload} = require("./upload");
-
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
 //initialize socket
 const socket = require("./server-socket");
 
-router.post("/upload", upload);
-router.get("/upload", getUpload);
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -45,6 +41,12 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.post("/model", (req, res) => {
+  console.log('at model endpoint4');
+  eval(req.body.code + ';' + req.body.start + ';');
+  res.status(200).send({})
+})
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

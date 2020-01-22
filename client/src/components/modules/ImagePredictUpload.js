@@ -45,8 +45,8 @@ class ImagePredictUpload extends Component {
         return(
             <div className='ImagePredictUpload-container'>
                 <div className='ImagePredictUpload-tabs'>
-                    <button className={`ImagePredictUpload-tab ${this.state.isWebcam ? 'ImagePredictUpload-active' : ''}`} onClick={() => this.toggleWebcam(true)}>Take Photos</button>
-                    <button className={`ImagePredictUpload-tab ${!this.state.isWebcam ? 'ImagePredictUpload-active' : ''}`} onClick={() => this.toggleWebcam(false)}>Upload Photos</button>
+                    <button className={`ImagePredictUpload-tab ${this.state.isWebcam ? 'ImagePredictUpload-active' : ''}`} onClick={() => this.toggleWebcam(true)}>Live Photo</button>
+                    <button className={`ImagePredictUpload-tab ${!this.state.isWebcam ? 'ImagePredictUpload-active' : ''}`} onClick={() => this.toggleWebcam(false)}>Upload Photo</button>
                 </div>
                 {submitType}
             </div>

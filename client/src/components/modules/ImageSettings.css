@@ -49,6 +49,13 @@
     overflow-x: scroll;
     transition: 1s;
 }
+/* Hide scrollbar in different browsers */
+.ImageSettings-images::-webkit-scrollbar {
+    display: none;
+}
+.ImageSettings-images {
+-ms-overflow-style: none;
+}
 .ImageSettings-noImages {
     margin-top: 20px;
     margin-left: 10px;
@@ -102,16 +109,16 @@
     padding-top: 20px;
 } */
 .ImageSettings-deleteImage {
-    width: 23px;
-    height: 23px;
+    width: 22px;
+    height: 22px;
     position: relative;
-    bottom: 40px;
+    bottom: 45px;
     right: 25px;
     margin-right: -23px;
 }
 .ImageSettings-deleteImage:hover {
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
     cursor: pointer;
 }
 .ImageSettings-delete:hover {
