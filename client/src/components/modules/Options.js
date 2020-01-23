@@ -8,14 +8,18 @@ class Options extends Component {
         super(props);
         this.state = {
             isSave: false,
+            isSaved: false,
             saveTitle: "",
             saveDescription: "",
             isExport: false,
+            isExported: false,
             exportTitle: "",
             isShare: false,
+            isShared: false,
             titles: [],
             titleError: 'None',
             descriptionError: 'None',
+            success: null,
             hover: null,
         }
         this.ERROR_UNIQUE = 'Unique';
@@ -28,6 +32,9 @@ class Options extends Component {
         this.SAVE = 'save';
         this.EXPORT = 'export';
         this.SHARE = 'share';
+        this.SAVED = 'saved';
+        this.EXPORTED = 'exported';
+        this.SHARED = 'shared';
     }
     componentDidMount() {
         get('/api/models/names').then((titles) => {
@@ -48,20 +55,23 @@ class Options extends Component {
     onSave() {
         this.setState({
             isSave: true,
+            success: null,
         });
     }
     onExport() {
         this.setState({
             isExport: true,
+            success: null,
         });
     }
     onConfirmSave() {
+        const noError = this.state.titleError === this.ERROR_NONE && this.state.descriptionError === this.ERROR_NONE;
         if (this.state.saveTitle.length === 0) {
             this.setState({
                 titleError: this.ERROR_TITLE_EMPTY,
             });
         }
-        else if (this.props.isData && this.state.error === this.ERROR_NONE) {
+        else if (this.props.isData && noError) {
             console.log('saving to db...');
             let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
             let epochs = this.props.neuralNetwork.config.training.epochs;
@@ -80,10 +90,11 @@ class Options extends Component {
             post('/api/datamodel', body).then(title => {
                 console.log('everything saved to db');
                 console.log(title);
+                this.setSuccess(this.SAVED);
                 this.onResetFields();
             });
         }
-        else if (!this.props.isData && this.state.error === this.ERROR_NONE) {
+        else if (!this.props.isData && noError) {
             console.log('saving to db...');
             let epochs = this.props.neuralNetwork.config.epochs;
             let batchSize = this.props.neuralNetwork.config.batchSize;
@@ -98,12 +109,14 @@ class Options extends Component {
             post('/api/imagemodel', body).then(title => {
                 console.log('everything saved to db');
                 console.log(title);
+                this.setSuccess(this.SAVED);
                 this.onResetFields();
             })
         }
     }
     onConfirmExport() {
         const exportCallback = () => {
+            this.setSuccess(this.EXPORTED);
             this.onResetFields();
         }
         let exportTitle = this.state.exportTitle.split(' ').join('_');
@@ -112,6 +125,20 @@ class Options extends Component {
         }
         else {
             this.props.neuralNetwork.save(exportCallback, exportTitle);
+        }
+    }
+    setSuccess(state) {
+        // set success, and then after a while, unset it
+        this.setState({
+            success: state,
+        }, () => setTimeout(() => this.setState({
+            success: null,
+        }), 3000));
+        // remember model has been saved
+        if (state === this.SAVED) {
+            this.setState({
+                isSaved: true,
+            });
         }
     }
     onNewModelSaveName(evt) {
@@ -174,17 +201,32 @@ class Options extends Component {
         });
     }
     render() {
+        // either we have saved the model here, or parent told us we saved model before
+        let isModelSaved = this.state.isSaved || this.props.isSaved 
         let innerComponents = (
             <> 
-                <div className='Options-question'>
-                    How would you like to use your model?
-                </div>
-                <div className='Options-button Options-save' onClick={() => this.onSave()} onMouseEnter={() => this.onEnter(this.SAVE)} onMouseLeave={() => this.onLeaveAny()}>
+                {this.state.success ? (
+                    <div className='Options-question Options-success'>
+                        Your model has been {this.state.success}!
+                    </div>
+
+                ) : (
+                    <div className='Options-question'>
+                        How would you like to use your model?
+                    </div>
+                )}
+                <div className={`Options-button Options-save ${isModelSaved ? 'Options-buttonDisabled' : ''}`} 
+                onClick={() => !isModelSaved && this.onSave()} onMouseEnter={() => this.onEnter(this.SAVE)} onMouseLeave={() => this.onLeaveAny()}>
                     Save
                 </div>
-                {this.state.hover === this.SAVE && (
+                {this.state.hover === this.SAVE && !isModelSaved && (
                     <div className='Options-under'>
                         Save the model's settings and data to your account
+                    </div>
+                )}
+                {this.state.hover === this.SAVE && isModelSaved && (
+                    <div className='Options-under'>
+                        You have already saved this model to your account
                     </div>
                 )}
                 <div className='Options-button Options-export' onClick={() => this.onExport()} onMouseEnter={() => this.onEnter(this.EXPORT)} onMouseLeave={() => this.onLeaveAny()}>

@@ -19,6 +19,11 @@
     position: relative;
     left: 7px;
     margin-bottom: 5px;
+    text-align: center;
+}
+.Options-success {
+    color: rgb(156, 51, 255);
+    text-align: center;
 }
 .Options-button {
     font-family: 'Poppins', sans-serif;
