@@ -19,6 +19,7 @@ class Options extends Component {
         this.ERROR_TITLE_LONG = 'Title Long';
         this.ERROR_DESCRIPTION_LONG = 'Description Long';
         this.ERROR_NONE = 'None';
+        this.ERROR_TITLE_EMPTY = 'Title Empty';
         this.TITLE_LIMIT = 30;
         this.DESCRIPTION_LIMIT = 70;
     }
@@ -44,7 +45,12 @@ class Options extends Component {
         });
     }
     onConfirmSave() {
-        if (this.props.isData && this.state.error === this.ERROR_NONE) {
+        if (this.state.saveTitle.length === 0) {
+            this.setState({
+                error: this.ERROR_TITLE_EMPTY,
+            });
+        }
+        else if (this.props.isData && this.state.error === this.ERROR_NONE) {
             console.log('saving to db');
             let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
             let epochs = this.props.neuralNetwork.config.training.epochs;
@@ -75,6 +81,9 @@ class Options extends Component {
         }
         else if (this.state.titles.includes(title)) {
             errorString = this.ERROR_UNIQUE;
+        }
+        else if (title.length === 0) {
+            errorString = this.ERROR_TITLE_EMPTY;
         }
         this.setState({
             saveTitle: evt.target.value,
@@ -125,6 +134,7 @@ class Options extends Component {
         if (this.state.isSave) {
             let titleUniqueError = this.state.error === this.ERROR_UNIQUE;
             let titleLongError = this.state.error === this.ERROR_TITLE_LONG;
+            let titleEmptyError = this.state.error === this.ERROR_TITLE_EMPTY;
             let descriptionError = this.state.error === this.ERROR_DESCRIPTION_LONG;
             let noError = this.state.error === this.ERROR_NONE;
             innerComponents = (
@@ -132,7 +142,7 @@ class Options extends Component {
                     <div className='Options-saveDescription'>
                         Give your model a unique title and a short description to remember it
                     </div>
-                    <input className={`Options-modelTitle ${titleUniqueError || titleLongError ? 'Options-modelTitleError' : ''}`} type='text'
+                    <input className={`Options-modelTitle ${titleUniqueError || titleLongError || titleEmptyError ? 'Options-modelTitleError' : ''}`} type='text'
                     onChange={(evt) => this.onNewModelName(evt)} placeholder='Title (required)' value={this.state.saveTitle}/>
                     {titleUniqueError && (
                         <div className='Options-titleError'>
@@ -142,6 +152,11 @@ class Options extends Component {
                     {titleLongError && (
                         <div className='Options-titleError'>
                             This title is too long
+                        </div>
+                    )}
+                    {titleEmptyError && (
+                        <div className='Options-titleError'>
+                            Title cannot be empty
                         </div>
                     )}
                     <textarea className={`Options-modelDescription ${descriptionError ? 'Options-modelDescriptionError' : ''}`} type='text'
