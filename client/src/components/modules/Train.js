@@ -26,13 +26,15 @@ class Train extends Component {
         this.setState({
             isGettingReady: true,
         });
-        let nnOptions = {
+        const epochs = Number(this.state.epochs);
+        const batchSize = Number(this.state.batchSize);
+        const nnOptions = {
             inputs: this.props.inputs,
             outputs: this.props.outputs,
             task: this.props.isRegression ? 'regression' : 'classification',
             debug: false,
-            epochs: Number(this.state.epochs),
-            batchSize: Number(this.state.batchSize),
+            epochs: epochs,
+            batchSize: batchSize,
         }
         // initialize the neural network
         let neuralNetwork = ml5.neuralNetwork(nnOptions);
@@ -55,7 +57,7 @@ class Train extends Component {
                 neuralNetwork.addData(x, y);
             })
             neuralNetwork.normalizeData();
-            this.trainModel();
+            this.trainModel(epochs, batchSize);
         })
     }
     startModelAgain() {
@@ -74,14 +76,14 @@ class Train extends Component {
         this.setState({isFinishedTraining: true});
         this.props.onFinishTraining(this.state.neuralNetwork);
     }
-    trainModel() {
+    trainModel(epochs, batchSize) {
         console.log(this.state.neuralNetwork);
         this.setState({
             isTraining: true,
         });
         let trainOptions = {
-            epochs: Number(this.state.epochs),
-            batchSize: Number(this.state.batchSize),
+            epochs: epochs,
+            batchSize: batchSize,
         };
         let whileTraining = (epochs, loss) => {
             this.whileTraining(epochs, loss.val_loss);

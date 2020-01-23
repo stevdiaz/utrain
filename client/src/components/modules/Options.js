@@ -11,9 +11,12 @@ class Options extends Component {
             saveTitle: "",
             saveDescription: "",
             isExport: false,
+            exportTitle: "",
             isShare: false,
             titles: [],
-            error: 'None',
+            titleError: 'None',
+            descriptionError: 'None',
+            hover: null,
         }
         this.ERROR_UNIQUE = 'Unique';
         this.ERROR_TITLE_LONG = 'Title Long';
@@ -22,12 +25,15 @@ class Options extends Component {
         this.ERROR_TITLE_EMPTY = 'Title Empty';
         this.TITLE_LIMIT = 30;
         this.DESCRIPTION_LIMIT = 70;
+        this.SAVE = 'save';
+        this.EXPORT = 'export';
+        this.SHARE = 'share';
     }
     componentDidMount() {
         get('/api/models/names').then((titles) => {
             console.log(titles);
             this.setState({
-                titles: titles,
+                titles: titles.map(title => title.title),
             });
         });
         // catch any other titles the user uses after this call is made
@@ -44,14 +50,19 @@ class Options extends Component {
             isSave: true,
         });
     }
+    onExport() {
+        this.setState({
+            isExport: true,
+        });
+    }
     onConfirmSave() {
         if (this.state.saveTitle.length === 0) {
             this.setState({
-                error: this.ERROR_TITLE_EMPTY,
+                titleError: this.ERROR_TITLE_EMPTY,
             });
         }
         else if (this.props.isData && this.state.error === this.ERROR_NONE) {
-            console.log('saving to db');
+            console.log('saving to db...');
             let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
             let epochs = this.props.neuralNetwork.config.training.epochs;
             let batchSize = this.props.neuralNetwork.config.training.batchSize;
@@ -72,8 +83,38 @@ class Options extends Component {
                 this.onResetFields();
             });
         }
+        else if (!this.props.isData && this.state.error === this.ERROR_NONE) {
+            console.log('saving to db...');
+            let epochs = this.props.neuralNetwork.config.epochs;
+            let batchSize = this.props.neuralNetwork.config.batchSize;
+            const body = {
+                title: this.state.saveTitle,
+                description: this.state.saveDescription,
+                epochs: epochs,
+                batchSize: batchSize,
+                classes: this.props.classes,
+                images: this.props.images,
+            };
+            post('/api/imagemodel', body).then(title => {
+                console.log('everything saved to db');
+                console.log(title);
+                this.onResetFields();
+            })
+        }
     }
-    onNewModelName(evt) {
+    onConfirmExport() {
+        const exportCallback = () => {
+            this.onResetFields();
+        }
+        let exportTitle = this.state.exportTitle.split(' ').join('_');
+        if (exportTitle.length === 0) {
+            this.props.neuralNetwork.save(exportCallback);
+        }
+        else {
+            this.props.neuralNetwork.save(exportCallback, exportTitle);
+        }
+    }
+    onNewModelSaveName(evt) {
         let errorString = this.ERROR_NONE;
         let title = evt.target.value;
         if (title.length > this.TITLE_LIMIT) {
@@ -87,7 +128,12 @@ class Options extends Component {
         }
         this.setState({
             saveTitle: evt.target.value,
-            error: errorString,
+            titleError: errorString,
+        });
+    }
+    onNewModelExportName(evt) {
+        this.setState({
+            exportTitle: evt.target.value,
         });
     }
     onNewModelDescription(evt) {
@@ -98,8 +144,8 @@ class Options extends Component {
         }
         this.setState({
             saveDescription: evt.target.value,
-            error: errorString,
-        });
+            descriptionError: errorString,
+        })
     }
     onResetFields() {
         this.setState({
@@ -107,12 +153,25 @@ class Options extends Component {
             saveTitle: "",
             saveDescription: "",
             isExport: false,
+            exportTitle: "",
             isShare: false,
-            error: 'None',
-        })
+            titleError: this.ERROR_NONE,
+            descriptionError: this.ERROR_NONE,
+            hover: null,
+        });
     }
     onBackArrow() {
         this.onResetFields();
+    }
+    onEnter(state) {
+        this.setState({
+            hover: state,
+        });
+    }
+    onLeaveAny() {
+        this.setState({
+            hover: null,
+        });
     }
     render() {
         let innerComponents = (
@@ -120,30 +179,40 @@ class Options extends Component {
                 <div className='Options-question'>
                     How would you like to use your model?
                 </div>
-                <div className='Options-button Options-save' onClick={() => this.onSave()}>
+                <div className='Options-button Options-save' onClick={() => this.onSave()} onMouseEnter={() => this.onEnter(this.SAVE)} onMouseLeave={() => this.onLeaveAny()}>
                     Save
                 </div>
-                <div className='Options-button Options-exportModel'>
+                {this.state.hover === this.SAVE && (
+                    <div className='Options-under'>
+                        Save the model's settings and data to your account
+                    </div>
+                )}
+                <div className='Options-button Options-export' onClick={() => this.onExport()} onMouseEnter={() => this.onEnter(this.EXPORT)} onMouseLeave={() => this.onLeaveAny()}>
                     Export
                 </div>
-                <div className='Options-button Options-shareModel'>
+                {this.state.hover === this.EXPORT && (
+                    <div className='Options-under'>
+                        Export the model to use in your personal project
+                    </div>
+                )}
+                <div className='Options-button Options-share'>
                     Share
                 </div>
             </>
         );
         if (this.state.isSave) {
-            let titleUniqueError = this.state.error === this.ERROR_UNIQUE;
-            let titleLongError = this.state.error === this.ERROR_TITLE_LONG;
-            let titleEmptyError = this.state.error === this.ERROR_TITLE_EMPTY;
-            let descriptionError = this.state.error === this.ERROR_DESCRIPTION_LONG;
-            let noError = this.state.error === this.ERROR_NONE;
+            let titleUniqueError = this.state.titleError === this.ERROR_UNIQUE;
+            let titleLongError = this.state.titleError === this.ERROR_TITLE_LONG;
+            let titleEmptyError = this.state.titleError === this.ERROR_TITLE_EMPTY;
+            let descriptionError = this.state.descriptionError === this.ERROR_DESCRIPTION_LONG;
+            let noError = this.state.titleError === this.ERROR_NONE && this.state.descriptionError === this.ERROR_NONE;
             innerComponents = (
                 <div className='Options-saveOptions'>
                     <div className='Options-saveDescription'>
                         Give your model a unique title and a short description to remember it
                     </div>
                     <input className={`Options-modelTitle ${titleUniqueError || titleLongError || titleEmptyError ? 'Options-modelTitleError' : ''}`} type='text'
-                    onChange={(evt) => this.onNewModelName(evt)} placeholder='Title (required)' value={this.state.saveTitle}/>
+                    onChange={(evt) => this.onNewModelSaveName(evt)} placeholder='Title (required)' value={this.state.saveTitle}/>
                     {titleUniqueError && (
                         <div className='Options-titleError'>
                             You have used this title already
@@ -171,6 +240,27 @@ class Options extends Component {
                         <div className={`Options-button Options-save Options-secondSave ${!noError ? 'Options-buttonDisabled' : ''}`} 
                         onClick={() => this.onConfirmSave()}>
                             Save
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        if (this.state.isExport) {
+            const exportTitle = this.state.exportTitle.length === 0 ? 'model' : this.state.exportTitle.split(' ').join('_');
+            const textFileValue = `Once exported, you'll find the two files ${exportTitle}.json and ${exportTitle}.weights.bin added to your downloads. \n For help on loading these files into your project, visit the ml5.js documentation.`;
+            innerComponents = (
+                <div className='Options-exportOptions'>
+                    <div className='Options-exportDescription'>
+                        Give your model a title to export it to your machine
+                    </div>
+                    <input className='Options-modelTitle' type='text'
+                    onChange={(evt) => this.onNewModelExportName(evt)} placeholder='model' value={this.state.exportTitle}/>
+                    <textarea className={'Options-exportExplanation'} type='text' readOnly value={textFileValue} />
+                    <div className='Options-backRow'>
+                        <img className='Options-backImage' src={require('../../public/back_arrow.png')} onClick={(evt) => this.onBackArrow()}/>
+                        <div className='Options-button Options-export Options-secondExport' 
+                        onClick={() => this.onConfirmExport()}>
+                            Export
                         </div>
                     </div>
                 </div>

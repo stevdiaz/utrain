@@ -44,6 +44,11 @@
 .Options-save {
     margin-top: 15px;
 }
+.Options-under {
+    font-size: 12px;
+    text-align: center;
+    margin-top: -15px;
+}
 .Options-button:hover {
     background-color: rgb(177, 172, 255);
     cursor: pointer;
@@ -133,4 +138,33 @@
 .Options-backRow {
     display: flex;
     flex-direction: row;
+}
+.Options-exportOptions {
+    display: grid;
+    flex-direction: column;
+}
+.Options-exportDescription {
+    margin: 10px;
+    align-items: center;
+    text-align: center;
+}
+.Options-exportExplanation {
+    align-items: center;
+    text-align: center;
+    font-size: 13px;
+    resize: none;
+    height: 100px;
+    width: 294px;
+    font-family: 'Poppins', sans-serif;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: transparent;
+}
+.Options-exportExplanation:focus {
+    outline: none;
+}
+.Options-secondExport {
+    margin-left: 15px;
 }

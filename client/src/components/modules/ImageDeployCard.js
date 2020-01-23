@@ -25,7 +25,7 @@ class ImageDeployCard extends Component {
                 </div>
                 <div className='ImageDeployCard-components'>
                     <ImagePredict neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} />
-                    <Options />
+                    <Options neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} images={this.props.images}/>
                 </div>
             </div>
         )

@@ -46,8 +46,8 @@ class ImageTrain extends Component {
             isGettingReady: true,
         });
         const options = {
-            epochs: this.state.epochs,
-            batchSize: this.state.batchSize,
+            epochs: Number(this.state.epochs),
+            batchSize: Number(this.state.batchSize),
             numLabels: Math.max(this.props.classes.length, 2),
         };
         // initialize the classifier
