@@ -6,6 +6,8 @@ import 'filepond/dist/filepond.min.css';
 import DataModel from './pages/DataModel';
 import ImageModel from './pages/ImageModel';
 import Create from './pages/Create';
+import NavBar from './modules/NavBar';
+import Home from './pages/Home';
 
 import "../utilities.css";
 
@@ -52,8 +54,10 @@ class App extends Component {
   render() {
     return (
       <>
+        <NavBar handleLogin={(res) => this.handleLogin(res)} handleLogout={() => this.handleLogout()} userId={this.state.userId} />
         <Router>
-          <Create path="/"/>
+          <Home path="/"/>
+          <Create path="/create" />
           <DataModel path='/datamodel'/>
           <ImageModel path='/imagemodel'/>
           <NotFound default />

@@ -1,4 +1,5 @@
 var stringify = require('json-stringify-safe');
+var sizeof = require('object-sizeof');
 /**
  * Utility functions to make API requests.
  * By importing this file, you can use the provided get and post functions.
@@ -54,7 +55,7 @@ export function post(endpoint, params = {}) {
   return fetch(endpoint, {
     method: "post",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify(params),
+    body: stringify(params),
   })
     .then(convertToJSON) // convert result to JSON object
     .catch((error) => {

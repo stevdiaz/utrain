@@ -23,6 +23,7 @@ class Predict extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.neuralNetwork !== null && prevProps.neuralNetwork === null) {
             // neural network coming in
+            console.log(this.props.neuralNetwork);
             let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
             let classes = [];
             if (!isRegression) {

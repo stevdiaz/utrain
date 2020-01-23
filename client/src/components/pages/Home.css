@@ -1,0 +1,16 @@
+.Home-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 200px;
+}
+.Home-title {
+    font-size: 45px;
+    margin: 50px;
+}
+.Home-description {
+    font-size: 19px;
+}

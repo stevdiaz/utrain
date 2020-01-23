@@ -35,9 +35,9 @@ const socket = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-const mongoConnectionURL = "FILL ME IN";
+const mongoConnectionURL = process.env.ATLAS_SRV;
 // TODO change database name to the name you chose
-const databaseName = "FILL ME IN";
+const databaseName = "utrain";
 
 // connect to mongodb
 mongoose
@@ -53,6 +53,10 @@ mongoose
 const app = express();
 app.use(validator.checkRoutes);
 
+var bodyParser = require('body-parser')
+app.use(bodyParser.json({limit: '100mb'}));
+app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+
 // allow us to process POST requests
 app.use(express.json());
 
@@ -60,7 +64,7 @@ app.use(express.json());
 // set up a session, which will persist login data across requests
 app.use(
   session({
-    secret: "session-secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })

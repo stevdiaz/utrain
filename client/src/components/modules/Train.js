@@ -31,6 +31,8 @@ class Train extends Component {
             outputs: this.props.outputs,
             task: this.props.isRegression ? 'regression' : 'classification',
             debug: false,
+            epochs: Number(this.state.epochs),
+            batchSize: Number(this.state.batchSize),
         }
         // initialize the neural network
         let neuralNetwork = ml5.neuralNetwork(nnOptions);
@@ -119,10 +121,6 @@ class Train extends Component {
     }
     render() {
         let trainButton;
-        console.log(this.props.fileURL);
-        console.log(this.props.inputs);
-        console.log(this.props.outputs);
-        console.log(this.props.isRegression);
         let advancedInputs = (
             <div className='Train-advanced'>
                 Advanced Features

@@ -3,6 +3,7 @@ import './ImagePredict.css';
 import ImagePredictUpload from './ImagePredictUpload';
 import BarGraph from './BarGraph';
 import * as ml5 from 'ml5';
+import { post } from '../../utilities';
 
 class ImagePredict extends Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class ImagePredict extends Component {
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.neuralNetwork === null && this.props.neuralNetwork !== null) {
-            // neural network coming in
             let videoElement = document.getElementById('ImagePredictWebcam');
             this.props.neuralNetwork.classify(videoElement, (error, results) => this.onPrediction(error, results));
         }

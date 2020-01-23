@@ -23,36 +23,40 @@ class FileUpload extends Component{
         this.setState({
             fileName: file.name,
         });
-        const objectURL = window.URL.createObjectURL(file);
-        d3.csv(objectURL).then(data => {
-            console.log(data.length);
-            const options = data.columns;
-            // classify the types of these options
-            const types = {};
-            const values = {};
-            // assume all numbers
-            options.forEach(option => {
-                types[option] = 'N';
-                values[option] = new Set();
-            })
-            data.forEach(value => {
-                Object.keys(value).forEach(option => {
-                    if (isNaN(value[option])) {
-                        types[option] = 'C'; // not a number; assume classification
-                    }
-                    values[option].add(value[option]);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const fileSrc = event.target.result;
+            d3.csv(fileSrc).then(data => {
+                console.log(data.length);
+                const options = data.columns;
+                // classify the types of these options
+                const types = {};
+                const values = {};
+                // assume all numbers
+                options.forEach(option => {
+                    types[option] = 'N';
+                    values[option] = new Set();
                 })
-            });
-            options.forEach(option => {
-                if (types[option] === 'C' && values[option].size > 5) {
-                    // can not be classification
-                    types[option] = 'S';
-                }
-            });
-            console.log(types);
-            // tell parent file has been added
-            this.props.onFileAdded(objectURL, options, types);
-        })
+                data.forEach(value => {
+                    Object.keys(value).forEach(option => {
+                        if (isNaN(value[option])) {
+                            types[option] = 'C'; // not a number; assume classification
+                        }
+                        values[option].add(value[option]);
+                    })
+                });
+                options.forEach(option => {
+                    if (types[option] === 'C' && values[option].size > 5) {
+                        // can not be classification
+                        types[option] = 'S';
+                    }
+                });
+                console.log(types);
+                // tell parent file has been added
+                this.props.onFileAdded(fileSrc, options, types);
+            })
+        }
+        reader.readAsDataURL(file);
     }
     onFileRemoved() {
         this.setState({
