@@ -26,7 +26,6 @@ class ImageModel extends Component {
     }
     onFinishTraining(neuralNetwork) {
         console.log('updating neural network');
-        console.log(neuralNetwork);
         this.setState({
             neuralNetwork: neuralNetwork,
         });

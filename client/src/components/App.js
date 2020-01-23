@@ -8,6 +8,7 @@ import ImageModel from './pages/ImageModel';
 import Create from './pages/Create';
 import NavBar from './modules/NavBar';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 import "../utilities.css";
 
@@ -60,6 +61,7 @@ class App extends Component {
           <Create path="/create" />
           <DataModel path='/datamodel'/>
           <ImageModel path='/imagemodel'/>
+          <Profile path='/profile/:userId' />
           <NotFound default />
         </Router>
         

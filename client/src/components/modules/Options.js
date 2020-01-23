@@ -7,6 +7,7 @@ class Options extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
             isSave: false,
             isSaved: false,
             saveTitle: "",
@@ -72,6 +73,9 @@ class Options extends Component {
             });
         }
         else if (this.props.isData && noError) {
+            this.setState({
+                isLoading: true,
+            });
             console.log('saving to db...');
             let isRegression = this.props.neuralNetwork.config.architecture.task === 'regression';
             let epochs = this.props.neuralNetwork.config.training.epochs;
@@ -95,6 +99,9 @@ class Options extends Component {
             });
         }
         else if (!this.props.isData && noError) {
+            this.setState({
+                isLoading: true,
+            });
             console.log('saving to db...');
             let epochs = this.props.neuralNetwork.config.epochs;
             let batchSize = this.props.neuralNetwork.config.batchSize;
@@ -176,6 +183,7 @@ class Options extends Component {
     }
     onResetFields() {
         this.setState({
+            isLoading: false,
             isSave: false,
             saveTitle: "",
             saveDescription: "",
@@ -279,9 +287,9 @@ class Options extends Component {
                     )}
                     <div className='Options-backRow'>
                         <img className='Options-backImage' src={require('../../public/back_arrow.png')} onClick={(evt) => this.onBackArrow()}/>
-                        <div className={`Options-button Options-save Options-secondSave ${!noError ? 'Options-buttonDisabled' : ''}`} 
-                        onClick={() => this.onConfirmSave()}>
-                            Save
+                        <div className={`Options-button Options-save Options-secondSave ${this.state.isLoading || !noError ? 'Options-buttonDisabled' : ''}`} 
+                        onClick={() => !this.state.isLoading && this.onConfirmSave()}>
+                            {this.state.isLoading ? 'Saving' : 'Save'}
                         </div>
                     </div>
                 </div>
@@ -300,9 +308,9 @@ class Options extends Component {
                     <textarea className={'Options-exportExplanation'} type='text' readOnly value={textFileValue} />
                     <div className='Options-backRow'>
                         <img className='Options-backImage' src={require('../../public/back_arrow.png')} onClick={(evt) => this.onBackArrow()}/>
-                        <div className='Options-button Options-export Options-secondExport' 
-                        onClick={() => this.onConfirmExport()}>
-                            Export
+                        <div className={`Options-button Options-export Options-secondExport ${this.state.isLoading ? 'Options-buttonDisabled' : ''}`}
+                        onClick={() => !this.state.isLoading && this.onConfirmExport()}>
+                            {this.state.isLoading ? 'Exporting' : 'Export'}
                         </div>
                     </div>
                 </div>

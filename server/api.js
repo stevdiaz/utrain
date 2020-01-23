@@ -41,6 +41,11 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
+router.get("/user", (req, res) => {
+  User.findById(req.query.userid).then((user) => {
+    res.send(user);
+  });
+});
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
@@ -62,6 +67,7 @@ router.post("/imagemodel", (req, res) => {
     creator_name: req.user.name,
     title: req.body.title,
     description: req.body.description,
+    type: 'image',
   });
   let promises = [imageModel.save(), imageTitle.save()];
   Promise.all(promises).then((allData) => res.send(allData[1]));
@@ -88,6 +94,7 @@ router.post("/datamodel", (req, res) => {
     creator_name: req.user.name,
     title: req.body.title,
     description: req.body.description,
+    type: 'data',
   });
   let promises = [dataModel.save(), dataTitle.save()];
   Promise.all(promises).then((allData) => res.send(allData[1]));
@@ -96,15 +103,24 @@ router.post("/datamodel", (req, res) => {
 
 router.get("/models/names", (req, res) => {
   // only find the titles of models made by this user
-  Title.find({ creator_id: req.user._id }).then((titles) => res.send(titles));
+  Title.find({ creator_id: req.user._id }).sort({ timestamp: 1}).then((titles) => res.send(titles));
 });
 
-router.get("/models", (req, res) => {
-  const dataPromise = Data.find({ creator_id: req.user._id });
-  const imagePromise = Image.find({ creator_id: req.user._id });
-  const modelPromises = [dataPromise, imagePromise];
-  Promise.all(modelPromises).then((allData) => res.send(allData));
-});
+// router.get("/models", (req, res) => {
+//   const dataPromise = Data.find({ creator_id: req.user._id });
+//   const imagePromise = Image.find({ creator_id: req.user._id });
+//   const modelPromises = [dataPromise, imagePromise];
+//   Promise.all(modelPromises).then((allData) => res.send(allData));
+// });
+
+router.get('/model', (req, res) => {
+  if (req.query.type === 'data') {
+    Data.findOne({ creator_id: req.user._id, title: req.query.title}).then((model) => res.send(model));
+  }
+  else if (req.query.type === 'image') {
+    Image.findOne({ creator_id: req.user._id, title: req.query.title}).then((model) => res.send(model));
+  }
+})
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
