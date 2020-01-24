@@ -20,21 +20,6 @@ class ImageCollectCard extends Component {
     componentDidMount() {
 
     }
-    // onFileAdded(fileURL, options, types) {
-    //     this.setState({
-    //         fileURL: fileURL,
-    //         options: options,
-    //         types: types
-    //     });
-    // }
-    // onFileRemoved() {
-    //     this.setState({
-    //         fileURL: null,
-    //         options: [],
-    //         types: {},
-    //     });
-    //     this.props.onRemoval();
-    // }
     onCapture(imageSrc, selectedClassIndex) {
         this.setState({
             imageSrc: imageSrc,
@@ -76,7 +61,7 @@ class ImageCollectCard extends Component {
                 <div className='ImageCollectCard-components'>
                     <ImageUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes}
                     onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)}/>
-                    <ImageSettings imageSrc={this.state.imageSrc} imageSrcs={this.state.imageSrcs} selectedClassIndex={this.state.selectedClassIndex}
+                    <ImageSettings savedData={this.props.savedData} imageSrc={this.state.imageSrc} imageSrcs={this.state.imageSrcs} selectedClassIndex={this.state.selectedClassIndex}
                     onNewClass={(newClassName) => this.onNewClass(newClassName)} onRenameClass={(newClassName, classIndex) => this.onRenameClass(newClassName, classIndex)}
                     onDeleteClass={(classIndex) => this.onDeleteClass(classIndex)} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>
                 </div>

@@ -5,6 +5,7 @@ import ImageTrainCard from '../modules/ImageTrainCard';
 import ImageDeployCard from '../modules/ImageDeployCard';
 import DataTrainCard from '../modules/DataTrainCard';
 import DataDeployCard from '../modules/DataDeployCard';
+import { get } from '../../utilities';
 
 class ImageModel extends Component {
     constructor(props) {
@@ -12,11 +13,23 @@ class ImageModel extends Component {
         this.state = {
             classes: null,
             images: null,
+            savedData: null,
             neuralNetwork: null,
         };
     }
     componentDidMount() {
-
+        if (this.props.name) {
+            const body = {
+                title: this.props.name,
+                type: 'image',
+            };
+            get('/api/model', body).then((savedData) => {
+                console.log('retreived model with name ' + this.props.name);
+                this.setState({
+                    savedData: savedData,
+                })
+            })
+        }
     }
     onChangeImages(classes, images) {
         this.setState({
@@ -38,8 +51,8 @@ class ImageModel extends Component {
     render() {
         return (
             <div className='ImageModel-container'>
-                <ImageCollectCard onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>
-                <ImageTrainCard classes={this.state.classes} images={this.state.images}
+                <ImageCollectCard savedData={this.state.savedData} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>
+                <ImageTrainCard savedData={this.state.savedData} classes={this.state.classes} images={this.state.images}
                 onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
                 <ImageDeployCard neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} />
             </div>

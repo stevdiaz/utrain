@@ -8,6 +8,7 @@ class DataCollectCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            fileName: null,
             fileURL: null,
             options: [],
             types: {},
@@ -16,8 +17,9 @@ class DataCollectCard extends Component {
     componentDidMount() {
         
     }
-    onFileAdded(fileURL, options, types) {
+    onFileAdded(fileName, fileURL, options, types) {
         this.setState({
+            fileName: fileName,
             fileURL: fileURL,
             options: options,
             types: types
@@ -25,6 +27,7 @@ class DataCollectCard extends Component {
     }
     onFileRemoved() {
         this.setState({
+            fileName: null,
             fileURL: null,
             options: [],
             types: {},
@@ -32,7 +35,7 @@ class DataCollectCard extends Component {
         this.props.onRemoval();
     }
     onSelection(inputs, outputs, isRegression) {
-        this.props.onSelection(isRegression, inputs, outputs, this.state.fileURL, this.state.types);
+        this.props.onSelection(isRegression, inputs, outputs, this.state.fileName, this.state.fileURL, this.state.types);
     }
     render() {
         return (
@@ -41,7 +44,7 @@ class DataCollectCard extends Component {
                     Step 1: Collect Data
                 </div>
                 <div className='DataCollectCard-components'>
-                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileURL, options, types) => this.onFileAdded(fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
+                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
                     <DataSettings savedData={this.props.savedData} fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
                         onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)}/>
                 </div>

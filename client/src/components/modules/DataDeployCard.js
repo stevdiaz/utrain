@@ -35,7 +35,7 @@ class DataDeployCard extends Component {
                 <div className='DataDeployCard-components'>
                     <Predict inputs={this.props.inputs} outputs={this.props.outputs} neuralNetwork={this.props.neuralNetwork} types={this.props.types}/>
                     <Options inputs={this.props.inputs} outputs={this.props.outputs} neuralNetwork={this.props.neuralNetwork} types={this.props.types}
-                        fileURL={this.props.fileURL} isData={true}/>
+                        fileURL={this.props.fileURL} fileName={this.props.fileName} isData={true}/>
                 </div>
             </div>
         )

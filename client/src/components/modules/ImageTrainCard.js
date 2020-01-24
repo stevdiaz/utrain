@@ -37,7 +37,7 @@ class ImageTrainCard extends Component {
                     Step 2: Train Model
                 </div>
                 <div className='ImageTrainCard-components'>
-                    <ImageTrain onFinishTraining={neuralNetwork => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
+                    <ImageTrain savedData={this.props.savedData} onFinishTraining={neuralNetwork => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
                     onEpochEnd={(epoch, loss) => this.onEpochEnd(epoch, loss)} classes={this.props.classes} images={this.props.images}/>
                     <DisplayProgress epoch={this.state.epoch} loss={this.state.loss}/>
                 </div>

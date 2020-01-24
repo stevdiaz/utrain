@@ -18,7 +18,10 @@ class FileUpload extends Component{
         console.log('file upload updated');
         console.log(this.props.savedData);
         if (prevProps.savedData === null && this.props.savedData !== null) {
-            this.readData(this.props.savedData.csv);
+            this.setState({
+                fileName: this.props.savedData.fileName,
+            });
+            this.readData(this.props.savedData.fileName, this.props.savedData.csv);
         }
     }
     onFileAdded(file) {
@@ -32,11 +35,11 @@ class FileUpload extends Component{
         const reader = new FileReader();
         reader.onload = (event) => {
             const fileSrc = event.target.result;
-            this.readData(fileSrc);
+            this.readData(file.name, fileSrc);
         }
         reader.readAsDataURL(file);
     }
-    readData(fileSrc) {
+    readData(fileName, fileSrc) {
         d3.csv(fileSrc).then(data => {
             const options = data.columns;
             // classify the types of these options
@@ -63,7 +66,7 @@ class FileUpload extends Component{
             });
             console.log(types);
             // tell parent file has been added
-            this.props.onFileAdded(fileSrc, options, types);
+            this.props.onFileAdded(fileName, fileSrc, options, types);
         })
     }
     onFileRemoved() {

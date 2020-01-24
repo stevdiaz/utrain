@@ -12,12 +12,24 @@ class ImageTrain extends Component {
             epochs: 20,
             batchSize: 32,
             onEpoch: 0,
+            isUsingSaved: false,
         };
     }
     componentDidUpdate(prevProps, prevState) {
         console.log(prevProps.classes);
         console.log(this.props.classes);
-        if (this.props.classes === null || this.props.images === null) {
+        console.log(this.props.savedData);
+        console.log(this.props.images);
+        console.log(this.state.isUsingSaved);
+        if (this.props.savedData !== null && this.props.classes !== null && this.props.images !== null && !this.state.isUsingSaved) {
+            console.log('in if statement');
+            this.setState({
+                epochs: this.props.savedData.epochs,
+                batchSize: this.props.savedData.batchSize,
+                isUsingSaved: true,
+            }, () => this.startModel());
+        }
+        else if (this.props.classes === null || this.props.images === null) {
             // have not received anything yet
             return;
         }

@@ -95,6 +95,7 @@ class Options extends Component {
                 isRegression: isRegression,
                 types: this.props.types,
                 csv: this.props.fileURL,
+                fileName: this.props.fileName,
             };
             post('/api/datamodel', body).then(title => {
                 console.log('everything saved to db');

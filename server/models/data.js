@@ -11,6 +11,7 @@ const DataSchema = new mongoose.Schema({
   outputs: [String],
   isRegression: Boolean,
   csv: String,
+  fileName: String,
   timestamp: { type: Date, default: Date.now },
 });
 

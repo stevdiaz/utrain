@@ -13,6 +13,7 @@ class DataModel extends Component {
             isRegression: null,
             inputs: [],
             outputs: [],
+            fileName: null,
             fileURL: null,
             neuralNetwork: null,
             types: {},
@@ -24,7 +25,7 @@ class DataModel extends Component {
             const body = {
                 title: this.props.name,
                 type: 'data',
-            }
+            };
             get('/api/model', body).then((savedData) => {
                 console.log('retreived model with name ' + this.props.name);
                 this.setState({
@@ -33,11 +34,12 @@ class DataModel extends Component {
             });
         }
     }
-    onSelection(isRegression, inputs, outputs, fileURL, types) {
+    onSelection(isRegression, inputs, outputs, fileName, fileURL, types) {
         this.setState({
             isRegression: isRegression,
             inputs: inputs,
             outputs: outputs,
+            fileName: fileName,
             fileURL: fileURL,
             types: types,
         });
@@ -47,6 +49,7 @@ class DataModel extends Component {
             isRegression: null,
             inputs: [],
             outputs: [],
+            fileName: null,
             fileURL: null,
             neuralNetwork: null,
             types: {},
@@ -75,13 +78,13 @@ class DataModel extends Component {
                 logoSrc='/logo.png'
                 text='Here an introduction sentence (Optional)'>
                     <div className='DataModel-container'>
-                        <DataCollectCard savedData={this.state.savedData} onSelection={(isRegression, inputs, outputs, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileURL, types)}
+                        <DataCollectCard savedData={this.state.savedData} onSelection={(isRegression, inputs, outputs, fileName, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileName, fileURL, types)}
                         onRemoval={() => this.onRemoval()}/>
                         <DataTrainCard savedData={this.state.savedData} isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
                             onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
                             types={this.state.types}/>
                         <DataDeployCard inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}
-                            fileURL={this.state.fileURL} />
+                            fileURL={this.state.fileURL} fileName={this.state.fileName} />
                     </div>
                 </LoadingScreen>
 

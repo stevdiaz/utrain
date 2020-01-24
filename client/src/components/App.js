@@ -61,6 +61,7 @@ class App extends Component {
           <Create path='/create/' />
           <DataModel path='/datamodel/:name' />
           <DataModel path='/datamodel'/>
+          <ImageModel path='/imagemodel/:name' />
           <ImageModel path='/imagemodel'/>
           <Profile path='/profile/:userId' />
           <NotFound default />

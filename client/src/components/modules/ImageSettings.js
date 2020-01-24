@@ -37,6 +37,14 @@ class ImageSettings extends Component {
                 images: images,
             }, () => this.onChangeImageState());
         }
+        else if (prevProps.savedData === null && this.props.savedData !== null) {
+            let images = this.props.savedData.images;
+            let classes = this.props.savedData.classes;
+            this.setState({
+                images: images,
+                classes: classes,
+            }, () => this.onChangeImageState());
+        }
     }
     onChangeImageState() {
         // call this function when change the images in state

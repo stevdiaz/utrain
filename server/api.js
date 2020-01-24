@@ -90,6 +90,7 @@ router.post("/datamodel", (req, res) => {
     isRegression: req.body.isRegression,
     types: req.body.types,
     csv: req.body.csv,
+    fileName: req.body.fileName,
   });
   const dataMeta = new Meta({
     creator_id: req.user._id,
