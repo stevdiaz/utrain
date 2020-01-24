@@ -40,6 +40,7 @@ class ImageModel extends Component {
     onFinishTraining(neuralNetwork) {
         console.log('updating neural network');
         this.setState({
+            savedData: null,
             neuralNetwork: neuralNetwork,
         });
     }
@@ -54,7 +55,7 @@ class ImageModel extends Component {
                 <ImageCollectCard savedData={this.state.savedData} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>
                 <ImageTrainCard savedData={this.state.savedData} classes={this.state.classes} images={this.state.images}
                 onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
-                <ImageDeployCard neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} />
+                <ImageDeployCard savedData={this.state.savedData} neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} />
             </div>
         )
     }

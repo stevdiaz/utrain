@@ -64,6 +64,7 @@ class DataModel extends Component {
         });
     }
     onRestartTraining() {
+        console.log('restarting training');
         this.setState({
             neuralNetwork: null,
         });
@@ -83,7 +84,7 @@ class DataModel extends Component {
                         <DataTrainCard savedData={this.state.savedData} isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
                             onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
                             types={this.state.types}/>
-                        <DataDeployCard inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}
+                        <DataDeployCard savedData={this.state.savedData} inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}
                             fileURL={this.state.fileURL} fileName={this.state.fileName} />
                     </div>
                 </LoadingScreen>

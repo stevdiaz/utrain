@@ -16,11 +16,6 @@ class ImageTrain extends Component {
         };
     }
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevProps.classes);
-        console.log(this.props.classes);
-        console.log(this.props.savedData);
-        console.log(this.props.images);
-        console.log(this.state.isUsingSaved);
         if (this.props.savedData !== null && this.props.classes !== null && this.props.images !== null && !this.state.isUsingSaved) {
             console.log('in if statement');
             this.setState({

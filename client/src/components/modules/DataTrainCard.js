@@ -17,7 +17,7 @@ class DataTrainCard extends Component {
     onFinishTraining(neuralNetwork) {
         this.props.onFinishTraining(neuralNetwork);
     }
-    onRestartTraining(neuralNetwork) {
+    onRestartTraining() {
         this.props.onRestartTraining();
         this.setState({
             epoch: null,

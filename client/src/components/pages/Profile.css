@@ -52,6 +52,9 @@
 .Profile-description:hover {
     cursor: pointer;
 }
+.Profile-description:focus {
+    outline: none;
+}
 .Profile-descriptionEmpty {
     opacity: 0.6;
     font-style: italic;

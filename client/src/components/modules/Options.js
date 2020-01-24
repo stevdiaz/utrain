@@ -36,6 +36,7 @@ class Options extends Component {
         this.SAVED = 'saved';
         this.EXPORTED = 'exported';
         this.SHARED = 'shared';
+        this.DELETED = 'deleted';
     }
     componentDidMount() {
         get('/api/models/names').then((metas) => {
@@ -53,10 +54,36 @@ class Options extends Component {
             }
         });
         socket.on('delete-meta', (meta) => {
-            this.setState(prevState => ({
-                titles: prevState.titles.filter(title => title !== meta.title),
-            }))
+            console.log('delete title ' + meta.title);
+            if (this.state.isSaved && meta.title === this.state.saveTitle) {
+                // we have deleted ourselves
+                this.setState(prevState => ({
+                    titles: prevState.titles.filter(title => title !== meta.title),
+                    isSaved: false,
+                    saveTitle: "",
+                }));
+            }
+            else {
+                this.setState(prevState => ({
+                    titles: prevState.titles.filter(title => title !== meta.title),
+                }));
+            }
         });
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.savedData !== null && !this.state.isSaved) {
+            this.setState({
+                isSaved: true,
+                saveTitle: this.props.savedData.title,
+            });
+        }
+        else if (prevProps.neuralNetwork !== null && this.props.neuralNetwork === null) {
+            // new training session
+            this.setState({
+                isSaved: false,
+                saveTitle: "",
+            });
+        }
     }
     onSave() {
         this.setState({
@@ -69,6 +96,18 @@ class Options extends Component {
             isExport: true,
             success: null,
         });
+    }
+    onConfirmDelete() {
+        if (this.state.isSaved) {
+            const body = {
+                title: this.state.saveTitle,
+                type: this.props.isData ? 'data' : 'image',
+            };
+            post('/api/delete/model', body).then((meta) => {
+                console.log('deleted ' + meta.title);
+                this.setSuccess(this.DELETED);
+            });
+        }
     }
     onConfirmSave() {
         const noError = this.state.titleError === this.ERROR_NONE && this.state.descriptionError === this.ERROR_NONE;
@@ -97,9 +136,9 @@ class Options extends Component {
                 csv: this.props.fileURL,
                 fileName: this.props.fileName,
             };
-            post('/api/datamodel', body).then(title => {
+            post('/api/datamodel', body).then((meta) => {
                 console.log('everything saved to db');
-                console.log(title);
+                console.log(meta);
                 this.setSuccess(this.SAVED);
                 this.onResetFields();
             });
@@ -119,12 +158,12 @@ class Options extends Component {
                 classes: this.props.classes,
                 images: this.props.images,
             };
-            post('/api/imagemodel', body).then(title => {
+            post('/api/imagemodel', body).then(meta => {
                 console.log('everything saved to db');
-                console.log(title);
+                console.log(meta);
                 this.setSuccess(this.SAVED);
                 this.onResetFields();
-            })
+            });
         }
     }
     onConfirmExport() {
@@ -151,6 +190,12 @@ class Options extends Component {
         if (state === this.SAVED) {
             this.setState({
                 isSaved: true,
+            });
+        }
+        else if (state === this.DELETED) {
+            this.setState({
+                isSaved: false,
+                saveTitle: "",
             });
         }
     }
@@ -188,10 +233,15 @@ class Options extends Component {
         })
     }
     onResetFields() {
+        // only clear title if we aren't saved
+        if (!this.state.isSaved) {
+            this.setState({
+                saveTitle: "",
+            });
+        }
         this.setState({
             isLoading: false,
             isSave: false,
-            saveTitle: "",
             saveDescription: "",
             isExport: false,
             exportTitle: "",
@@ -216,7 +266,15 @@ class Options extends Component {
     }
     render() {
         // either we have saved the model here, or parent told us we saved model before
-        let isModelSaved = this.state.isSaved || this.props.isSaved 
+        let isModelSaved = this.state.isSaved;
+        let canSave = this.state.titles.length < 6;
+        let saveAdditionalClass = '';
+        if (isModelSaved) {
+            saveAdditionalClass = 'Options-buttonDelete';
+        }
+        else if (!canSave) {
+            saveAdditionalClass = 'Options-buttonDisabled';
+        }
         let innerComponents = (
             <> 
                 {this.state.success ? (
@@ -229,18 +287,30 @@ class Options extends Component {
                         How would you like to use your model?
                     </div>
                 )}
-                <div className={`Options-button Options-save ${isModelSaved ? 'Options-buttonDisabled' : ''}`} 
-                onClick={() => !isModelSaved && this.onSave()} onMouseEnter={() => this.onEnter(this.SAVE)} onMouseLeave={() => this.onLeaveAny()}>
-                    Save
+                <div className={`Options-button Options-save ${saveAdditionalClass}`} 
+                onClick={() => {
+                    if (isModelSaved) {
+                        this.onConfirmDelete();
+                    }
+                    else if (canSave) {
+                        this.onSave();
+                    }
+                }} onMouseEnter={() => this.onEnter(this.SAVE)} onMouseLeave={() => this.onLeaveAny()}>
+                    {isModelSaved ? 'Delete' : 'Save'}
                 </div>
-                {this.state.hover === this.SAVE && !isModelSaved && (
+                {this.state.hover === this.SAVE && !isModelSaved && canSave && (
                     <div className='Options-under'>
                         Save the model's settings and data to your account
                     </div>
                 )}
+                {this.state.hover === this.SAVE && !isModelSaved && !canSave && (
+                    <div className='Options-under'>
+                        Your account already has 6 saved models!
+                    </div>
+                )}
                 {this.state.hover === this.SAVE && isModelSaved && (
                     <div className='Options-under'>
-                        You have already saved this model to your account
+                        Delete this model's settings and data from your account
                     </div>
                 )}
                 <div className='Options-button Options-export' onClick={() => this.onExport()} onMouseEnter={() => this.onEnter(this.EXPORT)} onMouseLeave={() => this.onLeaveAny()}>

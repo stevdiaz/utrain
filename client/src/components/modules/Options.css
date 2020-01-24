@@ -45,6 +45,9 @@
 .Options-buttonDisabled {
     opacity: 0.6;
 }
+.Options-buttonDelete {
+    border: 2px solid rgb(241, 67, 67);
+}
 .Options-save {
     margin-top: 15px;
 }
@@ -64,6 +67,9 @@
 .Options-buttonDisabled:hover {
     cursor: auto;
     background-color: white;
+}
+.Options-buttonDelete:hover {
+    background-color: rgb(255, 183, 183);
 }
 .Options-button:focus {
     outline: none;
@@ -130,6 +136,11 @@
     font-size: 12px;
     color: rgb(241, 67, 67);
     margin-top: 0px;
+}
+.Options-saveError {
+    font-size: 12px;
+    color: rgb(241, 67, 67);
+    margin-left: 20px;
 }
 .Options-backImage {
     margin-top: 13px;

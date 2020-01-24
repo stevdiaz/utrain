@@ -15,10 +15,19 @@ class ImageCollectCard extends Component {
             fileURL: null,
             options: null,
             types: null,
+            isUsingSaved: false,
         }
     }
     componentDidMount() {
 
+    }
+    componentDidUpdate() {
+        if (this.props.savedData && !this.state.isUsingSaved) {
+            this.setState({
+                classes: this.props.savedData.classes,
+                isUsingSaved: true,
+            });
+        }
     }
     onCapture(imageSrc, selectedClassIndex) {
         this.setState({
