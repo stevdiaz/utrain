@@ -14,49 +14,57 @@ class FileUpload extends Component{
     componentDidMount() {
 
     }
+    componentDidUpdate(prevProps) {
+        console.log('file upload updated');
+        console.log(this.props.savedData);
+        if (prevProps.savedData === null && this.props.savedData !== null) {
+            this.readData(this.props.savedData.csv);
+        }
+    }
     onFileAdded(file) {
         if (this.state.fileName !== null) {
             // first remove any previous file
             this.onFileRemoved();
         }
-        console.log('file added!');
         this.setState({
             fileName: file.name,
         });
         const reader = new FileReader();
         reader.onload = (event) => {
             const fileSrc = event.target.result;
-            d3.csv(fileSrc).then(data => {
-                console.log(data.length);
-                const options = data.columns;
-                // classify the types of these options
-                const types = {};
-                const values = {};
-                // assume all numbers
-                options.forEach(option => {
-                    types[option] = 'N';
-                    values[option] = new Set();
-                })
-                data.forEach(value => {
-                    Object.keys(value).forEach(option => {
-                        if (isNaN(value[option])) {
-                            types[option] = 'C'; // not a number; assume classification
-                        }
-                        values[option].add(value[option]);
-                    })
-                });
-                options.forEach(option => {
-                    if (types[option] === 'C' && values[option].size > 5) {
-                        // can not be classification
-                        types[option] = 'S';
-                    }
-                });
-                console.log(types);
-                // tell parent file has been added
-                this.props.onFileAdded(fileSrc, options, types);
-            })
+            this.readData(fileSrc);
         }
         reader.readAsDataURL(file);
+    }
+    readData(fileSrc) {
+        d3.csv(fileSrc).then(data => {
+            const options = data.columns;
+            // classify the types of these options
+            const types = {};
+            const values = {};
+            // assume all numbers
+            options.forEach(option => {
+                types[option] = 'N';
+                values[option] = new Set();
+            })
+            data.forEach(value => {
+                Object.keys(value).forEach(option => {
+                    if (isNaN(value[option])) {
+                        types[option] = 'C'; // not a number; assume classification
+                    }
+                    values[option].add(value[option]);
+                })
+            });
+            options.forEach(option => {
+                if (types[option] === 'C' && values[option].size > 5) {
+                    // can not be classification
+                    types[option] = 'S';
+                }
+            });
+            console.log(types);
+            // tell parent file has been added
+            this.props.onFileAdded(fileSrc, options, types);
+        })
     }
     onFileRemoved() {
         this.setState({

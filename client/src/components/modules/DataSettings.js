@@ -9,6 +9,7 @@ class DataSettings extends Component {
             outputs: [], 
             isRegression: false,
             isHovered: false,
+            isUsingSaved: false,
         };
     }
     componentDidMount() {
@@ -22,6 +23,14 @@ class DataSettings extends Component {
                 outputs: [],
                 isRegression: false,
             });
+        }
+        if (this.props.savedData !== null && this.props.fileURL !== null && !this.state.isUsingSaved) {
+            this.setState({
+                inputs: this.props.savedData.inputs,
+                outputs: this.props.savedData.outputs,
+                isRegression: this.props.savedData.isRegression,
+                isUsingSaved: true,
+            }, () => this.callback());
         }
     }
     taskChanged(isRegression) {

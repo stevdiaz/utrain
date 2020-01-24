@@ -10,7 +10,6 @@ const DataSchema = new mongoose.Schema({
   inputs: [String],
   outputs: [String],
   isRegression: Boolean,
-  types: mongoose.Schema.Types.Mixed,
   csv: String,
   timestamp: { type: Date, default: Date.now },
 });

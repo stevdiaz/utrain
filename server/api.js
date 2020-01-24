@@ -13,7 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Image = require("./models/image");
 const Data = require("./models/data");
-const Title = require("./models/title");
+const Meta = require("./models/meta");
 
 // import authentication library
 const auth = require("./auth");
@@ -62,16 +62,18 @@ router.post("/imagemodel", (req, res) => {
     classes: req.body.classes,
     images: req.body.images,
   });
-  const imageTitle = new Title({
+  const imageMeta = new Meta({
     creator_id: req.user._id,
     creator_name: req.user.name,
     title: req.body.title,
     description: req.body.description,
     type: 'image',
   });
-  let promises = [imageModel.save(), imageTitle.save()];
-  Promise.all(promises).then((allData) => res.send(allData[1]));
-  socket.getSocketFromUserID(req.user._id).emit("title", req.body.title);
+  let promises = [imageModel.save(), imageMeta.save()];
+  Promise.all(promises).then((allData) => {
+    res.send(allData[1]);
+    socket.getSocketFromUserID(req.user._id).emit("create-meta", allData[1]);
+  });
 });
 
 router.post("/datamodel", (req, res) => {
@@ -89,21 +91,44 @@ router.post("/datamodel", (req, res) => {
     types: req.body.types,
     csv: req.body.csv,
   });
-  const dataTitle = new Title({
+  const dataMeta = new Meta({
     creator_id: req.user._id,
     creator_name: req.user.name,
     title: req.body.title,
     description: req.body.description,
     type: 'data',
   });
-  let promises = [dataModel.save(), dataTitle.save()];
-  Promise.all(promises).then((allData) => res.send(allData[1]));
-  socket.getSocketFromUserID(req.user._id).emit("title", req.body.title);
+  let promises = [dataModel.save(), dataMeta.save()];
+  Promise.all(promises).then((allData) => {
+    console.log(allData[1]);
+    res.send(allData[1]);
+    socket.getSocketFromUserID(req.user._id).emit("create-meta", allData[1]);
+  });
 });
 
+router.post('/delete/model', (req, res) => {
+  console.log('deleting');
+  console.log(req.body.title);
+  console.log(req.body.type);
+  let metaPromise = Meta.findOneAndDelete({ creator_id: req.user._id, title: req.body.title });
+  let modelPromise;
+  if (req.body.type === 'data') {
+    modelPromise = Data.findOneAndDelete({ creator_id: req.user._id, title: req.body.title });
+  }
+  else if (req.body.type === 'image') {
+    modelPromise = Image.findOneAndDelete({ creator_id: req.user._id, title: req.body.title });
+  }
+  let promises = [modelPromise, metaPromise];
+  Promise.all(promises).then((allData) => {
+    console.log('deleted');
+    res.send(allData[1]);
+    socket.getSocketFromUserID(req.user._id).emit('delete-meta', allData[1]);
+  });
+})
+
 router.get("/models/names", (req, res) => {
-  // only find the titles of models made by this user
-  Title.find({ creator_id: req.user._id }).sort({ timestamp: 1}).then((titles) => res.send(titles));
+  // only find the metas of models made by this user
+  Meta.find({ creator_id: req.user._id }).sort({ timestamp: 1}).then((metas) => res.send(metas));
 });
 
 // router.get("/models", (req, res) => {

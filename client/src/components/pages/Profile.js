@@ -1,50 +1,104 @@
 import React, { Component } from 'react';
 import './Profile.css';
+import { Link, Redirect } from '@reach/router';
 import { post, get } from '../../utilities';
+import { socket } from '../../client-socket';
+
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: null,
-            titles: null,
+            metas: null,
+            hover: null,
+            pathName: null,
         }
     }
     componentDidMount() {
         get('/api/user', { userid: this.props.userId }).then((user) => this.setState({ user: user }));
-        get('/api/models/names').then((titles) => this.setState({titles: titles}));
+        get('/api/models/names').then((metas) => this.setState({metas: metas}));
+        // catch any metas the user has deleted on separate browser
+        socket.on('delete-meta', (meta) => {
+            this.setState(prevState => ({
+                metas: prevState.metas.filter((prevMeta) => prevMeta.title != meta.title),
+            }));
+        });
+        socket.on('create-meta', (meta) => {
+            this.setState(prevState => ({
+                metas: prevState.metas.concat([meta]),
+            }));
+        });
+    }
+    onEnterCard(title) {
+        this.setState({
+            hover: title,
+        });
+    }
+    onLeaveCard() {
+        this.setState({
+            hover: null,
+        });
+    }
+    onDeleteCard(meta) {
+        const body = {
+            title: meta.title,
+            type: meta.type,
+        };
+        post('/api/delete/model', body).then((meta) => {
+            console.log('deleted ' + meta.title);
+            this.setState(prevState => ({
+                metas: prevState.metas.filter((prevMeta) => prevMeta.title != meta.title)
+            }));
+        });
+    }
+    onLoadSavedModel(pathName) {
+        this.setState({
+            pathName: pathName,
+        });
     }
     render() {
-        if (this.state.user === null || this.state.titles === null) {
+        if (this.state.user === null || this.state.metas === null) {
             return (
                 <div className='Profile-container'>
                     Loading...
                 </div>
             )
         }
+        else if (this.state.pathName) {
+            return (
+                <Redirect to={this.state.pathName} />
+            )
+        }
         else {
-            console.log(this.state.titles);
-            let models = this.state.titles.map(title => {
+            let models = this.state.metas.map(meta => {
                 let modelType;
-                if (title.type === 'image') {
-                    modelType = 'Image Model'
+                let pathName;
+                if (meta.type === 'image') {
+                    modelType = 'Image Model';
+                    pathName = `/imagemodel/${meta.title}`;
                 }
                 else {
                     modelType = 'Data Model'
+                    pathName = `/datamodel/${meta.title}`;
                 } 
                 return (
-                    <div className='Profile-savedCard'>
-                        <div className='Profile-title'>
-                            {title.title}
+                    <div className='Profile-savedCard' key={meta.title} onMouseEnter={(evt) => this.onEnterCard(meta.title)} onMouseLeave={(evt) => this.onLeaveCard()}>
+                        <div className='Profile-title' key={meta.title + 'title'} onClick={(evt) => this.onLoadSavedModel(pathName)}>
+                            {meta.title}
                         </div>
-                        <div className='Profile-type'>
+                        <div className='Profile-type' key={meta.title + 'type'} onClick={(evt) => this.onLoadSavedModel(pathName)}>
                             {modelType}
                         </div>
-                        <textarea className={`Profile-description ${title.description === '' ? 'Profile-descriptionEmpty' : ''}`}
-                        type='text' value={title.description === '' ? 'No description available' : title.description} readOnly />
+                        <textarea className={`Profile-description ${meta.description === '' ? 'Profile-descriptionEmpty' : ''}`}
+                        type='text' value={meta.description === '' ? 'No description available' : meta.description} readOnly key={meta.title + 'text'} onClick={(evt) => this.onLoadSavedModel(pathName)}/>
+                        {this.state.hover === meta.title && (
+                            <div className='Profile-deleteCard' onClick={(evt) => this.onDeleteCard(meta)} key={meta.title + 'delete'}>Delete Model</div>
+                        )}
                     </div>
                 );
             })
+            const numModels = this.state.metas.length;
             return (
                 <div className='Profile-container'>
                     <div className='Profile-name'>
@@ -54,7 +108,7 @@ class Profile extends Component {
                         Saved Models
                     </div>
                     <div className='Profile-explanation'>
-                        You have {this.state.titles.length} saved models. You can have at most 6 saved models at a time.
+                        {`You have ${numModels} saved model${numModels !== 1 ? 's' : ''}. You can have up to 6 saved models at a time.`}
                     </div>
                     <div className='Profile-titles'>
                         {models}

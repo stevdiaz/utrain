@@ -38,19 +38,24 @@ class Options extends Component {
         this.SHARED = 'shared';
     }
     componentDidMount() {
-        get('/api/models/names').then((titles) => {
-            console.log(titles);
+        get('/api/models/names').then((metas) => {
+            console.log(metas);
             this.setState({
-                titles: titles.map(title => title.title),
+                titles: metas.map(meta => meta.title),
             });
         });
         // catch any other titles the user uses after this call is made
-        socket.on('title', (title) => {
-            if (!this.state.titles.includes(title)) {
+        socket.on('create-meta', (meta) => {
+            if (!this.state.titles.includes(meta.title)) {
                 this.setState(prevState => ({
-                    titles: prevState.titles.concat([title]),
+                    titles: prevState.titles.concat([meta.title]),
                 }));
             }
+        });
+        socket.on('delete-meta', (meta) => {
+            this.setState(prevState => ({
+                titles: prevState.titles.filter(title => title !== meta.title),
+            }))
         });
     }
     onSave() {

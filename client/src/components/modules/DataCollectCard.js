@@ -14,7 +14,7 @@ class DataCollectCard extends Component {
         }
     }
     componentDidMount() {
-
+        
     }
     onFileAdded(fileURL, options, types) {
         this.setState({
@@ -41,8 +41,8 @@ class DataCollectCard extends Component {
                     Step 1: Collect Data
                 </div>
                 <div className='DataCollectCard-components'>
-                    <FileUpload onFileAdded={(fileURL, options, types) => this.onFileAdded(fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
-                    <DataSettings fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
+                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileURL, options, types) => this.onFileAdded(fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
+                    <DataSettings savedData={this.props.savedData} fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
                         onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)}/>
                 </div>
             </div>

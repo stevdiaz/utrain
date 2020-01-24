@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TitleSchema = new mongoose.Schema({
+const MetaSchema = new mongoose.Schema({
   creator_id: String,
   creator_name: String,
   title: String,
@@ -10,4 +10,4 @@ const TitleSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("title", TitleSchema);
+module.exports = mongoose.model("meta", MetaSchema);

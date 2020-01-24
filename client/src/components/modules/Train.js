@@ -13,12 +13,21 @@ class Train extends Component {
             epochs: 20,
             batchSize: 32,
             onEpoch: 0,
+            isUsingSaved: false,
         };
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.inputs !== this.props.inputs || prevProps.outputs !== this.props.outputs ||
             prevProps.fileURL !== this.props.fileURL || prevProps.isRegression !== this.props.isRegression) {
                 this.clearFields();
+        }
+        if (this.props.fileURL !== null && this.props.inputs.length !== 0 && this.props.outputs.length !== 0 && this.props.isRegression !== null &&
+            this.props.savedData !== null && !this.state.isUsingSaved) {
+                this.setState({
+                    epochs: this.props.savedData.epochs,
+                    batchSize: this.props.savedData.batchSize,
+                    isUsingSaved: true,
+                }, () => this.startModel());
         }
     }
 
