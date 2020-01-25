@@ -47,7 +47,6 @@
 .Learn-outputNone {
     opacity: 0.6;
     font-style: italic;
-
 }
 .Learn-animal {
     height: 200px;
@@ -58,4 +57,7 @@
 }
 .Learn-graphImage {
     height: 350px;
+}
+.Learn-bold {
+    font-weight: 900;
 }

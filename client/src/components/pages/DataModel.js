@@ -71,24 +71,15 @@ class DataModel extends Component {
     }
     render() {
         return (
-            <LoadingScreen
-                loading={false}
-                bgColor='#f1f1f1'
-                spinnerColor='#9ee5f8'
-                textColor='#676767'
-                logoSrc='/logo.png'
-                text='Here an introduction sentence (Optional)'>
-                    <div className='DataModel-container'>
-                        <DataCollectCard savedData={this.state.savedData} onSelection={(isRegression, inputs, outputs, fileName, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileName, fileURL, types)}
-                        onRemoval={() => this.onRemoval()}/>
-                        <DataTrainCard savedData={this.state.savedData} isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
-                            onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
-                            types={this.state.types}/>
-                        <DataDeployCard savedData={this.state.savedData} inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}
-                            fileURL={this.state.fileURL} fileName={this.state.fileName} />
-                    </div>
-                </LoadingScreen>
-
+            <div className='DataModel-container'>
+                <DataCollectCard savedData={this.state.savedData} onSelection={(isRegression, inputs, outputs, fileName, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileName, fileURL, types)}
+                onRemoval={() => this.onRemoval()}/>
+                <DataTrainCard savedData={this.state.savedData} isRegression={this.state.isRegression} inputs={this.state.inputs} outputs={this.state.outputs} fileURL={this.state.fileURL}
+                    onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}
+                    types={this.state.types}/>
+                <DataDeployCard savedData={this.state.savedData} inputs={this.state.inputs} outputs={this.state.outputs} neuralNetwork={this.state.neuralNetwork} types={this.state.types}
+                    fileURL={this.state.fileURL} fileName={this.state.fileName} />
+            </div>
         )
     }
 }

@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import './Learn.css';
 import ImagePredictDropzone from '../modules/ImagePredictDropzone';
+import LineGraph from '../modules/LineGraph';
 import * as ml5 from 'ml5';
 
 class Learn extends Component {
     constructor(props) {
         super(props);
         let animals = ['lion', 'computer', 'penguin', 'basketball', 'dog', 'shoe', 'octopus', 'phone', 'cat'];
+        let epochs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        let losses = [0.9, 0.6, 0.5, 0.35, 0.3, 0.27, 0.25, 0.23, 0.2, 0.18];
+        let lossIndex = 1;
         this.state = {
             animals: animals,
             index: 0,
             classifier: null,
             predictedOutput: null,
+            epochs: epochs,
+            losses: losses,
+            lossIndex: lossIndex,
         }
     }
     componentDidMount() {
@@ -22,9 +29,10 @@ class Learn extends Component {
             })
         });
         setTimeout(() => this.changeAnimal(), 5000);
+        setTimeout(() => this.changeGraph(), 5000);
     }
     changeAnimal() {
-        if (this.state.index === 8) {
+        if (this.state.index === this.state.animals.length - 1) {
             this.setState({
                 index: 0,
             })
@@ -35,6 +43,19 @@ class Learn extends Component {
             }));
         }
         setTimeout(() => this.changeAnimal(), 5000);
+    }
+    changeGraph() {
+        if (this.state.lossIndex === this.state.losses.length) {
+            this.setState({
+                lossIndex: 1,
+            });
+        }
+        else {
+            this.setState(prevState => ({
+                lossIndex: prevState.lossIndex + 1,
+            }));
+        }
+        setTimeout(() => this.changeGraph(), 3000);
     }
     onFileAdded(fileSrc) {
         if (fileSrc === null) {
@@ -70,7 +91,7 @@ class Learn extends Component {
                     <div className='Learn-step'>
                         Step 1. Collect Data
                         <div className='Learn-stepDescription'>
-                            In order to train a machine learning model, we must give it data. Usually, the data is made up of inputs and outputs. The inputs are
+                            In order to train a machine learning model, we must give it data. Usually, the data is made up of <span className='Learn-bold'>inputs</span> and <span className='Learn-bold'>outputs</span>. The inputs are
                             what the trained model will be given. The outputs are what the trained model will try to predict. 
                         </div>
                     </div>
@@ -177,21 +198,21 @@ class Learn extends Component {
                         Step 2. Train model
                         <div className='Learn-stepDescription'>
                             Here, the model will pass through the given inputs and try to produce
-                            the correct corresponding outputs. One pass through the entire data is called an epoch. Each epoch, the model will split the data into
-                            different batches, or groups, depending on the batch size. At the end of each epoch, the model will have loss, a value which
-                            encapsulates how far away the model's predictions were from the given outputs, and it will tweak itself to lower this loss.
+                            the correct corresponding outputs. One pass through the entire data is called an <span className='Learn-bold'>epoch</span>. Each epoch, the model will split the data into
+                            different batches, or groups, depending on the <span className='Learn-bold'>batch size</span>. At the end of each epoch, the model will calculate <span className='Learn-bold'>loss</span>, a value which
+                            encapsulates how far away the model's predictions were from the given outputs, and it will tweak itself to lower this loss for the next epoch.
                         </div>
                     </div>
                     <div className='Learn-step'>
                         <div className='Learn-graph'>
-                            <img className='Learn-graphImage' src={require('../../public/loss_graph.png')} />
+                            <LineGraph epochs={this.state.epochs.slice(0, this.state.lossIndex)} losses={this.state.losses.slice(0, this.state.lossIndex)} />
                         </div>
                     </div>
                     <div className='Learn-step'>
                         Step 3. Use Your Model
                         <div className='Learn-stepDescription'>
                             Once the model finishes training, it is ready to take inputs and make predictions! If you're happy with the model at this point, you
-                            can save it's data to your account or export it to use on your machine. Otherwise, you can experiment with the epoch value and train again!
+                            can save it's data to your account or export it to use on your projects. Otherwise, you can experiment with the epoch value and train again!
                         </div>
                     </div>
                     <div className='Learn-step'>
