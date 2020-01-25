@@ -157,9 +157,9 @@ class Predict extends Component {
         let predictions;
         if (this.props.neuralNetwork === null) {
             predictions = (
-                <span>
+                <div className='Predict-instructions'>
                     Finish training your model to make predictions!
-                </span>
+                </div>
             )
         }
         else {

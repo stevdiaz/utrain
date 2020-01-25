@@ -176,7 +176,7 @@ class ImageTrain extends Component {
         if (this.props.classes === null || this.props.images === null || isClassEmpty) {
             trainButton = (
                 <span className='ImageTrain-noButton'>
-                    Finish selecting your data options to train your model!
+                    Finish selecting your data options to train!
                 </span>
             )
         }

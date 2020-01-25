@@ -74,8 +74,8 @@ class LineGraph extends Component {
         };
 
         return (
-            <div className='LineGraph-container'>
-                <Line height={500} width={700} data={data} options={options} />
+            <div className={`LineGraph-container ${this.props.isLearn ? 'LineGraph-learnContainer' : ''}`}>
+                <Line height={500} width={850} data={data} options={options} />
             </div>
         )
     }

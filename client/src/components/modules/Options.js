@@ -321,9 +321,9 @@ class Options extends Component {
                         Export the model to use in your personal project
                     </div>
                 )}
-                <div className='Options-button Options-share'>
+                {/* <div className='Options-button Options-share'>
                     Share
-                </div>
+                </div> */}
             </>
         );
         if (this.state.isSave) {
@@ -371,7 +371,7 @@ class Options extends Component {
                 </div>
             )
         }
-        if (this.state.isExport) {
+        else if (this.state.isExport) {
             const exportTitle = this.state.exportTitle.length === 0 ? 'model' : this.state.exportTitle.split(' ').join('_');
             const textFileValue = `Once exported, you'll find the two files ${exportTitle}.json and ${exportTitle}.weights.bin added to your downloads. \n For help on loading these files into your project, visit the ml5.js documentation.`;
             innerComponents = (
@@ -390,6 +390,11 @@ class Options extends Component {
                         </div>
                     </div>
                 </div>
+            )
+        }
+        else if (this.props.neuralNetwork === null) {
+            innerComponents = (
+                <> </>
             )
         }
         return (

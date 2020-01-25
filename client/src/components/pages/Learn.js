@@ -77,7 +77,7 @@ class Learn extends Component {
             <div className='Learn-container'>
                 <div className='Learn-header'>
                     <div className='Learn-title'>
-                        How to use?
+                        How to use UTrain?
                     </div>
                     <div className='Learn-description'>
                         Learn about machine learning with UTrain so you can get started!
@@ -205,7 +205,7 @@ class Learn extends Component {
                     </div>
                     <div className='Learn-step'>
                         <div className='Learn-graph'>
-                            <LineGraph epochs={this.state.epochs.slice(0, this.state.lossIndex)} losses={this.state.losses.slice(0, this.state.lossIndex)} />
+                            <LineGraph epochs={this.state.epochs.slice(0, this.state.lossIndex)} losses={this.state.losses.slice(0, this.state.lossIndex)} isLearn={true}/>
                         </div>
                     </div>
                     <div className='Learn-step'>

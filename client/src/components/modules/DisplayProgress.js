@@ -39,7 +39,7 @@ class DisplayProgress extends Component {
         if (this.props.loss === null || this.props.epochs === null) {
             return (
                 <div className='DisplayProgress-container'>
-                    Training data will go here!
+                    
                 </div>
             )
         }

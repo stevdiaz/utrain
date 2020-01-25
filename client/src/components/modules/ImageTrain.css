@@ -9,6 +9,13 @@
 }
 .ImageTrain-noButton {
   margin: 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  left: 370px;
+  width: 400px;
+  background-color: white;
 }
 .ImageTrain-button {
   background-color: white;

@@ -83,9 +83,9 @@ class ImagePredict extends Component {
         let predictions;
         if (this.props.neuralNetwork === null) {
             predictions = (
-                <span>
+                <div className="ImagePredict-instructions">
                     Finish training your model to make predictions!
-                </span>
+                </div>
             )
         }
         else {

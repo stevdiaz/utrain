@@ -154,7 +154,7 @@ class Train extends Component {
         if (this.props.fileURL === null || this.props.inputs.length === 0 || this.props.outputs.length === 0 || this.props.isRegression === null) {
             trainButton = (
                 <span className='Train-noButton'>
-                    Finish selecting your data options to train your model!
+                    Finish selecting your data options to train!
                 </span>
             )
         }

@@ -7,6 +7,7 @@
     align-items: center;
     position: relative;
     bottom: 0px;
+    right: 50px;
     transition: 0.5s;
 }
 .Options-question {
@@ -29,7 +30,7 @@
     display: inline-block;
     background-color: white;
     padding: 4px 11px;
-    font-size: 22px;
+    font-size: 28px;
     border: 2px solid #444;
     border-radius: 4px;
     margin-top: 10px;
@@ -40,7 +41,7 @@
     justify-content: center;
     align-items: center;
     width: 145px;
-    height: 35px;
+    height: 45px;
 }
 .Options-buttonDisabled {
     opacity: 0.6;
@@ -143,7 +144,7 @@
     margin-left: 20px;
 }
 .Options-backImage {
-    margin-top: 13px;
+    margin-top: 16px;
     width: 50px;
     height: 50px;
 }
