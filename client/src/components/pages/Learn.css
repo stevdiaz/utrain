@@ -1,0 +1,61 @@
+.Learn-container {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+.Learn-header {
+    display: flex;
+    flex-direction: column;
+}
+.Learn-title {
+    margin-top: 40px;
+    font-size: 50px;
+}
+.Learn-description {
+    font-size: 20px;
+}
+.Learn-body {
+    margin: 40px 300px;
+    font-size: 18px;
+}
+.Learn-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+}
+.Learn-step {
+    font-size: 30px;
+    margin: 40px;
+}
+.Learn-stepDescription {
+    margin-top: 30px;
+    font-size: 20px;
+}
+.Learn-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Learn-output {
+    margin-top: 20px;
+}
+.Learn-outputNone {
+    opacity: 0.6;
+    font-style: italic;
+
+}
+.Learn-animal {
+    height: 200px;
+}
+.Learn-graph {
+    align-items: center;
+    justify-content: center;
+}
+.Learn-graphImage {
+    height: 350px;
+}

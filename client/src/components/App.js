@@ -9,6 +9,8 @@ import Create from './pages/Create';
 import NavBar from './modules/NavBar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Learn from './pages/Learn';
+import DrawTest from './modules/DrawTest';
 
 import "../utilities.css";
 
@@ -59,6 +61,7 @@ class App extends Component {
         <Router>
           <Home path="/"/>
           <Create path='/create/' />
+          <Learn path='/learn/' />
           <DataModel path='/datamodel/:name' />
           <DataModel path='/datamodel'/>
           <ImageModel path='/imagemodel/:name' />

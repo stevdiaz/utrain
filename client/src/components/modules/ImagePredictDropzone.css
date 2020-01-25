@@ -12,6 +12,11 @@
     margin: 15px 5px 0px 5px;
     overflow: hidden;
 }
+.ImagePredictDropzone-imageContainer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 .ImagePredictDropzone-container:hover {
     background-color: rgb(177, 172, 255);
     border: 2px solid rgb(187, 186, 186);;
@@ -54,8 +59,10 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
-    position: relative;
-    left: 50px;
+    /* position: relative;
+    left: 50px; */
+    align-items: center;
+    justify-content: center;
 }
 .ImagePredictDropzone-uploadButton:hover {
     background-color: rgb(177, 172, 255);
