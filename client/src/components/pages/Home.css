@@ -5,12 +5,81 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 200px;
+    top: 100px;
 }
 .Home-title {
-    font-size: 45px;
+    font-size: 70px;
     margin: 50px;
+    width: 700px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid rgb(156, 51, 255);
+    border-radius: 4px;
+}
+.Home-bold {
+    font-weight: 900;
 }
 .Home-description {
-    font-size: 19px;
+    font-size: 30px;
+    text-align: center;
+    width: 900px;
+}
+.Home-getStarted {
+    display: flex;
+    flex-direction: row;
+}
+.Home-button {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 30px;
+    border: 2px solid rgb(156, 51, 255);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50px;
+    width: 150px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.Home-getStarted {
+    margin-top: 60px;
+}
+.Home-button:hover {
+    background-color: rgb(214, 190, 241);
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.Home-button:focus {
+    outline: none;
+}
+.Home-link,
+.Home-link:visited {
+  color: black;
+  text-decoration: none;
+}
+.Home-login {
+    height: 50px;
+    width: 150px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+.Home-login:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.Home-login:focus {
+    outline: none;
 }

@@ -20,6 +20,7 @@ class Learn extends Component {
             losses: losses,
             lossIndex: lossIndex,
         }
+        this.ref = React.createRef();
     }
     componentDidMount() {
         const classifier = ml5.imageClassifier('MobileNet', () => {
@@ -30,6 +31,7 @@ class Learn extends Component {
         });
         setTimeout(() => this.changeAnimal(), 5000);
         setTimeout(() => this.changeGraph(), 5000);
+        this.ref.current.scrollTo(0,0);
     }
     changeAnimal() {
         if (this.state.index === this.state.animals.length - 1) {
@@ -74,7 +76,7 @@ class Learn extends Component {
     }
     render() {
         return (
-            <div className='Learn-container'>
+            <div ref={this.ref} className='Learn-container'>
                 <div className='Learn-header'>
                     <div className='Learn-title'>
                         How to use UTrain?

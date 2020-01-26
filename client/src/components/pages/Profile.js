@@ -13,6 +13,7 @@ class Profile extends Component {
             metas: null,
             hover: null,
             pathName: null,
+            isDeleting: false,
         }
     }
     componentDidMount() {
@@ -41,6 +42,9 @@ class Profile extends Component {
         });
     }
     onDeleteCard(meta) {
+        this.setState({
+            isDeleting: true,
+        });
         const body = {
             title: meta.title,
             type: meta.type,
@@ -48,7 +52,8 @@ class Profile extends Component {
         post('/api/delete/model', body).then((meta) => {
             console.log('deleted ' + meta.title);
             this.setState(prevState => ({
-                metas: prevState.metas.filter((prevMeta) => prevMeta.title != meta.title)
+                metas: prevState.metas.filter((prevMeta) => prevMeta.title != meta.title),
+                isDeleting: false,
             }));
         });
     }
@@ -99,20 +104,49 @@ class Profile extends Component {
                 );
             })
             const numModels = this.state.metas.length;
+            let getStarted = (
+                <div className='Profile-noModels'>
+                    Start Training!
+                    <div className='Profile-startButtons'>
+                        <Link to='/learn/' className='Profile-link'>
+                            <div className='Profile-getStarted'>
+                                Learn
+                            </div>
+                        </Link>
+                        <Link to='/create/' className='Profile-link'>
+                            <div className='Profile-getStarted'>
+                                Create
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            )
             return (
                 <div className='Profile-container'>
                     <div className='Profile-name'>
                         Welcome, {this.state.user.name}
                     </div>
-                    <div className='Profile-saved'>
-                        Saved Models
-                    </div>
-                    <div className='Profile-explanation'>
-                        {`You have ${numModels} saved model${numModels !== 1 ? 's' : ''}. You can have up to 6 saved models at a time.`}
-                    </div>
-                    <div className='Profile-titles'>
-                        {models}
-                    </div>
+                    {numModels > 0 && (
+                        <>
+                            <div className='Profile-saved'>
+                                Saved Models
+                            </div>
+                            <div className='Profile-explanation'>
+                                {`You have ${numModels} saved model${numModels !== 1 ? 's' : ''}. You can have up to 6 saved models at a time.`}
+                            </div>
+                            {this.state.isDeleting && (
+                                 <div className='Profile-deleting'>
+                                    Deleting Model ...
+                                </div>
+                            )}
+                            <div className='Profile-titles'>
+                                {models}
+                            </div>
+                        </>
+                    )}
+                    {numModels === 0 && (
+                        getStarted
+                    )}
                 </div>
             )
         }

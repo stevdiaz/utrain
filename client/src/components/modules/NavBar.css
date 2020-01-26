@@ -4,6 +4,11 @@
     background-color: white;
     display: flex;
     flex-direction: row;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 .NavBar-title {
     margin-top: 5px;
@@ -31,4 +36,6 @@
 .NavBar-link + .NavBar-link {
     margin-left: 16px;
 }
-  
+.NavBar-login:focus {
+    outline: none;
+}

@@ -31,6 +31,9 @@ class DataModel extends Component {
                 this.setState({
                     savedData: savedData,
                 });
+            }).catch(() => {
+                // proceed as usual
+                return;
             });
         }
     }

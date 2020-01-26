@@ -95,3 +95,58 @@
     text-decoration: none;
     color: black;
 }
+.Profile-noModels {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 32px;
+    margin-top: 30px;
+}
+.Profile-startButtons {
+    display: flex;
+    flex-direction: row;
+}
+.Profile-getStarted {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 30px;
+    border: 2px solid rgb(156, 51, 255);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50px;
+    width: 150px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.Profile-getStarted:hover {
+    background-color: rgb(214, 190, 241);
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+.Profile-getStarted:focus {
+    outline: none;
+}
+.Profile-link,
+.Profile-link:visited {
+  color: black;
+  text-decoration: none;
+}
+.Profile-deleting {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(241, 67, 67);
+    font-size: 18px;
+}
+

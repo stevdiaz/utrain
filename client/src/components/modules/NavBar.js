@@ -9,23 +9,30 @@ class NavBar extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount() {
+        
+    }
     render() {
         return (
             <nav className='NavBar-container'>
                 <div className='NavBar-title'>
-                    UTrain
+                    <Link to="/" className='NavBar-link'>
+                        UTrain
+                    </Link>
                 </div>
                 <div className='NavBar-links'>
-                    <Link to="/learn" className='NavBar-link'>
-                        Learn
-                    </Link>
-                    <Link to="/create" className='NavBar-link'>
-                        Create
-                    </Link>
                     {this.props.userId && (
-                        <Link to={`/profile/${this.props.userId}`} className="NavBar-link">
-                            Profile
-                        </Link>
+                        <>
+                            <Link to="/learn" className='NavBar-link'>
+                                Learn
+                            </Link>
+                            <Link to="/create" className='NavBar-link'>
+                                Create
+                            </Link>
+                            <Link to={`/profile/${this.props.userId}`} className="NavBar-link">
+                                Profile
+                            </Link>
+                        </>
                     )}
                     {this.props.userId ? (
                         <GoogleLogout

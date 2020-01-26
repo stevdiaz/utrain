@@ -58,8 +58,8 @@ class App extends Component {
     return (
       <>
         <NavBar handleLogin={(res) => this.handleLogin(res)} handleLogout={() => this.handleLogout()} userId={this.state.userId} />
-        <Router>
-          <Home path="/"/>
+        <Router primary={false}>
+          <Home path="/" userId={this.state.userId} handleLogin={(res) => this.handleLogin(res)}/>
           <Create path='/create/' />
           <Learn path='/learn/' />
           <DataModel path='/datamodel/:name' />

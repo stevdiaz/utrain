@@ -28,7 +28,10 @@ class ImageModel extends Component {
                 this.setState({
                     savedData: savedData,
                 })
-            })
+            }).catch(() => {
+                // proceed as usual
+                return;
+            });
         }
     }
     onChangeImages(classes, images) {
