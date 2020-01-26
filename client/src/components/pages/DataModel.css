@@ -1,5 +1,8 @@
 .DataModel-container {
     display: flex;
     flex-direction: column;
-    background-color: tomato;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    
 }

@@ -2,8 +2,11 @@
     display: flex;
     margin: 10px 10px;
     height: 300px;
+    width: 1400px;
     font-family: 'Poppins', sans-serif;
     background-color: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
 }
 
 .DataCollectCard-components {
@@ -19,4 +22,6 @@
 .DataCollectCard-step {
     font-size: 32px;
     margin: 10px 10px 0px 10px;
+    color: var(--secondary);
+    font-weight: 900;
 }

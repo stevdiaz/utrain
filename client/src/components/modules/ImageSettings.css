@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     margin: 5px;
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
     border-radius: 1%;
     height: 145px;
     width: 930px;
@@ -80,7 +80,7 @@
 }
 .ImageSettings-newClass:hover {
     cursor: pointer;
-    border: 2px dashed rgb(156, 51, 255);
+    border: 2px dashed var(--border);
 }
 .ImageSettings-delete {
     display: inline-block;
@@ -97,16 +97,6 @@
     left: 680px;
     /* left: 540px; */
 }
-/* .ImageSettings-deleteImage {
-    font-size: 15px;
-    width: 50px;
-    height: 30px;
-    position: relative;
-    bottom: 75px;
-    left: 60px;
-    margin-right: 6px;
-    padding-top: 20px;
-} */
 .ImageSettings-deleteImage {
     width: 22px;
     height: 22px;

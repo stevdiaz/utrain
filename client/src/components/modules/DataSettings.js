@@ -162,10 +162,10 @@ class DataSettings extends Component {
                 <form>
                     <input className='DataSettings-input' type='radio' name='task' id='classification' value='classification' defaultChecked={this.state.isRegression ? '' : 'checked'} 
                     onClick={(radio) => this.taskChanged(false)}/>
-                    <label className='DataSettings-label' htmlFor='classification'>Classification</label>
+                    <label className='DataSettings-label DataSettings-taskLabel' htmlFor='classification'>Classification</label>
                     <input className='DataSettings-input' type='radio' name='task' id='regression' value='regression' defaultChecked={this.state.isRegression ? 'checked': ''} 
                     onClick={(radio) => this.taskChanged(true)}/>
-                    <label className='DataSettings-label' htmlFor='regression'>Regression</label>
+                    <label className='DataSettings-label DataSettings-taskLabel' htmlFor='regression'>Regression</label>
                 </form>
             )
             const awayTaskForm = this.state.isRegression ? 
@@ -173,14 +173,14 @@ class DataSettings extends Component {
                     <div>
                         <input className='DataSettings-input' type='radio' name='task' id='regression' value='regression' defaultChecked={this.state.isRegression ? 'checked': ''} 
                         onClick={(radio) => this.taskChanged(true)}/>
-                        <label className='DataSettings-label' htmlFor='regression'>Regression</label>
+                        <label className='DataSettings-label DataSettings-taskLabel' htmlFor='regression'>Regression</label>
                     </div>
                 ) :
                 (
                     <div>
                         <input className='DataSettings-input' type='radio' name='task' id='classification' value='classification' defaultChecked={this.state.isRegression ? '' : 'checked'} 
                         onClick={(radio) => this.taskChanged(false)}/>
-                        <label className='DataSettings-label' htmlFor='classification'>Classification</label>
+                        <label className='DataSettings-label DataSettings-taskLabel' htmlFor='classification'>Classification</label>
                     </div>
                 );
             return (

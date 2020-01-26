@@ -8,53 +8,50 @@
     font-family: 'Poppins', sans-serif;
 }
 .ImageTrain-noButton {
-  margin: 5px;
   justify-content: center;
   align-items: center;
   text-align: center;
   position: relative;
-  left: 370px;
-  width: 400px;
+  margin-right: -300px;
+  left: 380px;
+  width: 370px;
   background-color: white;
 }
 .ImageTrain-button {
   background-color: white;
-  border: none;
   color: black;
-  border: 3px solid #444;
+  border: 3px solid var(--border);
   border-radius: 4px;
   padding: 7px 35px;
   text-align: center;
-  font-size: 22px;
+  font-size: 25px;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   margin: 10px;
   margin-top: 45px;
   width: 250px;
-  height: 50px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 55px;
 }
 .ImageTrain-button:hover {
-  background-color: rgb(214, 190, 241);
+  background-color: var(--hover);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .ImageTrain-button:focus {
   outline: none;
 }
 .ImageTrain-buttonDisabled {
   background-color: white;
-  border: none;
   color: rgb(87, 83, 83);
   border: 3px solid #444;
   border-radius: 4px;
   padding: 7px 35px;
   text-align: center;
-  font-size: 22px;
+  font-size: 25px;
   font-family: 'Poppins', sans-serif;
   margin: 10px;
   margin-top: 45px;
   width: 250px;
-  height: 50px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 55px;
 }
 .ImageTrain-buttonDisabled:focus {
   outline: none;
@@ -94,7 +91,7 @@
   width: 35px;
   font-size: 16px;
   border-radius: 4px;
-  border: 2px solid rgb(156, 51, 255);
+  border: 2px solid var(--border);
   font-family: 'Poppins', sans-serif;
   resize: none;
 }
@@ -103,20 +100,19 @@
    opacity: 1;
 }
 .ImageTrain-batchSizeInput {
-  /* margin-top: 5px; */
   margin-left: 10px;
   font-size: 16px;
   border-radius: 4px;
-  border: 2px solid rgb(156, 51, 255);
+  border: 2px solid var(--border);
   font-family: 'Poppins', sans-serif;
   resize: none;
 }
 
 .ImageTrain-epochsInput:focus {
-  background-color: rgb(214, 190, 241);
+  background-color: var(--hover);
   outline: none;
 }
 .ImageTrain-batchSizeInput:focus {
-  background-color: rgb(214, 190, 241);
+  background-color: var(--hover);
   outline: none;
 }

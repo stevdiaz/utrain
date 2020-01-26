@@ -5,7 +5,6 @@
     position: relative;
     top: 30px;
     right: 340px;
-    
     font-family: 'Poppins', sans-serif;
 }
 .ImageUpload-tabs {
@@ -31,9 +30,9 @@
 
 .ImageUpload-tab:hover {
     cursor: pointer;
-    background-color: rgb(214, 190, 241);
+    background-color: var(--hover);
 }
 .ImageUpload-active {
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
 }
 

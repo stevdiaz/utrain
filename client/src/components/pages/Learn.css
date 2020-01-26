@@ -31,6 +31,7 @@
     font-size: 30px;
     margin: 40px;
     color: var(--primary);
+    font-weight: 900;
 }
 .Learn-stepDescription {
     margin-top: 30px;

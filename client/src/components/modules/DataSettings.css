@@ -19,7 +19,7 @@
 }
 .DataSettings-task {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     
@@ -45,7 +45,7 @@
     background-color: white;
     padding: 10px 20px;
     font-size: 16px;
-    border: 2px solid #444;
+    border: 2px solid var(--border);
     border-radius: 4px;
     margin-left: 10px;
     margin-right: 10px;
@@ -63,12 +63,12 @@
     margin-bottom: 5px;
 }
 .DataSettings-input:checked + label {
-    background-color:rgb(214, 190, 241);
-    border-color: rgb(156, 51, 255);
+    background-color: var(--hover);
+    border-color: var(--border);
 }
 .DataSettings-label:hover {
     cursor: pointer;
-    background-color: rgb(214, 190, 241);
+    background-color: var(--hover);
 }
 .DataSettings-inputs {
     display: flex;
@@ -109,4 +109,7 @@
 }
 .DataSettings-fadeOption {
     opacity: 20%;
+}
+.DataSettings-taskLabel {
+    font-size: 18px;
 }

@@ -5,6 +5,9 @@
     background-color: white;
     overflow-y: scroll;
     height: 430px;
+    width: 1400px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
 }
 .ImageDeployCard-components {
     display: flex;
@@ -12,7 +15,6 @@
     flex-direction: row;
     border: 2px rgb(0, 0, 0);
     border-radius: 10%;
-    /* background-color: yellow; */
     position: relative;
     width: 500px;
 }
@@ -23,5 +25,6 @@
     position: relative;
     width: 400px;
     height: 300px;
-    
+    font-weight: 900;
+    color: var(--secondary);
 }

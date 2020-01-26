@@ -7,7 +7,7 @@
     align-items: center;
     position: relative;
     bottom: 0px;
-    right: 50px;
+    right: 100px;
     transition: 0.5s;
 }
 .Options-question {
@@ -22,7 +22,7 @@
     text-align: center;
 }
 .Options-success {
-    color: rgb(156, 51, 255);
+    color: var(--border);
     text-align: center;
 }
 .Options-button {
@@ -31,7 +31,7 @@
     background-color: white;
     padding: 4px 11px;
     font-size: 28px;
-    border: 2px solid #444;
+    border: 2px solid var(--border);
     border-radius: 4px;
     margin-top: 10px;
     margin-left: 10px;
@@ -58,12 +58,13 @@
     margin-top: -15px;
 }
 .Options-button:hover {
-    background-color: rgb(177, 172, 255);
+    background-color: var(--hover);
     cursor: pointer;
     -webkit-user-select: none;  
     -moz-user-select: none;    
     -ms-user-select: none;      
     user-select: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .Options-buttonDisabled:hover {
     cursor: auto;
@@ -71,6 +72,7 @@
 }
 .Options-buttonDelete:hover {
     background-color: rgb(255, 183, 183);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .Options-button:focus {
     outline: none;
@@ -96,7 +98,7 @@
     background-color: transparent;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
     border-radius: 4px;
 }
 .Options-modelTitleError {
@@ -113,7 +115,7 @@
     border-left-style: hidden;
     border-bottom-style: hidden;
     background-color: transparent;
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
     border-radius: 4px;
 }
 .Options-modelDescriptionError {

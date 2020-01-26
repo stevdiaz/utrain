@@ -2,8 +2,11 @@
     display: flex;
     margin: 10px 10px;
     height: 400px;
+    width: 1400px;
     font-family: 'Poppins', sans-serif;
     background-color: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
 }
 .DataTrainCard-components {
     display: flex;
@@ -19,4 +22,6 @@
     position: relative;
     padding-right: 10px;
     width: 350px;
+    color: var(--secondary);
+    font-weight: 900;
 }

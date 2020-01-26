@@ -4,6 +4,9 @@
     font-family: 'Poppins', sans-serif;
     background-color: white;
     overflow-y: scroll;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    width: 1400px;
 }
 .DataDeployCard-classification {
     height: 555px;
@@ -28,5 +31,6 @@
     position: relative;
     width: 400px;
     height: 300px;
-    
+    color: var(--secondary);
+    font-weight: 900;
 }

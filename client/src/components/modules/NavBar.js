@@ -16,7 +16,7 @@ class NavBar extends Component {
         return (
             <nav className='NavBar-container'>
                 <div className='NavBar-title'>
-                    <Link to="/" className='NavBar-link'>
+                    <Link to="/" className='NavBar-link NavBar-titleLink'>
                         UTrain
                     </Link>
                 </div>
