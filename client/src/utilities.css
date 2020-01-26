@@ -21,12 +21,17 @@
 
 
 :root {
-  --primary: #396dff;
+  /* --primary: #396dff; */
   --primary--dim: #6987db;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
   --white: #fff;
+  --primary: #DA63FF;
+  --secondary: #8D9DFF;
+  --border: #DA63FF;
+  --hover: #C1C9FF;
+  --gradient: linear-gradient(109.67deg, #DA63FF 1.22%, rgba(253, 249, 255, 0.0416667) 99.99%, rgba(255, 255, 255, 0) 100%, rgba(247, 222, 255, 0.211247) 100%), #8D9DFF;
 
   --xs: 4px;
   --s: 8px;

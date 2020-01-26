@@ -30,19 +30,23 @@
 .Learn-step {
     font-size: 30px;
     margin: 40px;
+    color: var(--primary);
 }
 .Learn-stepDescription {
     margin-top: 30px;
     font-size: 20px;
+    color: black;
 }
 .Learn-input {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 .Learn-output {
     margin-top: 20px;
+    color: black;
 }
 .Learn-outputNone {
     opacity: 0.6;
@@ -60,4 +64,10 @@
 }
 .Learn-bold {
     font-weight: 900;
+}
+.Learn-utrain {
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

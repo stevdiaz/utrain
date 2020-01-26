@@ -124,7 +124,7 @@ class Profile extends Component {
             return (
                 <div className='Profile-container'>
                     <div className='Profile-name'>
-                        Welcome, {this.state.user.name}
+                        Welcome, <span className='Profile-nameStyle'>{this.state.user.name}</span>
                     </div>
                     {numModels > 0 && (
                         <>

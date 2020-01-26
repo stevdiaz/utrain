@@ -15,8 +15,8 @@ class BarGraph extends Component {
             labels: this.props.classes,
             datasets: [
                 {
-                    backgroundColor: 'rgb(214, 190, 241)',
-                    borderColor: 'rgb(156, 51, 255)',
+                    backgroundColor: '#C1C9FF',
+                    borderColor: '#DA63FF',
                     borderWidth: 2,
                     data: this.props.percentages,
                 }

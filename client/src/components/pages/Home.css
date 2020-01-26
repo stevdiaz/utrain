@@ -13,11 +13,14 @@
     width: 700px;
     text-align: center;
     background-color: white;
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
     border-radius: 4px;
 }
 .Home-bold {
     font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .Home-description {
     font-size: 30px;
@@ -34,7 +37,7 @@
     background-color: white;
     padding: 3px 10px;
     font-size: 30px;
-    border: 2px solid rgb(156, 51, 255);
+    border: 2px solid var(--border);
     border-radius: 4px;
     margin-top: 5px;
     margin-left: 10px;
@@ -52,7 +55,7 @@
     margin-top: 60px;
 }
 .Home-button:hover {
-    background-color: rgb(214, 190, 241);
+    background-color: var(--hover);
     cursor: pointer;
     -webkit-user-select: none;  
     -moz-user-select: none;    

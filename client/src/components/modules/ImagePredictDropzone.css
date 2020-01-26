@@ -18,7 +18,7 @@
     text-align: center;
 }
 .ImagePredictDropzone-container:hover {
-    background-color: rgb(177, 172, 255);
+    background-color: var(--hover);
     border: 2px solid rgb(187, 186, 186);;
 }
 .ImagePredictDropzone-icon {

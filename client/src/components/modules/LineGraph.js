@@ -19,7 +19,7 @@ class LineGraph extends Component {
                 label: 'Loss',
                 fill: false,
                 lineTension: 0.5,
-                backgroundColor: 'rgb(156, 51, 255)',
+                backgroundColor: '#DA63FF',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 1.5,
                 data: this.props.losses

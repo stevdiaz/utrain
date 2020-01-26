@@ -1,7 +1,7 @@
 .NavBar-container {
     font-family: "Poppins", sans-serif;
     padding: 8px 16px;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     flex-direction: row;
     position: -webkit-sticky;
@@ -9,10 +9,11 @@
     top: 0;
     left: 0;
     z-index: 1;
+    background: var(--gradient);
 }
 .NavBar-title {
     margin-top: 5px;
-    color: black;
+    color: white;
     font-size: 25px;
 }
 .NavBar-links {
@@ -21,7 +22,7 @@
 
 .NavBar-link,
 .NavBar-link:visited {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 

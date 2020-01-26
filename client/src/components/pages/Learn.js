@@ -79,7 +79,7 @@ class Learn extends Component {
             <div ref={this.ref} className='Learn-container'>
                 <div className='Learn-header'>
                     <div className='Learn-title'>
-                        How to use UTrain?
+                        How to use <span className='Learn-utrain'>UTrain</span>?
                     </div>
                     <div className='Learn-description'>
                         Learn about machine learning with UTrain so you can get started!
