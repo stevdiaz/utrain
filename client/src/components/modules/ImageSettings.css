@@ -28,6 +28,9 @@
     margin-left: 10px;
     font-size: small;
 }
+.ImageSettings-editButton {
+    height: 60px;
+}
 .ImageSettings-classNameEditing {
     height: 20px;
     width: 150px;

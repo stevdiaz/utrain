@@ -13,6 +13,7 @@ class ImageSettings extends Component {
                 classification: null,
                 index: null,
             },
+            classID: 1,
         };
     }
     componentDidMount() {
@@ -51,12 +52,13 @@ class ImageSettings extends Component {
         this.props.onChangeImages(this.state.classes, this.state.images);
     }
     onCreateNewClass() {
-        let newClassName = `Class ${this.state.classes.length + 1}`
+        let newClassName = `Class ${this.state.classID + 1}`
         let images = this.state.images;
         images[this.state.classes.length] = [];
         this.setState(prevState => ({
             classes: prevState.classes.concat([newClassName]),
             images: images,
+            classID: prevState.classID + 1,
         }), () => this.onChangeImageState());
         this.props.onNewClass(newClassName);
     }

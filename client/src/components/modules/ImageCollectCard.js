@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './ImageCollectCard.css';
 import ImageUpload from './ImageUpload';
 import ImageSettings from './ImageSettings';
+import SketchUpload from './SketchUpload';
 
 class ImageCollectCard extends Component {
 
@@ -68,8 +69,12 @@ class ImageCollectCard extends Component {
                     Step 1: Collect Data
                 </div>
                 <div className='ImageCollectCard-components'>
-                    <ImageUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes}
-                    onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)}/>
+                    {this.props.isImage ? (
+                        <ImageUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes}
+                        onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)} />
+                    ) : (
+                        <SketchUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes} />
+                    )}
                     <ImageSettings savedData={this.props.savedData} imageSrc={this.state.imageSrc} imageSrcs={this.state.imageSrcs} selectedClassIndex={this.state.selectedClassIndex}
                     onNewClass={(newClassName) => this.onNewClass(newClassName)} onRenameClass={(newClassName, classIndex) => this.onRenameClass(newClassName, classIndex)}
                     onDeleteClass={(classIndex) => this.onDeleteClass(classIndex)} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>

@@ -1,0 +1,16 @@
+.SketchUploadPredict-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+.SketchUploadPredict-trash {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+}
+.SketchUploadPredict-trash:hover {
+    cursor: pointer;
+}

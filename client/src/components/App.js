@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
-import 'filepond/dist/filepond.min.css';
 import DataModel from './pages/DataModel';
 import ImageModel from './pages/ImageModel';
 import Create from './pages/Create';

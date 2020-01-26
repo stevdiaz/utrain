@@ -4,6 +4,7 @@ import ImagePredictUpload from './ImagePredictUpload';
 import BarGraph from './BarGraph';
 import * as ml5 from 'ml5';
 import { post } from '../../utilities';
+import SketchUpload from './SketchUpload';
 
 class ImagePredict extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class ImagePredict extends Component {
         this.state = {
             confidences: [],
             isWebcam: true,
+            imageSrc: null,
         }
     }
     componentDidMount() {

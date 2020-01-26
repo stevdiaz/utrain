@@ -8,6 +8,9 @@ import * as ml5 from 'ml5';
 class DrawTest extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            imageSrc : null,
+        };
     }
     componentDidMount() {
         const classifier = ml5.imageClassifier('DoodleNet',() => {
@@ -22,7 +25,7 @@ class DrawTest extends Component {
         console.log('model has loaded!');
     }
     onSave() {
-        let canvas = document.getElementById('button');
+        let canvas = document.getElementById('stevendiaz');
         console.log(canvas);
         // let imgSrc = canvas2image.convertToImage(canvas, 400, 400, 'png')
         // console.log(imgSrc);
@@ -30,18 +33,27 @@ class DrawTest extends Component {
             var imageType = 'image/png';
             var imageData = canvasElm.toDataURL(imageType);
             console.log(imageData);
+            this.setState({
+                imageSrc: imageData,
+            });
         })
     }
     render() {
         return (
-            <>
-                <CanvasDraw 
-                id='stevendiaz'
-                canvasWidth={400}
-                canvasHeight={400}
-                />
+            <div className='DrawTest-container'>
+                <div className='DrawTest-canvas' id='stevendiaz'>
+                    <CanvasDraw 
+                        canvasWidth={400}
+                        canvasHeight={400}
+                        hideGrid={true}
+                        hideInterface={true}
+                    />
+                </div>
                 <button id='button' onClick={() => this.onSave()}>Save</button>
-            </>
+                {this.state.imageSrc !== null && (
+                    <img src={this.state.imageSrc} />
+                )}
+            </div>
         )
     }
 }
