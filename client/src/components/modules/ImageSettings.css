@@ -23,13 +23,12 @@
     font-size: large;
     background-color: honeydew;
     height: 45px;
+    display: flex;
+    flex-direction: row;
 }
 .ImageSettings-imageAmount {
     margin-left: 10px;
     font-size: small;
-}
-.ImageSettings-editButton {
-    height: 60px;
 }
 .ImageSettings-classNameEditing {
     height: 20px;
@@ -41,6 +40,7 @@
     border-left-style: hidden;
     border-bottom-style: hidden;
     background-color: transparent;
+    margin-top: 10px;
 }
 .ImageSettings-classNameEditing:focus {
     outline: none;
@@ -50,6 +50,7 @@
     flex-direction: row;
     overflow-x: scroll;
     transition: 1s;
+    background-color: white;
 }
 /* Hide scrollbar in different browsers */
 .ImageSettings-images::-webkit-scrollbar {
@@ -85,6 +86,16 @@
     cursor: pointer;
     border: 2px dashed var(--border);
 }
+.ImageSettings-buttons {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    position: relative;
+    left: 600px;
+    width: 170px;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 .ImageSettings-delete {
     display: inline-block;
     background-color: white;
@@ -96,9 +107,26 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
-    position: relative;
-    left: 680px;
-    /* left: 540px; */
+}
+.ImageSettings-delete:hover {
+    background-color: rgb(238, 155, 155);
+    cursor: pointer;
+}
+.ImageSettings-clear {
+    display: inline-block;
+    background-color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px; 
+}
+.ImageSettings-clear:hover {
+    background-color: var(--hover);
+    cursor: pointer;
 }
 .ImageSettings-deleteImage {
     width: 22px;
@@ -111,10 +139,6 @@
 .ImageSettings-deleteImage:hover {
     width: 23px;
     height: 23px;
-    cursor: pointer;
-}
-.ImageSettings-delete:hover {
-    background-color: rgb(238, 155, 155);
     cursor: pointer;
 }
 .ImageSettings-deleteHidden {

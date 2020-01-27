@@ -88,6 +88,13 @@ class ImageSettings extends Component {
         }), () => this.onChangeImageState());
         this.props.onDeleteClass(classIndex);
     }
+    onClearClass(classIndex) {
+        let images = this.state.images;
+        images[classIndex] = [];
+        this.setState({
+            images: images,
+        }, () => this.onChangeImageState());
+    }
     onEnterImage(classIndex, imageIndex) {
         console.log('entering index ' + imageIndex);
         this.setState({
@@ -159,16 +166,25 @@ class ImageSettings extends Component {
                 </div>
             ) : (<div></div>);
             let deleteButton = (
-                <div className={`ImageSettings-delete ${this.state.classes.length > 1 ? '' : 'ImageSettings-deleteHidden'}`} key={'image' + classIndex}
+                <div className={`ImageSettings-delete`} key={'image' + classIndex}
                 onClick={() => this.onDeleteClass(classIndex)}>
                     Delete
                 </div>
             );
+            let clearButton = (
+                <div className={`ImageSettings-clear`} key={'clear' + classIndex}
+                onClick={() => this.onClearClass(classIndex)}>
+                    Clear
+                </div>
+            )
             return (
                 <div className='ImageSettings-class' key={'class' + classIndex}>
                     <div className='ImageSettings-classRow'>
                         {classificationName}
-                        {deleteButton}
+                        <div className='ImageSettings-buttons'>
+                            {imagesLength > 0 && clearButton}
+                            {this.state.classes.length > 1 && deleteButton}
+                        </div>
                     </div>
                     <div className='ImageSettings-images' key={'image' + classIndex} onMouseLeave={() => this.onLeaveImages()}>
                         {images}
