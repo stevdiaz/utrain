@@ -13,12 +13,13 @@ class SketchUploadPredict extends Component {
     }
     onPredict() {
         console.log('on capture');
-        let canvas = document.getElementsByClassName('SketchUpload-canvas')[0];
+        let canvas = document.getElementsByClassName('SketchUploadPredict-canvas')[0];
         html2canvas(canvas).then(canvasElm => {
             var imageType = 'image/png';
             var imageSrc = canvasElm.toDataURL(imageType);
             console.log(imageSrc);
-            this.props.onPredict(imageSrc, this.state.selectedClassIndex);
+            this.props.onPredict(imageSrc);
+            this.onClearImage();
         });
     }
     onClearImage() {
@@ -36,7 +37,7 @@ class SketchUploadPredict extends Component {
                         brushRadius={4} 
                         lazyRadius={0}
                         canvasWidth={260}
-                        canvasHeight={280}
+                        canvasHeight={260}
                         hideGrid={true}
                         hideInterface={true}
                         ref={this.canvasRef}

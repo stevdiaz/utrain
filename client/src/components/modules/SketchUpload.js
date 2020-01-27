@@ -28,16 +28,17 @@ class SketchUpload extends Component {
         let canvasdraw = document.getElementsByClassName('canvas-draw')[0];
         console.log(canvasdraw);
         html2canvas(canvasdraw).then(canvasElm => {
+            console.log(canvasElm);
             var imageType = 'image/png';
             var imageSrc = canvasElm.toDataURL(imageType);
             console.log(imageSrc);
-            this.props.onCapture(imageSrc, this.state.selectedClassIndex);
+            this.props.isPredicting ? this.props.onPredict(imageSrc) : this.props.onCapture(imageSrc, this.state.selectedClassIndex);
             this.canvasRef.current.clear();
         });
     }
     onPredict() {
         console.log(document.getElementsByClassName('canvas-draw'));
-        let canvasdraw = document.getElementsByClassName('canvas-draw')[0];
+        let canvasdraw = document.getElementsByClassName('canvas-draw')[1];
         console.log(canvasdraw);
         html2canvas(canvasdraw).then(canvasElm => {
             var imageType = 'image/png';
@@ -83,8 +84,8 @@ class SketchUpload extends Component {
                     />
                 </div>
                 {this.props.isPredicting ? (
-                    <div className='SketchUpload-captureAndSend'>
-                        <div className='SketchUpload-captureButton' onClick={() => this.onPredict()}>Predict</div>
+                    <div className='SketchUpload-predictAndSend'>
+                        <div className='SketchUpload-predictButton' onClick={() => this.onPredict()}>Predict</div>
                     </div>
                 ):(
                     <div className='SketchUpload-captureAndSend'>

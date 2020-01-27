@@ -28,7 +28,7 @@ class Options extends Component {
         this.ERROR_DESCRIPTION_LONG = 'Description Long';
         this.ERROR_NONE = 'None';
         this.ERROR_TITLE_EMPTY = 'Title Empty';
-        this.TITLE_LIMIT = 30;
+        this.TITLE_LIMIT = 25;
         this.DESCRIPTION_LIMIT = 70;
         this.SAVE = 'save';
         this.EXPORT = 'export';
