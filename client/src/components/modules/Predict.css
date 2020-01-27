@@ -3,8 +3,7 @@
     flex-direction: column;
     background-color: transparent;
     position: relative;
-    margin-left: -200px;;
-    /* background-color: green; */
+    margin-left: -200px;
 }
 .Predict-instructions {
     margin-left: 230px;
@@ -17,6 +16,8 @@
     position: relative;
     right: 215px;
     top: 30px;
+    max-width: calc(50vw);
+    width: 700px;
 }
 .Predict-inputsOutputsRegression {
     display: flex;
@@ -27,15 +28,16 @@
     right: 210px;
     bottom: 0px;
     top: 10px;
+    max-width: calc(50vw);
+    width: 700px;
 }
 .Predict-inputs {
     display: flex;
     flex-direction: row;
-    /* background-color: purple; */
+    background-color: white;
     overflow-x: scroll;
     margin-top: 7px;
     margin-bottom: 10px;
-    width: 700px;
 }
 .Predict-outputs {
     display: flex;

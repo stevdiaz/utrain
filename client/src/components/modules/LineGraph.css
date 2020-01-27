@@ -1,10 +1,11 @@
 .LineGraph-container {
-    display: flex;
+    /* display: flex; */
     width: 1000px;
+    max-width: calc(100vw - 321px - 50px);
     height: 400px;
-    margin: 20px;
+    background-color: white;
     position: relative;
-    left: 10px;
+    right: 25px;
 }
 .LineGraph-learnContainer {
     width: 800px;
