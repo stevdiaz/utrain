@@ -26,7 +26,7 @@ class Learn extends Component {
         const classifier = ml5.imageClassifier('MobileNet', () => {
             console.log('model loaded!');
             this.setState({
-                classifier: classifier
+                classifier: classifier,
             })
         });
         setTimeout(() => this.changeAnimal(), 5000);
@@ -89,6 +89,11 @@ class Learn extends Component {
                     As complex as it is, machine learning is not magic. UTrain has broken down the training process into 3 simple steps. 
                     Here, we'll go over these 3 steps when creating an image classification model.
                 </div>
+                {this.state.classifier === null && (
+                    <div className='Learn-loading'>
+                        Image Classifier Loading ...
+                    </div>
+                )}
                 <div className='Learn-steps'>
                     <div className='Learn-step'>
                         Step 1. Collect Data

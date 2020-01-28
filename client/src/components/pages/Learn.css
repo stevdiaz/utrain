@@ -22,6 +22,10 @@
     margin: 40px 300px;
     font-size: 18px;
 }
+.Learn-loading {
+    color: var(--primary);
+    font-size: 18px;
+}
 .Learn-steps {
     display: grid;
     grid-template-columns: 1fr 1fr;
