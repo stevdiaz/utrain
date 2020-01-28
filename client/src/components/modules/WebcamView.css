@@ -3,6 +3,8 @@
     flex-direction: column;
     background-color: white;
     font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
 }
 .WebcamView-captureAndSend {
     display: flex;

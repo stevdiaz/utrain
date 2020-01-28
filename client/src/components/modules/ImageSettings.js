@@ -180,7 +180,9 @@ class ImageSettings extends Component {
             return (
                 <div className='ImageSettings-class' key={'class' + classIndex}>
                     <div className='ImageSettings-classRow'>
-                        {classificationName}
+                        <div className='ImageSettings-name'>
+                            {classificationName}
+                        </div>
                         <div className='ImageSettings-buttons'>
                             {imagesLength > 0 && clearButton}
                             {this.state.classes.length > 1 && deleteButton}

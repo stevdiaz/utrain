@@ -89,7 +89,7 @@ class BarGraph extends Component {
              }
         };
         return (
-            <div className='BarGraph-container'>
+            <div className={`BarGraph-container ${this.props.isImage ? 'BarGraph-containerImage' : ''}`}>
                 <HorizontalBar height={300} width={700} data={data} options={options}/>
             </div>
         )

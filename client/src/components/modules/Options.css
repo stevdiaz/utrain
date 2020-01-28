@@ -9,12 +9,13 @@
     position: relative;
     bottom: 0px;
     right: 100px;
-    max-width: calc(30vw);
+    max-width: calc(20vw);
 }
 .Options-question {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     width: 350px;
+    max-width: calc(20vw);
     justify-content: center;
     align-items: center;
     position: relative;
@@ -43,6 +44,7 @@
     align-items: center;
     width: 145px;
     height: 45px;
+    max-width: calc(20vw);
 }
 .Options-buttonDisabled {
     opacity: 0.6;
@@ -93,7 +95,7 @@
 .Options-modelTitle {
     height: 25px;
     width: 294px;
-    max-width: calc(30vw);
+    max-width: calc(20vw);
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
     border-top-style: hidden;
@@ -113,7 +115,7 @@
     resize: none;
     height: 100px;
     width: 294px;
-    max-width: calc(30vw);
+    max-width: calc(20vw);
     font-family: 'Poppins', sans-serif;
     font-size: large;
     border-top-style: hidden;

@@ -96,7 +96,7 @@ class ImagePredict extends Component {
                     <ImagePredictUpload neuralNetwork={this.props.neuralNetwork} onChangeWebcam={(isWebcam) => this.onChangeWebcam(isWebcam)}
                     onFileAdded={(imageSrc) => this.onFileAdded(imageSrc)}/>
                     <BarGraph classes={this.props.classes.length === 1 ? this.props.classes.concat(['Other']) : this.props.classes} 
-                    percentages={this.state.confidences}/>
+                    percentages={this.state.confidences} isImage={true}/>
                 </div>
             )
         }

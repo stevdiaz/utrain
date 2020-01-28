@@ -65,16 +65,18 @@ class ImageCollectCard extends Component {
     render() {
         return (
             <div className="ImageCollectCard-container">
-                <div className='ImageCollectCard-step'>
-                    Step 1: Collect Data
-                </div>
-                <div className='ImageCollectCard-components'>
+                <div className='ImageCollectCard-column'>
+                    <div className='ImageCollectCard-step'>
+                        Step 1: Collect Data
+                    </div>
                     {this.props.isImage ? (
                         <ImageUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes}
                         onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)} />
                     ) : (
                         <SketchUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes} />
                     )}
+                </div>
+                <div className='ImageCollectCard-components'>
                     <ImageSettings savedData={this.props.savedData} imageSrc={this.state.imageSrc} imageSrcs={this.state.imageSrcs} selectedClassIndex={this.state.selectedClassIndex}
                     onNewClass={(newClassName) => this.onNewClass(newClassName)} onRenameClass={(newClassName, classIndex) => this.onRenameClass(newClassName, classIndex)}
                     onDeleteClass={(classIndex) => this.onDeleteClass(classIndex)} onChangeImages={(classes, images) => this.onChangeImages(classes, images)}/>

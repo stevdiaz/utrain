@@ -1,24 +1,37 @@
 .ImageSettings-container {
     overflow-y: scroll;
-    background-color: yellowgreen;
-    position: relative;
-    bottom: 0px;
-    right: 50px;
-    width: 1200px;
+    background-color: white;
     height: 430px;
-    margin-left: -200px;
+    width: 950px;
+    max-width: calc(100vw - 312px - 10px - 10px - 50px - 110px);
 }
 .ImageSettings-class {
     display: flex;
     flex-direction: column;
     margin: 5px;
+    margin-right: 5px;
     border: 2px solid var(--border);
     border-radius: 1%;
     height: 145px;
-    width: 930px;
     background-color: white;
 }
+.ImageSettings-newClass {
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px dashed rgb(187, 186, 186);
+    border-radius: 5%;
+    padding-left: 10px;
+    height: 50px;
+    font-size: 20px;
+}
+.ImageSettings-newClass:hover {
+    cursor: pointer;
+    border: 2px dashed var(--border);
+}
 .ImageSettings-classRow {
+    width: 926px;
+    max-width: calc(100vw - 312px - 10px - 10px - 50px - 110px - 5px - 5px - 15px);
     padding-left: 10px;
     font-size: large;
     background-color: honeydew;
@@ -30,9 +43,14 @@
     margin-left: 10px;
     font-size: small;
 }
+.ImageSettings-name {
+    background-color: transparent;
+    width: 464px;
+}
 .ImageSettings-classNameEditing {
     height: 20px;
     width: 150px;
+    min-width: 50px;
     font-family: 'Poppins', sans-serif;
     font-size: large;
     border-top-style: hidden;
@@ -41,6 +59,7 @@
     border-bottom-style: hidden;
     background-color: transparent;
     margin-top: 10px;
+    background-color: transparent;
 }
 .ImageSettings-classNameEditing:focus {
     outline: none;
@@ -72,29 +91,15 @@
     margin: 10px 5px 2px 5px;
     border-radius: 8%;
 }
-.ImageSettings-newClass {
-    margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border: 2px dashed rgb(187, 186, 186);
-    border-radius: 5%;
-    padding-left: 10px;
-    height: 50px;
-    font-size: 20px;
-}
-.ImageSettings-newClass:hover {
-    cursor: pointer;
-    border: 2px dashed var(--border);
-}
 .ImageSettings-buttons {
+    width: 463px;
+    max-width: calc(100vw - 312px - 10px - 10px - 50px - 110px - 5px - 5px - 464px - 15px);
     display: flex;
     flex-direction: row;
     background-color: transparent;
-    position: relative;
-    left: 600px;
-    width: 170px;
     justify-content: flex-end;
     align-items: flex-end;
+    background-color: transparent;
 }
 .ImageSettings-delete {
     display: inline-block;
