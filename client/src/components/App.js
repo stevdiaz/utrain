@@ -16,6 +16,7 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 import DataCollectCard from "./modules/DataCollectCard.js";
+import Canvas from "./modules/Canvas.js";
 
 /**
  * Define the "App" component as a class.
@@ -57,6 +58,7 @@ class App extends Component {
       <>
         <NavBar handleLogin={(res) => this.handleLogin(res)} handleLogout={() => this.handleLogout()} userId={this.state.userId} />
         <Router primary={false}>
+          {/* <Canvas path="/" /> */}
           <Home path="/" userId={this.state.userId} handleLogin={(res) => this.handleLogin(res)}/>
           <Create path='/create/' userId={this.state.userId} />
           <Learn path='/learn/' userId={this.state.userId}/>

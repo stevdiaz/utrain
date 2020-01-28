@@ -22,7 +22,8 @@
     border-radius: 8%;
     align-items: center;
     justify-content: center;
-    overflow-x: scroll;
+    overflow: scroll;
+    max-height: 25px;
    
 }
 /* Hide scrollbar for different browsers */

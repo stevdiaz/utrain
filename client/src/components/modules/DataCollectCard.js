@@ -38,7 +38,6 @@ class DataCollectCard extends Component {
             fileURL: null,
             options: [],
             types: {},
-            isLoading: false,
         });
         this.props.onRemoval();
     }
