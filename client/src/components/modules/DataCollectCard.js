@@ -40,11 +40,13 @@ class DataCollectCard extends Component {
     render() {
         return (
             <div className="DataCollectCard-container">
-                <div className='DataCollectCard-step'>
-                    Step 1: Collect Data
+                <div className='DataCollectCard-column'>
+                    <div className='DataCollectCard-step'>
+                        Step 1: Collect Data
+                    </div>
+                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
                 </div>
                 <div className='DataCollectCard-components'>
-                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
                     <DataSettings savedData={this.props.savedData} fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
                         onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)}/>
                 </div>
