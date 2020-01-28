@@ -99,7 +99,12 @@ class DataSettings extends Component {
         });
     }
     render() {
-        if (this.props.fileURL === null) {
+        if (this.props.isLoading) {
+            return (
+                <div className='DataSettings-noFile'>Loading File ...</div>
+            )
+        }
+        else if (this.props.fileURL === null) {
             //nothing to show yet!
             return (
                 <div className='DataSettings-noFile'>Please upload a CSV file</div>

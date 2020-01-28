@@ -25,6 +25,7 @@ class FileUpload extends Component{
         }
     }
     onFileAdded(file) {
+        this.props.onLoading();
         if (this.state.fileName !== null) {
             // first remove any previous file
             this.onFileRemoved();

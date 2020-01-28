@@ -12,6 +12,7 @@ class DataCollectCard extends Component {
             fileURL: null,
             options: [],
             types: {},
+            isLoading: false,
         }
     }
     componentDidMount() {
@@ -22,7 +23,13 @@ class DataCollectCard extends Component {
             fileName: fileName,
             fileURL: fileURL,
             options: options,
-            types: types
+            types: types,
+            isLoading: false,
+        });
+    }
+    onLoading() {
+        this.setState({
+            isLoading: true,
         });
     }
     onFileRemoved() {
@@ -31,6 +38,7 @@ class DataCollectCard extends Component {
             fileURL: null,
             options: [],
             types: {},
+            isLoading: false,
         });
         this.props.onRemoval();
     }
@@ -44,11 +52,12 @@ class DataCollectCard extends Component {
                     <div className='DataCollectCard-step'>
                         Step 1: Collect Data
                     </div>
-                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}/>
+                    <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}
+                    onLoading={() => this.onLoading()}/>
                 </div>
                 <div className='DataCollectCard-components'>
                     <DataSettings savedData={this.props.savedData} fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
-                        onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)}/>
+                        onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)} isLoading={this.state.isLoading}/>
                 </div>
             </div>
         )
