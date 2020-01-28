@@ -11,6 +11,7 @@ class DataSettings extends Component {
             isHovered: false,
             isUsingSaved: false,
         };
+        this.ERROR_FILE_LIMIT = 'file_limit';
     }
     componentDidMount() {
 
@@ -101,13 +102,18 @@ class DataSettings extends Component {
     render() {
         if (this.props.isLoading) {
             return (
-                <div className='DataSettings-noFile'>Loading File ...</div>
+                <div className='DataSettings-fileColumn'>Loading File ...</div>
             )
         }
         else if (this.props.fileURL === null) {
             //nothing to show yet!
             return (
-                <div className='DataSettings-noFile'>Please upload a CSV file</div>
+                <div className='DataSettings-fileColumn'>
+                    <div className='DataSettings-noFile'>Please upload a CSV file under 10MB</div>
+                    {this.props.fileError === this.ERROR_FILE_LIMIT && (
+                        <div className='DataSettings-error'>File is too large!</div>
+                    )}
+                </div>
             )
         }
         else {

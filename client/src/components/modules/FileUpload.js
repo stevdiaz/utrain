@@ -10,6 +10,8 @@ class FileUpload extends Component{
         this.state = {
             fileName: null,
         };
+        this.FILE_LIMIT = 10000000;
+        this.ERROR_FILE_LIMIT = 'file_limit';
     }
     componentDidMount() {
 
@@ -25,20 +27,25 @@ class FileUpload extends Component{
         }
     }
     onFileAdded(file) {
-        this.props.onLoading();
         if (this.state.fileName !== null) {
             // first remove any previous file
             this.onFileRemoved();
         }
-        this.setState({
-            fileName: file.name,
-        });
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const fileSrc = event.target.result;
-            this.readData(file.name, fileSrc);
+        if (file.size > this.FILE_LIMIT) {
+            this.props.onFileError(this.ERROR_FILE_LIMIT)
         }
-        reader.readAsDataURL(file);
+        else {
+            this.props.onLoading();
+            this.setState({
+                fileName: file.name,
+            });
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const fileSrc = event.target.result;
+                this.readData(file.name, fileSrc);
+            }
+            reader.readAsDataURL(file);
+        }
     }
     readData(fileName, fileSrc) {
         d3.csv(fileSrc).then(data => {

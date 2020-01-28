@@ -13,6 +13,7 @@ class DataCollectCard extends Component {
             options: [],
             types: {},
             isLoading: false,
+            fileError: null,
         }
     }
     componentDidMount() {
@@ -41,6 +42,13 @@ class DataCollectCard extends Component {
         });
         this.props.onRemoval();
     }
+    onFileError(error) {
+        this.setState({
+            fileError: error,
+        }, () => setTimeout(() => this.setState({
+            fileError: null
+        }), 3000));
+    }
     onSelection(inputs, outputs, isRegression) {
         this.props.onSelection(isRegression, inputs, outputs, this.state.fileName, this.state.fileURL, this.state.types);
     }
@@ -52,11 +60,11 @@ class DataCollectCard extends Component {
                         Step 1: Collect Data
                     </div>
                     <FileUpload savedData={this.props.savedData} onFileAdded={(fileName, fileURL, options, types) => this.onFileAdded(fileName, fileURL, options, types)} onFileRemoved={() => this.onFileRemoved()}
-                    onLoading={() => this.onLoading()}/>
+                    onLoading={() => this.onLoading()} onFileError={(error) => this.onFileError(error)}/>
                 </div>
                 <div className='DataCollectCard-components'>
                     <DataSettings savedData={this.props.savedData} fileURL={this.state.fileURL} options={this.state.options} types={this.state.types}
-                        onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)} isLoading={this.state.isLoading}/>
+                        onSelection={(inputs, outputs, isRegression) => this.onSelection(inputs, outputs, isRegression)} isLoading={this.state.isLoading} fileError={this.state.fileError}/>
                 </div>
             </div>
         )

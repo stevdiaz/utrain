@@ -7,9 +7,17 @@
     margin-left: 50px;
     width: 850px;
 }
+.DataSettings-fileColumn {
+    display: flex;
+    flex-direction: column;
+    margin-left: 130px;
+    justify-content: flex-end;
+}
 .DataSettings-noFile {
     display: flex;
-    margin-left: 130px;
+}
+.DataSettings-error {
+    color: rgb(241, 67, 67);
 }
 .DataSettings-file {
     display: flex;
