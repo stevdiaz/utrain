@@ -2,7 +2,6 @@
     overflow-y: scroll;
     background-color: white;
     height: 430px;
-    width: 950px;
     max-width: calc(100vw - 312px - 10px - 10px - 50px - 110px);
 }
 .ImageSettings-class {
@@ -30,7 +29,6 @@
     border: 2px dashed var(--border);
 }
 .ImageSettings-classRow {
-    width: 926px;
     max-width: calc(100vw - 312px - 10px - 10px - 50px - 110px - 5px - 5px - 15px);
     padding-left: 10px;
     font-size: large;
