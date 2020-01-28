@@ -24,8 +24,9 @@ class ImageDeployCard extends Component {
                     Step 3: Use Your Model
                 </div>
                 <div className='ImageDeployCard-components'>
-                    <ImagePredict neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} />
-                    <Options savedData={this.props.savedData} neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} images={this.props.images}/>
+                    <ImagePredict neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} isImage={this.props.isImage}/>
+                    <Options savedData={this.props.savedData} neuralNetwork={this.props.neuralNetwork} classes={this.props.classes} images={this.props.images}
+                    isImage={this.props.isImage} isSketch={!this.props.isImage}/>
                 </div>
             </div>
         )

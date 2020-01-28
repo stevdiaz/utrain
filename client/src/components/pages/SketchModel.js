@@ -4,9 +4,10 @@ import ImageCollectCard from '../modules/ImageCollectCard';
 import ImageTrainCard from '../modules/ImageTrainCard';
 import ImageDeployCard from '../modules/ImageDeployCard';
 import { get } from '../../utilities';
+import { Redirect } from '@reach/router';
 
 class SketchModel extends Component {
-    constructor(propss) {
+    constructor(props) {
         super(props);
         this.state = {
             classes: null,
@@ -16,7 +17,21 @@ class SketchModel extends Component {
         }
     }
     componentDidMount() {
-
+        if (this.props.name) {
+            const body = {
+                title: this.props.name,
+                type: 'sketch',
+            };
+            get('/api/model', body).then((savedData) => {
+                console.log('retreived model with name ' + this.props.name);
+                this.setState({
+                    savedData: savedData,
+                })
+            }).catch(() => {
+                // proceed as usual
+                return;
+            });
+        }
     }
     onChangeImages(classes, images) {
         this.setState({
@@ -37,12 +52,17 @@ class SketchModel extends Component {
         });
     }
     render() {
+        if (!this.props.userId) {
+            return (
+                <Redirect to="/" />
+            );
+        }
         return (
             <div className='SketchModel-container'>
                 <ImageCollectCard savedData={this.state.savedData} onChangeImages={(classes, images) => this.onChangeImages(classes, images)} isImage={false}/>
                 <ImageTrainCard savedData={this.state.savedData} classes={this.state.classes} images={this.state.images}
                 onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
-                <ImageDeployCard savedData={this.state.savedData} neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} />
+                <ImageDeployCard savedData={this.state.savedData} neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} isImage={false}/>
             </div>
         )
     }

@@ -9,3 +9,7 @@
 .ImagePredict-instructions {
     margin-left: 20px;
 }
+.ImagePredict-sketchImage {
+    height: 260;
+    width: 260;
+}

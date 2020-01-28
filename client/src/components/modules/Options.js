@@ -111,12 +111,15 @@ class Options extends Component {
     }
     onConfirmSave() {
         const noError = this.state.titleError === this.ERROR_NONE && this.state.descriptionError === this.ERROR_NONE;
-        if (this.state.saveTitle.length === 0) {
+        if (!noError) {
+            return;
+        }
+        else if (this.state.saveTitle.length === 0) {
             this.setState({
                 titleError: this.ERROR_TITLE_EMPTY,
             });
         }
-        else if (this.props.isData && noError) {
+        else if (this.props.isData) {
             this.setState({
                 isLoading: true,
             });
@@ -143,7 +146,7 @@ class Options extends Component {
                 this.onResetFields();
             });
         }
-        else if (!this.props.isData && noError) {
+        else if (this.props.isImage) {
             this.setState({
                 isLoading: true,
             });
@@ -159,6 +162,28 @@ class Options extends Component {
                 images: this.props.images,
             };
             post('/api/imagemodel', body).then(meta => {
+                console.log('everything saved to db');
+                console.log(meta);
+                this.setSuccess(this.SAVED);
+                this.onResetFields();
+            });
+        }
+        else if (this.props.isSketch) {
+            this.setState({
+                isLoading: true,
+            });
+            console.log('saving to db...');
+            let epochs = this.props.neuralNetwork.config.epochs;
+            let batchSize = this.props.neuralNetwork.config.batchSize;
+            const body = {
+                title: this.state.saveTitle,
+                description: this.state.saveDescription,
+                epochs: epochs,
+                batchSize: batchSize,
+                classes: this.props.classes,
+                images: this.props.images,
+            };
+            post('/api/sketchmodel', body).then(meta => {
                 console.log('everything saved to db');
                 console.log(meta);
                 this.setSuccess(this.SAVED);

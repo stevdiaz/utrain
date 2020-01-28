@@ -39,6 +39,14 @@ class Create extends Component {
                             </div>
                         </div>
                     </Link>
+                    <Link to='/sketchmodel/' className='Create-link'>
+                        <div className='Create-button Create-sketchButton'>
+                            Sketch
+                            <div className='Create-buttonExplanation'>
+                                Draw your own sketches with your mouse, and train a model to classify these sketches into different classes.
+                            </div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         )

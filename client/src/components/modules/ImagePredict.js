@@ -4,7 +4,7 @@ import ImagePredictUpload from './ImagePredictUpload';
 import BarGraph from './BarGraph';
 import * as ml5 from 'ml5';
 import { post } from '../../utilities';
-import SketchUpload from './SketchUpload';
+import Canvas from './Canvas';
 
 class ImagePredict extends Component {
     constructor(props) {
@@ -19,9 +19,13 @@ class ImagePredict extends Component {
 
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.neuralNetwork === null && this.props.neuralNetwork !== null) {
+        if (this.props.isImage && prevProps.neuralNetwork === null && this.props.neuralNetwork !== null) {
             let videoElement = document.getElementById('ImagePredictWebcam');
             this.props.neuralNetwork.classify(videoElement, (error, results) => this.onPrediction(error, results));
+        }
+        else if (!this.props.isImage && prevProps.neuralNetwork === null && this.props.neuralNetwork !== null) {
+            let canvasElement = document.getElementById('CanvasPredict');
+            this.props.neuralNetwork.classify(canvasElement, (error, results) => this.onPrediction(error, results, true));
         }
     }
     onChangeWebcam(isWebcam) {
@@ -42,7 +46,7 @@ class ImagePredict extends Component {
             });
         }
     }
-    onPrediction(error, results, isWebcam) {
+    onPrediction(error, results, isLoop) {
         if (error) {
             console.log(error);
         }
@@ -61,8 +65,8 @@ class ImagePredict extends Component {
                 confidences: confidences,
             });
             // continue looping
-            if (isWebcam) {
-                this.makeWebcamPrediction();
+            if (isLoop) {
+                this.props.isImage ? this.makeWebcamPrediction() : this.makeSketchPrediction();
             }
         }
     }
@@ -77,6 +81,10 @@ class ImagePredict extends Component {
             let image = document.getElementById(imageSrc);
             this.makeFilePrediction(image);
         }
+    }
+    makeSketchPrediction() {
+        let canvasElement = document.getElementById('CanvasPredict');
+        this.props.neuralNetwork.classify(canvasElement, (error, results) => this.onPrediction(error, results, true));
     }
     makeFilePrediction(image) {
         this.props.neuralNetwork.classify(image, (error, results) => this.onPrediction(error, results, false));
@@ -93,8 +101,12 @@ class ImagePredict extends Component {
         else {
             predictions = (
                 <div className='ImagePredict-container'>
-                    <ImagePredictUpload neuralNetwork={this.props.neuralNetwork} onChangeWebcam={(isWebcam) => this.onChangeWebcam(isWebcam)}
+                    {this.props.isImage ? (
+                        <ImagePredictUpload neuralNetwork={this.props.neuralNetwork} onChangeWebcam={(isWebcam) => this.onChangeWebcam(isWebcam)}
                     onFileAdded={(imageSrc) => this.onFileAdded(imageSrc)}/>
+                    ) : (
+                        <Canvas isPredicting={true} />
+                    )}
                     <BarGraph classes={this.props.classes.length === 1 ? this.props.classes.concat(['Other']) : this.props.classes} 
                     percentages={this.state.confidences} isImage={true}/>
                 </div>

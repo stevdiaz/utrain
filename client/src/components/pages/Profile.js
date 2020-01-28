@@ -88,10 +88,14 @@ class Profile extends Component {
                     modelType = 'Image Model';
                     pathName = `/imagemodel/${meta.title}`;
                 }
-                else {
+                else if (meta.type === 'data') {
                     modelType = 'Data Model'
                     pathName = `/datamodel/${meta.title}`;
                 } 
+                else if (meta.type === 'sketch') {
+                    modelType = 'Sketch Model'
+                    pathName = `/sketchmodel/${meta.title}`;
+                }
                 return (
                     <div className='Profile-savedCard' key={meta.title} onMouseEnter={(evt) => this.onEnterCard(meta.title)} onMouseLeave={(evt) => this.onLeaveCard()}>
                         <div className='Profile-title' key={meta.title + 'title'} onClick={(evt) => this.onLoadSavedModel(pathName)}>

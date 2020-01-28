@@ -1,0 +1,100 @@
+.Canvas-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+.Canvas-containerPredict {
+    position: relative;
+    right: 260px;
+    margin-right: -250px;
+}
+.Canvas-canvas {
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    height: 270px;
+    width: 270px;
+}
+.Canvas-clear {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 14px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+}
+.Canvas-captureAndSend {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+.Canvas-captureButton {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 14px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.Canvas-captureButton:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.Canvas-captureButton:focus {
+    outline: none;
+}
+.Canvas-captureButtonDisabled {
+    opacity: 60%;
+}
+.Canvas-captureButtonDisabled:hover {
+    background-color: white;
+    cursor: auto;
+    box-shadow: none;
+}
+.Canvas-captureSelect {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+    position: relative;
+    width: 90px;
+}
+.Canvas-captureSelect:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.Canvas-captureSelect:focus {
+    outline: none;
+}
+.Canvas-deleteImage {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    top: 35px;
+    left: 105px;
+    margin-right: -23px;
+}
+.Canvas-deleteImage:hover {
+    cursor: pointer;
+}

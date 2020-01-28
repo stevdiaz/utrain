@@ -17,6 +17,7 @@
 .Create-options {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin-top: 40px;
@@ -41,8 +42,8 @@
     text-align: center;
     height: 200px;
     width: 300px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 .Create-button:hover {
     background-color: var(--hover);

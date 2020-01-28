@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './ImageCollectCard.css';
 import ImageUpload from './ImageUpload';
 import ImageSettings from './ImageSettings';
-import SketchUpload from './SketchUpload';
+import Canvas from './Canvas';
 
 class ImageCollectCard extends Component {
 
@@ -73,7 +73,7 @@ class ImageCollectCard extends Component {
                         <ImageUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes}
                         onFilesAdded={(imageSrcs, selectedClassIndex) => this.onFilesAdded(imageSrcs, selectedClassIndex)} />
                     ) : (
-                        <SketchUpload onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes} />
+                        <Canvas onCapture={(imageSrc, selectedClassIndex) => this.onCapture(imageSrc, selectedClassIndex)} classes={this.state.classes} />
                     )}
                 </div>
                 <div className='ImageCollectCard-components'>

@@ -62,7 +62,7 @@ class ImageModel extends Component {
                 <ImageCollectCard savedData={this.state.savedData} onChangeImages={(classes, images) => this.onChangeImages(classes, images)} isImage={true}/>
                 <ImageTrainCard savedData={this.state.savedData} classes={this.state.classes} images={this.state.images}
                 onFinishTraining={(neuralNetwork) => this.onFinishTraining(neuralNetwork)} onRestartTraining={() => this.onRestartTraining()}/>
-                <ImageDeployCard savedData={this.state.savedData} neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} />
+                <ImageDeployCard savedData={this.state.savedData} neuralNetwork={this.state.neuralNetwork} classes={this.state.classes} images={this.state.images} isImage={true}/>
             </div>
         )
     }

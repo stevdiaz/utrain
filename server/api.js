@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Image = require("./models/image");
 const Data = require("./models/data");
+const Sketch = require("./models/sketch");
 const Meta = require("./models/meta");
 
 // import authentication library
@@ -107,6 +108,31 @@ router.post("/datamodel", (req, res) => {
   });
 });
 
+router.post("/sketchmodel", (req, res) => {
+  const sketchModel = new Sketch({
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    title: req.body.title,
+    description: req.body.description,
+    epochs: req.body.epochs,
+    batchSize: req.body.batchSize,
+    classes: req.body.classes,
+    images: req.body.images,
+  });
+  const sketchMeta = new Meta({
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    title: req.body.title,
+    description: req.body.description,
+    type: 'sketch',
+  });
+  let promises = [sketchModel.save(), sketchMeta.save()];
+  Promise.all(promises).then((allData) => {
+    res.send(allData[1]);
+    socket.getSocketFromUserID(req.user._id).emit("create-meta", allData[1]);
+  });
+})
+
 router.post('/delete/model', (req, res) => {
   console.log('deleting');
   console.log(req.body.title);
@@ -118,6 +144,9 @@ router.post('/delete/model', (req, res) => {
   }
   else if (req.body.type === 'image') {
     modelPromise = Image.findOneAndDelete({ creator_id: req.user._id, title: req.body.title });
+  }
+  else if (req.body.type === 'sketch') {
+    modelPromise = Sketch.findOneAndDelete({ creator_id: req.user._id, title: req.body.title });
   }
   let promises = [modelPromise, metaPromise];
   Promise.all(promises).then((allData) => {
@@ -145,6 +174,9 @@ router.get('/model', (req, res) => {
   }
   else if (req.query.type === 'image') {
     Image.findOne({ creator_id: req.user._id, title: req.query.title}).then((model) => res.send(model));
+  }
+  else if (req.query.type === 'sketch') {
+    Sketch.findOne({ creator_id: req.user._id, title: req.query.title}).then((model) => res.send(model));
   }
 })
 
