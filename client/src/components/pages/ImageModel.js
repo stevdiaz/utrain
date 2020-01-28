@@ -3,9 +3,8 @@ import './ImageModel.css';
 import ImageCollectCard from '../modules/ImageCollectCard';
 import ImageTrainCard from '../modules/ImageTrainCard';
 import ImageDeployCard from '../modules/ImageDeployCard';
-import DataTrainCard from '../modules/DataTrainCard';
-import DataDeployCard from '../modules/DataDeployCard';
 import { get } from '../../utilities';
+import { Redirect } from '@reach/router';
 
 class ImageModel extends Component {
     constructor(props) {
@@ -53,6 +52,11 @@ class ImageModel extends Component {
         });
     }
     render() {
+        if (!this.props.userId) {
+            return (
+                <Redirect to="/" />
+            );
+        }
         return (
             <div className='ImageModel-container'>
                 <ImageCollectCard savedData={this.state.savedData} onChangeImages={(classes, images) => this.onChangeImages(classes, images)} isImage={true}/>

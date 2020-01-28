@@ -63,7 +63,12 @@ class Profile extends Component {
         });
     }
     render() {
-        if (this.state.user === null || this.state.metas === null) {
+        if (!this.props.userID) {
+            return (
+                <Redirect to="/" />
+            );
+        }
+        else if (this.state.user === null || this.state.metas === null) {
             return (
                 <div className='Profile-container'>
                     Loading...

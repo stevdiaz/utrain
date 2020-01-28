@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Create.css';
-import { Link } from "@reach/router";
+import { Link, Redirect } from "@reach/router";
 
 class Create extends Component {
     constructor(props) {
@@ -11,6 +11,11 @@ class Create extends Component {
 
     }
     render() {
+        if (!this.props.userId) {
+            return (
+                <Redirect to="/" />
+            );
+        }
         return ( 
             <div className='Create-container'>
                 <div className='Create-title'> 

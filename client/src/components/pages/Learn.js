@@ -3,6 +3,7 @@ import './Learn.css';
 import ImagePredictDropzone from '../modules/ImagePredictDropzone';
 import LineGraph from '../modules/LineGraph';
 import * as ml5 from 'ml5';
+import { Redirect } from '@reach/router';
 
 class Learn extends Component {
     constructor(props) {
@@ -75,6 +76,11 @@ class Learn extends Component {
         }
     }
     render() {
+        if (!this.props.userId) {
+            return (
+                <Redirect to="/" />
+            );
+        }
         return (
             <div ref={this.ref} className='Learn-container'>
                 <div className='Learn-header'>

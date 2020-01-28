@@ -5,6 +5,7 @@ import DataTrainCard from '../modules/DataTrainCard';
 import DataDeployCard from '../modules/DataDeployCard';
 import LoadingScreen from 'react-loading-screen'
 import { post, get } from '../../utilities';
+import { Redirect } from '@reach/router';
 
 class DataModel extends Component {
     constructor(props) {
@@ -73,6 +74,11 @@ class DataModel extends Component {
         });
     }
     render() {
+        if (!this.props.userId) {
+            return (
+                <Redirect to="/" />
+            );
+        }
         return (
             <div className='DataModel-container'>
                 <DataCollectCard savedData={this.state.savedData} onSelection={(isRegression, inputs, outputs, fileName, fileURL, types) => this.onSelection(isRegression, inputs, outputs, fileName, fileURL, types)}
