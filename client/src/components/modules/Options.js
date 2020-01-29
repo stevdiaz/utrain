@@ -70,6 +70,18 @@ class Options extends Component {
             }
         });
     }
+    onDeleteMeta(meta) {
+        this.setState(prevState => ({
+            titles: prevState.titles.filter(title => title !== meta.title),
+        }));
+    }
+    onSaveMeta(meta) {
+        if (!this.state.titles.includes(meta.title)) {
+            this.setState(prevState => ({
+                titles: prevState.titles.concat([meta.title]),
+            }));
+        }
+    }
     componentDidUpdate(prevProps) {
         if (this.props.savedData !== null && !this.state.isSaved) {
             this.setState({
@@ -106,6 +118,7 @@ class Options extends Component {
             post('/api/delete/model', body).then((meta) => {
                 console.log('deleted ' + meta.title);
                 this.setSuccess(this.DELETED);
+                this.onDeleteMeta(meta);
             });
         }
     }
@@ -144,6 +157,7 @@ class Options extends Component {
                 console.log(meta);
                 this.setSuccess(this.SAVED);
                 this.onResetFields();
+                this.onSaveMeta(meta);
             });
         }
         else if (this.props.isImage) {
@@ -166,6 +180,7 @@ class Options extends Component {
                 console.log(meta);
                 this.setSuccess(this.SAVED);
                 this.onResetFields();
+                this.onSaveMeta(meta);
             });
         }
         else if (this.props.isSketch) {
@@ -188,6 +203,7 @@ class Options extends Component {
                 console.log(meta);
                 this.setSuccess(this.SAVED);
                 this.onResetFields();
+                this.onSaveMeta(meta);
             });
         }
     }

@@ -77,23 +77,18 @@ class Predict extends Component {
         }
     }
     onSetInputState() {
-        console.log('in callback');
         const validInputs = Object.keys(this.state.inputs).filter(enteredInput => 
             this.state.inputs[enteredInput] !== '' && !this.isInvalidType(enteredInput, this.state.inputs[enteredInput]));
-        console.log(validInputs);
         if (validInputs.length === this.props.inputs.length) {
             console.log('have all entered values!');
             //we have all inputs filled in, make a prediction
             let inputs = this.props.inputs.map(input => {
                 return this.props.types[input] === 'N' ? Number(this.state.inputs[input]) : this.state.inputs[input];
             });
-            console.log(inputs);
             if (this.state.isRegression) {
-                console.log('regression');
                 this.props.neuralNetwork.predict(inputs, (err, results) => this.onPrediction(err, results, true));
             }
             else {
-                console.log('classification');
                 this.props.neuralNetwork.classify(inputs, (err, results) => this.onPrediction(err, results, false));
             }
         }
@@ -110,14 +105,11 @@ class Predict extends Component {
         }
     }
     onPrediction(err, results, isRegression) {
-        console.log('making prediction');
        if (err) {
            // handle errors
            console.error(err);
-           console.log('error in user inputs');
        }
        else {
-           console.log(results);
            if (!isRegression) {
                // don't include decimals in percentage
                const classes = results.map(result => result.label);
@@ -219,7 +211,6 @@ class Predict extends Component {
                     <BarGraph classes={this.state.classes} percentages={this.state.confidences} />
                 </div>)
             }
-            console.log(this.state);
             predictions = (
                 <div className={this.state.isRegression ? 'Predict-inputsOutputsRegression' : 'Predict-inputsOutputsClassification'}>
                     <span className='Predict-inputsInfo'>Inputs:</span>

@@ -65,7 +65,7 @@ class Canvas extends Component {
 
         const ctx = this.state.ref.current.getContext('2d');
         ctx.beginPath();
-        ctx.strokeStyle = '#EE92C2';
+        ctx.strokeStyle = '#DA63FF';
         ctx.moveTo(x, y);
         ctx.lineTo(offsetX, offsetY);
         ctx.stroke();
@@ -121,6 +121,9 @@ class Canvas extends Component {
         )});
         return (
             <div className={`Canvas-container ${this.props.isPredicting ? 'Canvas-containerPredict' : ''}`}>
+                <div className={`Canvas-instructions ${this.props.isPredicting ? 'Canvas-instructionsPredict' : ''}`}>
+                    Draw Below
+                </div>
                 <img className='Canvas-deleteImage' src={require('../../public/trash.png')} onClick={() => this.onClearCanvas()}/>
                 <div className='Canvas-canvas'>
                     <canvas 

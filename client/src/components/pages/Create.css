@@ -20,7 +20,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 .Create-link,
 .Create-link:visited {
@@ -35,7 +35,7 @@
     font-size: 40px;
     border: 2px solid var(--border);
     border-radius: 4px;
-    margin-top: 5px;
+    margin-top: 45px;
     margin-bottom: 5px;
     justify-content: center;
     align-items: center;

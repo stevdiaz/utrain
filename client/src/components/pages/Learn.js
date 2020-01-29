@@ -97,7 +97,7 @@ class Learn extends Component {
                 </div>
                 {this.state.classifier === null && (
                     <div className='Learn-loading'>
-                        Image Classifier Loading ...
+                        Loading Image Classifier ...
                     </div>
                 )}
                 <div className='Learn-steps'>

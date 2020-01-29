@@ -17,6 +17,15 @@
     height: 270px;
     width: 270px;
 }
+.Canvas-instructions {
+    margin-top: -5px;
+    margin-bottom: -20px;
+    opacity: 0.6;
+    font-style: italic;
+}
+.Canvas-instructionsPredict {
+    margin-top: -20px;
+}
 .Canvas-clear {
     font-family: 'Poppins', sans-serif;
     display: inline-block;
