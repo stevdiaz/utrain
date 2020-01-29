@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import "./Dropzone.css"
 
+// file upload code below was written with help from tutorial at https://malcoded.com/posts/react-dropzone/
+
 class Dropzone extends Component {
     constructor(props) {
         super(props)

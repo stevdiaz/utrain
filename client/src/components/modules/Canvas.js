@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Canvas.css';
 
+// canvas drawing code below was written with help from tutorial at https://pusher.com/tutorials/live-paint-react
+
 class Canvas extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,6 @@ class Canvas extends Component {
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
         ctx.lineWidth = 5;
-        // this.setCanvasLoop();
     }
     componentDidUpdate(prevProps) {
         if (!this.props.isPredicting && this.state.selectedClassIndex < prevProps.classes.length && this.state.selectedClassIndex >= this.props.classes.length) {
@@ -91,7 +92,6 @@ class Canvas extends Component {
         const imageSrc = canvas.toDataURL();
         this.props.onCapture(imageSrc, this.state.selectedClassIndex);
         this.onClearCanvas();
-        console.log(this.state);
     }
     onClearCanvas() {
         const canvas = this.state.ref.current;
@@ -104,16 +104,6 @@ class Canvas extends Component {
             },
             line: [],
         });
-    }
-    setCanvasLoop() {
-        this.props.isPredicting && setTimeout(() => this.onCanvasChange(), 1500);
-    }
-    onCanvasChange() {
-        console.log('canvas is changing!');
-        const canvas = this.state.ref.current;
-        const imageSrc = canvas.toDataURL();
-        this.props.onPredict(imageSrc, this.state.selectedClassIndex);
-        this.setCanvasLoop();
     }
     render() {
         const classOptions = this.props.isPredicting ? null : this.props.classes.map((classification, classIndex) => {return (
